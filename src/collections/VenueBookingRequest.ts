@@ -1,7 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
-export const VenueBookingRequests: CollectionConfig = {
-  slug: 'venue-bookings-requests',
+export const VenueBookingRequest: CollectionConfig = {
+  slug: 'venue-booking-request',
   admin: {
     useAsTitle: 'desiredVenue'
   },
@@ -9,7 +9,7 @@ export const VenueBookingRequests: CollectionConfig = {
     {
       name: 'desiredVenue',
       type: 'relationship',
-      relationTo: 'venues',
+      relationTo: 'venue',
       required: true,
     },
     {

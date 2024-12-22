@@ -1,7 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
-export const MapImages: CollectionConfig = {
-  slug: 'map-images',
+export const LogoImage: CollectionConfig = {
+  slug: 'logo-image',
   access: {
     read: () => true,
   },

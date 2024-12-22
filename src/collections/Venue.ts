@@ -1,8 +1,8 @@
 import type { CollectionConfig, Field, FieldHookArgs } from 'payload'
 
 
-export const Venues: CollectionConfig = {
-  slug: 'venues',
+export const Venue: CollectionConfig = {
+  slug: 'venue',
   admin: {
     useAsTitle: '_title'
   },
@@ -19,7 +19,7 @@ export const Venues: CollectionConfig = {
             },
             {
               name: 'owner',
-              relationTo: 'owners',
+              relationTo: 'owner',
               type: 'relationship',
               required: true,
               hasMany: false,
@@ -47,7 +47,7 @@ export const Venues: CollectionConfig = {
                     {
                       name: 'currency',
                       type: 'relationship',
-                      relationTo: 'currencies',
+                      relationTo: 'currency',
                       hasMany: false
                     }
                   ]
@@ -115,7 +115,7 @@ export const Venues: CollectionConfig = {
               fields: [
                 {
                   name: 'tags',
-                  relationTo: 'tags',
+                  relationTo: 'tag',
                   type: 'relationship',
                   hasMany: true,
                   maxDepth: 1,
@@ -123,7 +123,7 @@ export const Venues: CollectionConfig = {
                 {
                   name: 'activities',
                   type: 'relationship',
-                  relationTo: 'activities',
+                  relationTo: 'activity',
                   hasMany: true
                 },
               ]
@@ -145,14 +145,14 @@ export const Venues: CollectionConfig = {
             {
               name: 'locations',
               type: 'relationship',
-              relationTo: 'locations',
+              relationTo: 'location',
               hasMany: true,
               required: true
             },
             {
               name: 'map',
               type: 'upload',
-              relationTo: 'map-images',
+              relationTo: 'map-image',
               hasMany: false,
             },
             {
@@ -181,7 +181,7 @@ export const Venues: CollectionConfig = {
             console.log(data);
             if(data){
               const owner = await req.payload.findByID({
-                collection: 'owners',
+                collection: 'owner',
                 id: data.owner,
                 depth: 0
               });

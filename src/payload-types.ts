@@ -8,49 +8,49 @@
 
 export interface Config {
   auth: {
-    owners: OwnerAuthOperations;
-    admins: AdminAuthOperations;
+    owner: OwnerAuthOperations;
+    admin: AdminAuthOperations;
   };
   collections: {
-    'venue-bookings-requests': VenueBookingsRequest;
-    'new-venue-requests': NewVenueRequest;
-    venues: Venue;
-    owners: Owner;
-    activities: Activity;
-    tags: Tag;
-    'tag-groups': TagGroup;
+    'venue-booking-request': VenueBookingRequest;
+    'new-venue-request': NewVenueRequest;
+    venue: Venue;
+    owner: Owner;
+    activity: Activity;
+    tag: Tag;
+    'tag-group': TagGroup;
     'gallery-media': GalleryMedia;
-    'logo-images': LogoImage;
-    'map-images': MapImage;
-    locations: Location;
-    currencies: Currency;
-    admins: Admin;
+    'logo-image': LogoImage;
+    'map-image': MapImage;
+    location: Location;
+    currency: Currency;
+    admin: Admin;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
   collectionsJoins: {
-    owners: {
-      venues: 'venues';
+    owner: {
+      venues: 'venue';
     };
-    'tag-groups': {
-      tags: 'tags';
+    'tag-group': {
+      tags: 'tag';
     };
   };
   collectionsSelect: {
-    'venue-bookings-requests': VenueBookingsRequestsSelect<false> | VenueBookingsRequestsSelect<true>;
-    'new-venue-requests': NewVenueRequestsSelect<false> | NewVenueRequestsSelect<true>;
-    venues: VenuesSelect<false> | VenuesSelect<true>;
-    owners: OwnersSelect<false> | OwnersSelect<true>;
-    activities: ActivitiesSelect<false> | ActivitiesSelect<true>;
-    tags: TagsSelect<false> | TagsSelect<true>;
-    'tag-groups': TagGroupsSelect<false> | TagGroupsSelect<true>;
+    'venue-booking-request': VenueBookingRequestSelect<false> | VenueBookingRequestSelect<true>;
+    'new-venue-request': NewVenueRequestSelect<false> | NewVenueRequestSelect<true>;
+    venue: VenueSelect<false> | VenueSelect<true>;
+    owner: OwnerSelect<false> | OwnerSelect<true>;
+    activity: ActivitySelect<false> | ActivitySelect<true>;
+    tag: TagSelect<false> | TagSelect<true>;
+    'tag-group': TagGroupSelect<false> | TagGroupSelect<true>;
     'gallery-media': GalleryMediaSelect<false> | GalleryMediaSelect<true>;
-    'logo-images': LogoImagesSelect<false> | LogoImagesSelect<true>;
-    'map-images': MapImagesSelect<false> | MapImagesSelect<true>;
-    locations: LocationsSelect<false> | LocationsSelect<true>;
-    currencies: CurrenciesSelect<false> | CurrenciesSelect<true>;
-    admins: AdminsSelect<false> | AdminsSelect<true>;
+    'logo-image': LogoImageSelect<false> | LogoImageSelect<true>;
+    'map-image': MapImageSelect<false> | MapImageSelect<true>;
+    location: LocationSelect<false> | LocationSelect<true>;
+    currency: CurrencySelect<false> | CurrencySelect<true>;
+    admin: AdminSelect<false> | AdminSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -63,10 +63,10 @@ export interface Config {
   locale: null;
   user:
     | (Owner & {
-        collection: 'owners';
+        collection: 'owner';
       })
     | (Admin & {
-        collection: 'admins';
+        collection: 'admin';
       });
   jobs: {
     tasks: unknown;
@@ -111,9 +111,9 @@ export interface AdminAuthOperations {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "venue-bookings-requests".
+ * via the `definition` "venue-booking-request".
  */
-export interface VenueBookingsRequest {
+export interface VenueBookingRequest {
   id: number;
   desiredVenue: number | Venue;
   date: string;
@@ -126,7 +126,7 @@ export interface VenueBookingsRequest {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "venues".
+ * via the `definition` "venue".
  */
 export interface Venue {
   id: number;
@@ -162,7 +162,7 @@ export interface Venue {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "owners".
+ * via the `definition` "owner".
  */
 export interface Owner {
   id: number;
@@ -188,7 +188,7 @@ export interface Owner {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "logo-images".
+ * via the `definition` "logo-image".
  */
 export interface LogoImage {
   id: number;
@@ -214,7 +214,7 @@ export interface Price {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "currencies".
+ * via the `definition` "currency".
  */
 export interface Currency {
   id: number;
@@ -252,7 +252,7 @@ export interface GalleryMedia {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "tags".
+ * via the `definition` "tag".
  */
 export interface Tag {
   id: number;
@@ -263,7 +263,7 @@ export interface Tag {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "tag-groups".
+ * via the `definition` "tag-group".
  */
 export interface TagGroup {
   id: number;
@@ -277,7 +277,7 @@ export interface TagGroup {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "activities".
+ * via the `definition` "activity".
  */
 export interface Activity {
   id: number;
@@ -295,7 +295,7 @@ export interface VenueOption {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "locations".
+ * via the `definition` "location".
  */
 export interface Location {
   id: number;
@@ -305,7 +305,7 @@ export interface Location {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "map-images".
+ * via the `definition` "map-image".
  */
 export interface MapImage {
   id: number;
@@ -323,7 +323,7 @@ export interface MapImage {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "new-venue-requests".
+ * via the `definition` "new-venue-request".
  */
 export interface NewVenueRequest {
   id: number;
@@ -347,7 +347,7 @@ export interface NewVenueRequest {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "admins".
+ * via the `definition` "admin".
  */
 export interface Admin {
   id: number;
@@ -370,31 +370,31 @@ export interface PayloadLockedDocument {
   id: number;
   document?:
     | ({
-        relationTo: 'venue-bookings-requests';
-        value: number | VenueBookingsRequest;
+        relationTo: 'venue-booking-request';
+        value: number | VenueBookingRequest;
       } | null)
     | ({
-        relationTo: 'new-venue-requests';
+        relationTo: 'new-venue-request';
         value: number | NewVenueRequest;
       } | null)
     | ({
-        relationTo: 'venues';
+        relationTo: 'venue';
         value: number | Venue;
       } | null)
     | ({
-        relationTo: 'owners';
+        relationTo: 'owner';
         value: number | Owner;
       } | null)
     | ({
-        relationTo: 'activities';
+        relationTo: 'activity';
         value: number | Activity;
       } | null)
     | ({
-        relationTo: 'tags';
+        relationTo: 'tag';
         value: number | Tag;
       } | null)
     | ({
-        relationTo: 'tag-groups';
+        relationTo: 'tag-group';
         value: number | TagGroup;
       } | null)
     | ({
@@ -402,33 +402,33 @@ export interface PayloadLockedDocument {
         value: number | GalleryMedia;
       } | null)
     | ({
-        relationTo: 'logo-images';
+        relationTo: 'logo-image';
         value: number | LogoImage;
       } | null)
     | ({
-        relationTo: 'map-images';
+        relationTo: 'map-image';
         value: number | MapImage;
       } | null)
     | ({
-        relationTo: 'locations';
+        relationTo: 'location';
         value: number | Location;
       } | null)
     | ({
-        relationTo: 'currencies';
+        relationTo: 'currency';
         value: number | Currency;
       } | null)
     | ({
-        relationTo: 'admins';
+        relationTo: 'admin';
         value: number | Admin;
       } | null);
   globalSlug?: string | null;
   user:
     | {
-        relationTo: 'owners';
+        relationTo: 'owner';
         value: number | Owner;
       }
     | {
-        relationTo: 'admins';
+        relationTo: 'admin';
         value: number | Admin;
       };
   updatedAt: string;
@@ -442,11 +442,11 @@ export interface PayloadPreference {
   id: number;
   user:
     | {
-        relationTo: 'owners';
+        relationTo: 'owner';
         value: number | Owner;
       }
     | {
-        relationTo: 'admins';
+        relationTo: 'admin';
         value: number | Admin;
       };
   key?: string | null;
@@ -475,9 +475,9 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "venue-bookings-requests_select".
+ * via the `definition` "venue-booking-request_select".
  */
-export interface VenueBookingsRequestsSelect<T extends boolean = true> {
+export interface VenueBookingRequestSelect<T extends boolean = true> {
   desiredVenue?: T;
   date?: T;
   start?: T;
@@ -489,9 +489,9 @@ export interface VenueBookingsRequestsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "new-venue-requests_select".
+ * via the `definition` "new-venue-request_select".
  */
-export interface NewVenueRequestsSelect<T extends boolean = true> {
+export interface NewVenueRequestSelect<T extends boolean = true> {
   title?: T;
   companyName?: T;
   spaceName?: T;
@@ -512,9 +512,9 @@ export interface NewVenueRequestsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "venues_select".
+ * via the `definition` "venue_select".
  */
-export interface VenuesSelect<T extends boolean = true> {
+export interface VenueSelect<T extends boolean = true> {
   title?: T;
   owner?: T;
   maxGuestsCount?: T;
@@ -567,9 +567,9 @@ export interface VenueOptionSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "owners_select".
+ * via the `definition` "owner_select".
  */
-export interface OwnersSelect<T extends boolean = true> {
+export interface OwnerSelect<T extends boolean = true> {
   name?: T;
   isSuperHost?: T;
   logo?: T;
@@ -588,18 +588,18 @@ export interface OwnersSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "activities_select".
+ * via the `definition` "activity_select".
  */
-export interface ActivitiesSelect<T extends boolean = true> {
+export interface ActivitySelect<T extends boolean = true> {
   title?: T;
   updatedAt?: T;
   createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "tags_select".
+ * via the `definition` "tag_select".
  */
-export interface TagsSelect<T extends boolean = true> {
+export interface TagSelect<T extends boolean = true> {
   title?: T;
   tagGroup?: T;
   updatedAt?: T;
@@ -607,9 +607,9 @@ export interface TagsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "tag-groups_select".
+ * via the `definition` "tag-group_select".
  */
-export interface TagGroupsSelect<T extends boolean = true> {
+export interface TagGroupSelect<T extends boolean = true> {
   title?: T;
   tags?: T;
   updatedAt?: T;
@@ -635,9 +635,9 @@ export interface GalleryMediaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "logo-images_select".
+ * via the `definition` "logo-image_select".
  */
-export interface LogoImagesSelect<T extends boolean = true> {
+export interface LogoImageSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -652,9 +652,9 @@ export interface LogoImagesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "map-images_select".
+ * via the `definition` "map-image_select".
  */
-export interface MapImagesSelect<T extends boolean = true> {
+export interface MapImageSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -669,18 +669,18 @@ export interface MapImagesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "locations_select".
+ * via the `definition` "location_select".
  */
-export interface LocationsSelect<T extends boolean = true> {
+export interface LocationSelect<T extends boolean = true> {
   name?: T;
   updatedAt?: T;
   createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "currencies_select".
+ * via the `definition` "currency_select".
  */
-export interface CurrenciesSelect<T extends boolean = true> {
+export interface CurrencySelect<T extends boolean = true> {
   name?: T;
   symbol?: T;
   updatedAt?: T;
@@ -688,9 +688,9 @@ export interface CurrenciesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "admins_select".
+ * via the `definition` "admin_select".
  */
-export interface AdminsSelect<T extends boolean = true> {
+export interface AdminSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   email?: T;

@@ -7,33 +7,33 @@ import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 
-import { Admins } from './collections/Admins'
-import { Venues } from './collections/Venues'
-import { Currencies } from './collections/Currencies'
-import { Activity } from './collections/Activities'
-import { Owners } from './collections/Owners'
-import { Tags } from './collections/Tags'
-import { TagGroups } from './collections/TagGroups'
-import { Locations } from './collections/Locations'
+import { Admin } from './collections/Admin'
+import { Venue } from './collections/Venue'
+import { Currency } from './collections/Currency'
+import { Activity } from './collections/Activity'
+import { Owner } from './collections/Owner'
+import { Tag } from './collections/Tag'
+import { TagGroup } from './collections/TagGroup'
+import { Location } from './collections/Location'
 import { GalleryMedia } from './collections/GalleryMedia'
-import { LogoImages } from './collections/LogoImages'
-import { MapImages } from './collections/MapImages'
-import { NewVenueRequests } from './collections/NewVenueRequests'
-import { VenueBookingRequests } from './collections/VenueBookingRequests'
+import { LogoImage } from './collections/LogoImage'
+import { MapImage } from './collections/MapImage'
+import { NewVenueRequest } from './collections/NewVenueRequest'
+import { VenueBookingRequest } from './collections/VenueBookingRequest'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
   admin: {
-    user: Admins.slug,
+    user: Admin.slug,
     importMap: {
       baseDir: path.resolve(dirname),
     },
   },
   collections: [
-    VenueBookingRequests, NewVenueRequests, Venues, Owners, Activity, Tags, TagGroups,
-     GalleryMedia, LogoImages, MapImages, Locations, Currencies, Admins,
+    VenueBookingRequest, NewVenueRequest, Venue, Owner, Activity, Tag, TagGroup,
+     GalleryMedia, LogoImage, MapImage, Location, Currency, Admin,
   ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',

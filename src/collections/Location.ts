@@ -1,18 +1,13 @@
 import type { CollectionConfig } from 'payload'
 
-export const Currencies: CollectionConfig = {
-  slug: 'currencies',
+export const Location: CollectionConfig = {
+  slug: 'location',
   admin: {
     useAsTitle: 'name'
   },
   fields: [
     {
       name: 'name',
-      type: 'text',
-      required: true,
-    },
-    {
-      name: 'symbol',
       type: 'text',
       required: true,
     },

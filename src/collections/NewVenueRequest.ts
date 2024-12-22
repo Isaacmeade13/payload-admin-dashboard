@@ -1,7 +1,7 @@
 import type { CollectionConfig, FieldHookArgs } from 'payload'
 
-export const NewVenueRequests: CollectionConfig = {
-  slug: 'new-venue-requests',
+export const NewVenueRequest: CollectionConfig = {
+  slug: 'new-venue-request',
   admin: {
     useAsTitle: 'title'
   },
@@ -45,14 +45,14 @@ export const NewVenueRequests: CollectionConfig = {
     {
       name: 'activities',
       type: 'relationship',
-      relationTo: 'activities',
+      relationTo: 'activity',
       required: true,
       hasMany: true
     },
     {
       name: 'tags',
       type: 'relationship',
-      relationTo: 'tags',
+      relationTo: 'tag',
       required: true,
       hasMany: true
     },

@@ -1,7 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
-export const Owners: CollectionConfig = {
-  slug: 'owners',
+export const Owner: CollectionConfig = {
+  slug: 'owner',
   auth: {
     tokenExpiration: 7200, // How many seconds to keep the user logged in
     verify: true, // Require email verification before being allowed to authenticate
@@ -24,13 +24,13 @@ export const Owners: CollectionConfig = {
     {
       name: 'logo',
       type: 'upload',
-      relationTo: 'logo-images',
+      relationTo: 'logo-image',
       hasMany: false,
     },
     {
       name: 'venues',
       type: 'join',
-      collection: 'venues',
+      collection: 'venue',
       on: 'owner'
     }
   ],
