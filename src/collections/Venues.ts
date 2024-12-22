@@ -22,17 +22,17 @@ export const Venues: CollectionConfig = {
               hasMany: false
             },
             {
-              name: 'featureOptions',
-              relationTo: 'feature_options',
+              name: 'tags',
+              relationTo: 'tags',
               type: 'relationship',
-              hasMany: true
+              hasMany: true,
+              maxDepth: 1,
             },
             {
               name: 'galleryImages',
               type: 'upload',
               relationTo: 'media',
               hasMany: true,
-              //  required: true,
             },
             {
               name: 'maxGuestsCount', // guests
@@ -51,7 +51,24 @@ export const Venues: CollectionConfig = {
               min: 0,
               max: 5
             },
-            getPriceFieldConfig(),
+            {
+              name: 'price',
+              type: 'group',
+              interfaceName: 'Price',
+              fields: [
+                {
+                  name: 'value', // guests
+                  type: 'number',
+                  hasMany: false,
+                },
+                {
+                  name: 'currency',
+                  type: 'relationship',
+                  relationTo: 'currencies',
+                  hasMany: false
+                }
+              ]
+            },
             {
               name: 'areaSize',
               type: 'group',
@@ -105,27 +122,6 @@ export const Venues: CollectionConfig = {
       ]
     }
   ],
-}
-
-function getPriceFieldConfig(): Field{
-  return {
-    name: 'price',
-    type: 'group',
-    interfaceName: 'Price',
-    fields: [
-      {
-        name: 'value', // guests
-        type: 'number',
-        hasMany: false,
-      },
-      {
-        name: 'currency',
-        type: 'relationship',
-        relationTo: 'currencies',
-        hasMany: false
-      }
-    ]
-  }
 }
 
 function getVenueOptionFieldConfig(optionName: string): Field{

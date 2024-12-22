@@ -1,7 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
-export const FeatureOptions: CollectionConfig = {
-  slug: 'feature_options',
+export const  TagGroups: CollectionConfig = {
+  slug: 'tag-groups',
   admin: {
     useAsTitle: 'title'
   },
@@ -12,12 +12,18 @@ export const FeatureOptions: CollectionConfig = {
       required: true,
     },
     {
+      name: 'tags',
+      type: 'join',
+      collection: 'tags',
+      on: 'tagGroup'
+    }
+   /* {
       name: 'feature',
       type: 'relationship',
       relationTo: 'features',
       required: true,
       hasMany: false,
-    }
+    }*/
     /*{
       name: 'relatedFeature',
       type: 'join',

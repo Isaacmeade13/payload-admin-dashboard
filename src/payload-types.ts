@@ -14,32 +14,32 @@ export interface Config {
     users: User;
     media: Media;
     venues: Venue;
-    features: Feature;
-    feature_options: FeatureOption;
     currencies: Currency;
     activities: Activity;
     owners: Owner;
+    tags: Tag;
+    'tag-groups': TagGroup;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
   collectionsJoins: {
-    features: {
-      featureOptions: 'feature_options';
-    };
     owners: {
       venues: 'venues';
+    };
+    'tag-groups': {
+      tags: 'tags';
     };
   };
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     venues: VenuesSelect<false> | VenuesSelect<true>;
-    features: FeaturesSelect<false> | FeaturesSelect<true>;
-    feature_options: FeatureOptionsSelect<false> | FeatureOptionsSelect<true>;
     currencies: CurrenciesSelect<false> | CurrenciesSelect<true>;
     activities: ActivitiesSelect<false> | ActivitiesSelect<true>;
     owners: OwnersSelect<false> | OwnersSelect<true>;
+    tags: TagsSelect<false> | TagsSelect<true>;
+    'tag-groups': TagGroupsSelect<false> | TagGroupsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -120,7 +120,7 @@ export interface Venue {
   id: number;
   title?: string | null;
   owner: number | Owner;
-  featureOptions?: (number | FeatureOption)[] | null;
+  tags?: (number | Tag)[] | null;
   galleryImages?: (number | Media)[] | null;
   maxGuestsCount?: number | null;
   benefits?: string | null;
@@ -158,24 +158,24 @@ export interface Owner {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "feature_options".
+ * via the `definition` "tags".
  */
-export interface FeatureOption {
+export interface Tag {
   id: number;
   title: string;
-  feature: number | Feature;
+  tagGroup: number | TagGroup;
   updatedAt: string;
   createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "features".
+ * via the `definition` "tag-groups".
  */
-export interface Feature {
+export interface TagGroup {
   id: number;
   title: string;
-  featureOptions: {
-    docs?: (number | FeatureOption)[] | null;
+  tags?: {
+    docs?: (number | Tag)[] | null;
     hasNextPage?: boolean | null;
   } | null;
   updatedAt: string;
@@ -246,14 +246,6 @@ export interface PayloadLockedDocument {
         value: number | Venue;
       } | null)
     | ({
-        relationTo: 'features';
-        value: number | Feature;
-      } | null)
-    | ({
-        relationTo: 'feature_options';
-        value: number | FeatureOption;
-      } | null)
-    | ({
         relationTo: 'currencies';
         value: number | Currency;
       } | null)
@@ -264,6 +256,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'owners';
         value: number | Owner;
+      } | null)
+    | ({
+        relationTo: 'tags';
+        value: number | Tag;
+      } | null)
+    | ({
+        relationTo: 'tag-groups';
+        value: number | TagGroup;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -347,7 +347,7 @@ export interface MediaSelect<T extends boolean = true> {
 export interface VenuesSelect<T extends boolean = true> {
   title?: T;
   owner?: T;
-  featureOptions?: T;
+  tags?: T;
   galleryImages?: T;
   maxGuestsCount?: T;
   benefits?: T;
@@ -393,26 +393,6 @@ export interface VenueOptionSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "features_select".
- */
-export interface FeaturesSelect<T extends boolean = true> {
-  title?: T;
-  featureOptions?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "feature_options_select".
- */
-export interface FeatureOptionsSelect<T extends boolean = true> {
-  title?: T;
-  feature?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "currencies_select".
  */
 export interface CurrenciesSelect<T extends boolean = true> {
@@ -439,6 +419,26 @@ export interface OwnersSelect<T extends boolean = true> {
   isSuperOwner?: T;
   logo?: T;
   venues?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tags_select".
+ */
+export interface TagsSelect<T extends boolean = true> {
+  title?: T;
+  tagGroup?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tag-groups_select".
+ */
+export interface TagGroupsSelect<T extends boolean = true> {
+  title?: T;
+  tags?: T;
   updatedAt?: T;
   createdAt?: T;
 }
