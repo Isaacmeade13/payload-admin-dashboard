@@ -121,12 +121,12 @@ export interface Venue {
   title?: string | null;
   owner: number | Owner;
   featureOptions?: (number | FeatureOption)[] | null;
-  images?: (number | Media)[] | null;
-  logo?: (number | null) | Media;
+  galleryImages?: (number | Media)[] | null;
   maxGuestsCount?: number | null;
   benefits?: string | null;
   rating?: number | null;
   price?: Price;
+  areaSize: AreaSize;
   activities?: (number | Activity)[] | null;
   cateringAndDrinks?: VenueOption;
   tablesAndSeating?: VenueOption;
@@ -147,7 +147,8 @@ export interface Venue {
 export interface Owner {
   id: number;
   name: string;
-  isPremiumOwner?: boolean | null;
+  isSuperOwner?: boolean | null;
+  logo?: (number | null) | Media;
   venues?: {
     docs?: (number | Venue)[] | null;
     hasNextPage?: boolean | null;
@@ -198,6 +199,14 @@ export interface Currency {
   symbol: string;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AreaSize".
+ */
+export interface AreaSize {
+  value: number;
+  units: 'square-foot' | 'square-meter';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -339,12 +348,12 @@ export interface VenuesSelect<T extends boolean = true> {
   title?: T;
   owner?: T;
   featureOptions?: T;
-  images?: T;
-  logo?: T;
+  galleryImages?: T;
   maxGuestsCount?: T;
   benefits?: T;
   rating?: T;
   price?: T | PriceSelect<T>;
+  areaSize?: T | AreaSizeSelect<T>;
   activities?: T;
   cateringAndDrinks?: T | VenueOptionSelect<T>;
   tablesAndSeating?: T | VenueOptionSelect<T>;
@@ -365,6 +374,14 @@ export interface VenuesSelect<T extends boolean = true> {
 export interface PriceSelect<T extends boolean = true> {
   value?: T;
   currency?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AreaSize_select".
+ */
+export interface AreaSizeSelect<T extends boolean = true> {
+  value?: T;
+  units?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -419,7 +436,8 @@ export interface ActivitiesSelect<T extends boolean = true> {
  */
 export interface OwnersSelect<T extends boolean = true> {
   name?: T;
-  isPremiumOwner?: T;
+  isSuperOwner?: T;
+  logo?: T;
   venues?: T;
   updatedAt?: T;
   createdAt?: T;

@@ -12,8 +12,15 @@ export const Owners: CollectionConfig = {
       required: true,
     },
     {
-      name: 'isPremiumOwner',
+      name: 'isSuperOwner',
       type: 'checkbox',
+    },
+    {
+      name: 'logo',
+      type: 'upload',
+      relationTo: 'media',
+      hasMany: false,
+      //  required: true,
     },
     {
       name: 'venues',
