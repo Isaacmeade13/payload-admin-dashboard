@@ -1,6 +1,6 @@
 'use client';
 
-import { useLocationNamesData } from '@/app/hooks/useLocationNamesData';
+import { useLocationNamesData } from '@/app/(frontend)/hooks/useLocationNamesData';
 import { LocationName } from '@/dependencies/types';
 import {
   Combobox,
@@ -11,7 +11,7 @@ import {
   Label,
 } from '@headlessui/react';
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
-import { Dispatch, SetStateAction, useCallback, useState } from 'react';
+import { Dispatch, ReactElement, SetStateAction, useCallback, useState } from 'react'
 
 type LocationPickerProps = {
   setSelectedLocation: Dispatch<SetStateAction<LocationName | undefined>>;
@@ -19,7 +19,7 @@ type LocationPickerProps = {
 
 const LocationPicker = ({
   setSelectedLocation,
-}: LocationPickerProps): JSX.Element => {
+}: LocationPickerProps): ReactElement => {
   const { locationNames } = useLocationNamesData();
   const [locationName, setLocationName] = useState<string | null>(null);
   const [query, setQuery] = useState('');

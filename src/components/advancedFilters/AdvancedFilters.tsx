@@ -1,6 +1,6 @@
 'use client';
 
-import { useFiltersData } from '@/app/hooks/useFiltersData';
+import { useFiltersData } from '@/app/(frontend)/hooks/useFiltersData';
 import { FilterData } from '@/dependencies/types';
 import {
   Dialog,

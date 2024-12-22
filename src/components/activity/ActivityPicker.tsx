@@ -1,6 +1,6 @@
 'use client';
 
-import { useActivities } from '@/app/hooks/useActivities';
+import { useActivities } from '@/app/(frontend)/hooks/useActivities';
 import { WithStrapiFields } from '@/dependencies/types';
 import {
   Combobox,
