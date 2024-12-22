@@ -7,27 +7,34 @@ import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 
-import { Users } from './collections/Users'
-import { Media } from './collections/Media'
+import { Admins } from './collections/Admins'
 import { Venues } from './collections/Venues'
 import { Currencies } from './collections/Currencies'
 import { Activity } from './collections/Activities'
 import { Owners } from './collections/Owners'
 import { Tags } from './collections/Tags'
 import { TagGroups } from './collections/TagGroups'
-
+import { Locations } from './collections/Locations'
+import { GalleryMedia } from './collections/GalleryMedia'
+import { LogoImages } from './collections/LogoImages'
+import { MapImages } from './collections/MapImages'
+import { NewVenueRequests } from './collections/NewVenueRequests'
+import { VenueBookingRequests } from './collections/VenueBookingRequests'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
   admin: {
-    user: Users.slug,
+    user: Admins.slug,
     importMap: {
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Venues, Currencies, Activity, Owners, Tags, TagGroups],
+  collections: [
+    VenueBookingRequests, NewVenueRequests, Venues, Owners, Activity, Tags, TagGroups,
+     GalleryMedia, LogoImages, MapImages, Locations, Currencies, Admins,
+  ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

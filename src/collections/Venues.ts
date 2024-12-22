@@ -1,14 +1,17 @@
-import type { CollectionConfig, Field } from 'payload'
+import type { CollectionConfig, Field, FieldHookArgs } from 'payload'
 
 
 export const Venues: CollectionConfig = {
   slug: 'venues',
+  admin: {
+    useAsTitle: '_title'
+  },
   fields: [
     {
       type: 'tabs',
       tabs: [
         {
-          label: 'Main Info',
+          label: 'General Info',
           fields: [
             {
               name: 'title',
@@ -19,26 +22,70 @@ export const Venues: CollectionConfig = {
               relationTo: 'owners',
               type: 'relationship',
               required: true,
-              hasMany: false
-            },
-            {
-              name: 'tags',
-              relationTo: 'tags',
-              type: 'relationship',
-              hasMany: true,
-              maxDepth: 1,
-            },
-            {
-              name: 'galleryImages',
-              type: 'upload',
-              relationTo: 'media',
-              hasMany: true,
+              hasMany: false,
+              maxDepth: 2,
             },
             {
               name: 'maxGuestsCount', // guests
               type: 'number',
               hasMany: false,
               min: 0
+            },
+            {
+              name: 'price',
+              type: 'group',
+              interfaceName: 'Price',
+              fields: [
+                {
+                  type: 'row',
+                  fields: [
+                    {
+                      name: 'value', // guests
+                      type: 'number',
+                      hasMany: false,
+                    },
+                    {
+                      name: 'currency',
+                      type: 'relationship',
+                      relationTo: 'currencies',
+                      hasMany: false
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              name: 'areaSize',
+              type: 'group',
+              interfaceName: 'AreaSize',
+              fields: [
+                {
+                  type: 'row',
+                  fields:[
+                    {
+                      name: 'value',
+                      type: 'number',
+                      required: true,
+                    },
+                    {
+                      name: 'units',
+                      type: 'select',
+                      required: true,
+                      hasMany: false,
+                      options: [
+                        {
+                          label: 'Square foot',
+                          value: 'square-foot',
+                        },
+                        {
+                          label: 'Square meter',
+                          value: 'square-meter',
+                        },
+                      ],
+                    }
+                  ],
+                }
+              ]
             },
             {
               name: 'benefits',
@@ -51,63 +98,36 @@ export const Venues: CollectionConfig = {
               min: 0,
               max: 5
             },
+
             {
-              name: 'price',
-              type: 'group',
-              interfaceName: 'Price',
-              fields: [
-                {
-                  name: 'value', // guests
-                  type: 'number',
-                  hasMany: false,
-                },
-                {
-                  name: 'currency',
-                  type: 'relationship',
-                  relationTo: 'currencies',
-                  hasMany: false
-                }
-              ]
-            },
-            {
-              name: 'areaSize',
-              type: 'group',
-              interfaceName: 'AreaSize',
-              fields: [
-                {
-                  name: 'value',
-                  type: 'number',
-                  required: true,
-                },
-                {
-                  name: 'units',
-                  type: 'select',
-                  required: true,
-                  hasMany: false,
-                  options: [
-                    {
-                      label: 'Square foot',
-                      value: 'square-foot',
-                    },
-                    {
-                      label: 'Square meter',
-                      value: 'square-meter',
-                    },
-                  ],
-                }
-              ]
-            },
-            {
-              name: 'activities',
-              type: 'relationship',
-              relationTo: 'activities',
-              hasMany: true
+              name: 'galleryImages',
+              type: 'upload',
+              relationTo: 'gallery-media',
+              hasMany: true,
             },
           ]
         },
         {
-          label: 'Options',
+          label: 'Params',
           fields: [
+            {
+              type: 'row',
+              fields: [
+                {
+                  name: 'tags',
+                  relationTo: 'tags',
+                  type: 'relationship',
+                  hasMany: true,
+                  maxDepth: 1,
+                },
+                {
+                  name: 'activities',
+                  type: 'relationship',
+                  relationTo: 'activities',
+                  hasMany: true
+                },
+              ]
+            },
             getVenueOptionFieldConfig('cateringAndDrinks'),
             getVenueOptionFieldConfig('tablesAndSeating'),
             getVenueOptionFieldConfig('alcoholicBeverages'),
@@ -118,9 +138,60 @@ export const Venues: CollectionConfig = {
             getVenueOptionFieldConfig('parking'),
             getVenueOptionFieldConfig('event'),
           ]
+        },
+        {
+          label: 'Geo',
+          fields: [
+            {
+              name: 'locations',
+              type: 'relationship',
+              relationTo: 'locations',
+              hasMany: true,
+              required: true
+            },
+            {
+              name: 'map',
+              type: 'upload',
+              relationTo: 'map-images',
+              hasMany: false,
+            },
+            {
+              name: 'geoCoords',
+              type: 'point',
+            },
+          ]
         }
       ]
-    }
+    },
+    {
+      name: '_title',
+      type: 'text',
+      admin: {
+        hidden: true, // hides the field from the admin panel
+      },
+      hooks: {
+        beforeChange: [
+          ({ siblingData }) => {
+            // ensures data is not stored in DB
+            delete siblingData['_title']
+          }
+        ],
+        afterRead: [
+          async ({ data, req }: FieldHookArgs<any, any, any>) => {
+            console.log(data);
+            if(data){
+              const owner = await req.payload.findByID({
+                collection: 'owners',
+                id: data.owner,
+                depth: 0
+              });
+              return data ? `${owner.name} - ${data.title} `:'no title';
+            }
+            return 'no title'
+          }
+        ],
+      }
+    },
   ],
 }
 

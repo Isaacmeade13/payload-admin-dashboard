@@ -1,7 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
-export const Media: CollectionConfig = {
-  slug: 'media',
+export const GalleryMedia: CollectionConfig = {
+  slug: 'gallery-media',
   access: {
     read: () => true,
   },
@@ -9,7 +9,7 @@ export const Media: CollectionConfig = {
     {
       name: 'alt',
       type: 'text',
-      required: true,
+      required: false,
     },
   ],
   upload: true,

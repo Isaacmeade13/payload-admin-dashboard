@@ -8,17 +8,23 @@
 
 export interface Config {
   auth: {
-    users: UserAuthOperations;
+    owners: OwnerAuthOperations;
+    admins: AdminAuthOperations;
   };
   collections: {
-    users: User;
-    media: Media;
+    'venue-bookings-requests': VenueBookingsRequest;
+    'new-venue-requests': NewVenueRequest;
     venues: Venue;
-    currencies: Currency;
-    activities: Activity;
     owners: Owner;
+    activities: Activity;
     tags: Tag;
     'tag-groups': TagGroup;
+    'gallery-media': GalleryMedia;
+    'logo-images': LogoImage;
+    'map-images': MapImage;
+    locations: Location;
+    currencies: Currency;
+    admins: Admin;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -32,14 +38,19 @@ export interface Config {
     };
   };
   collectionsSelect: {
-    users: UsersSelect<false> | UsersSelect<true>;
-    media: MediaSelect<false> | MediaSelect<true>;
+    'venue-bookings-requests': VenueBookingsRequestsSelect<false> | VenueBookingsRequestsSelect<true>;
+    'new-venue-requests': NewVenueRequestsSelect<false> | NewVenueRequestsSelect<true>;
     venues: VenuesSelect<false> | VenuesSelect<true>;
-    currencies: CurrenciesSelect<false> | CurrenciesSelect<true>;
-    activities: ActivitiesSelect<false> | ActivitiesSelect<true>;
     owners: OwnersSelect<false> | OwnersSelect<true>;
+    activities: ActivitiesSelect<false> | ActivitiesSelect<true>;
     tags: TagsSelect<false> | TagsSelect<true>;
     'tag-groups': TagGroupsSelect<false> | TagGroupsSelect<true>;
+    'gallery-media': GalleryMediaSelect<false> | GalleryMediaSelect<true>;
+    'logo-images': LogoImagesSelect<false> | LogoImagesSelect<true>;
+    'map-images': MapImagesSelect<false> | MapImagesSelect<true>;
+    locations: LocationsSelect<false> | LocationsSelect<true>;
+    currencies: CurrenciesSelect<false> | CurrenciesSelect<true>;
+    admins: AdminsSelect<false> | AdminsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -50,15 +61,37 @@ export interface Config {
   globals: {};
   globalsSelect: {};
   locale: null;
-  user: User & {
-    collection: 'users';
-  };
+  user:
+    | (Owner & {
+        collection: 'owners';
+      })
+    | (Admin & {
+        collection: 'admins';
+      });
   jobs: {
     tasks: unknown;
     workflows: unknown;
   };
 }
-export interface UserAuthOperations {
+export interface OwnerAuthOperations {
+  forgotPassword: {
+    email: string;
+    password: string;
+  };
+  login: {
+    email: string;
+    password: string;
+  };
+  registerFirstUser: {
+    email: string;
+    password: string;
+  };
+  unlock: {
+    email: string;
+    password: string;
+  };
+}
+export interface AdminAuthOperations {
   forgotPassword: {
     email: string;
     password: string;
@@ -78,10 +111,68 @@ export interface UserAuthOperations {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users".
+ * via the `definition` "venue-bookings-requests".
  */
-export interface User {
+export interface VenueBookingsRequest {
   id: number;
+  desiredVenue: number | Venue;
+  date: string;
+  start: string;
+  end: string;
+  email: string;
+  phone: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "venues".
+ */
+export interface Venue {
+  id: number;
+  title?: string | null;
+  owner: number | Owner;
+  maxGuestsCount?: number | null;
+  price?: Price;
+  areaSize: AreaSize;
+  benefits?: string | null;
+  rating?: number | null;
+  galleryImages?: (number | GalleryMedia)[] | null;
+  tags?: (number | Tag)[] | null;
+  activities?: (number | Activity)[] | null;
+  cateringAndDrinks?: VenueOption;
+  tablesAndSeating?: VenueOption;
+  alcoholicBeverages?: VenueOption;
+  restrooms?: VenueOption;
+  musicAndAV?: VenueOption;
+  allowedEvents?: VenueOption;
+  accommodation?: VenueOption;
+  parking?: VenueOption;
+  event?: VenueOption;
+  locations: (number | Location)[];
+  map?: (number | null) | MapImage;
+  /**
+   * @minItems 2
+   * @maxItems 2
+   */
+  geoCoords?: [number, number] | null;
+  _title?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "owners".
+ */
+export interface Owner {
+  id: number;
+  name: string;
+  isSuperHost?: boolean | null;
+  logo?: (number | null) | LogoImage;
+  venues?: {
+    docs?: (number | Venue)[] | null;
+    hasNextPage?: boolean | null;
+  } | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -89,17 +180,18 @@ export interface User {
   resetPasswordExpiration?: string | null;
   salt?: string | null;
   hash?: string | null;
+  _verified?: boolean | null;
+  _verificationToken?: string | null;
   loginAttempts?: number | null;
   lockUntil?: string | null;
   password?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
+ * via the `definition` "logo-images".
  */
-export interface Media {
+export interface LogoImage {
   id: number;
-  alt: string;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -114,47 +206,49 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "venues".
+ * via the `definition` "Price".
  */
-export interface Venue {
+export interface Price {
+  value?: number | null;
+  currency?: (number | null) | Currency;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "currencies".
+ */
+export interface Currency {
   id: number;
-  title?: string | null;
-  owner: number | Owner;
-  tags?: (number | Tag)[] | null;
-  galleryImages?: (number | Media)[] | null;
-  maxGuestsCount?: number | null;
-  benefits?: string | null;
-  rating?: number | null;
-  price?: Price;
-  areaSize: AreaSize;
-  activities?: (number | Activity)[] | null;
-  cateringAndDrinks?: VenueOption;
-  tablesAndSeating?: VenueOption;
-  alcoholicBeverages?: VenueOption;
-  restrooms?: VenueOption;
-  musicAndAV?: VenueOption;
-  allowedEvents?: VenueOption;
-  accommodation?: VenueOption;
-  parking?: VenueOption;
-  event?: VenueOption;
+  name: string;
+  symbol: string;
   updatedAt: string;
   createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "owners".
+ * via the `definition` "AreaSize".
  */
-export interface Owner {
+export interface AreaSize {
+  value: number;
+  units: 'square-foot' | 'square-meter';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "gallery-media".
+ */
+export interface GalleryMedia {
   id: number;
-  name: string;
-  isSuperOwner?: boolean | null;
-  logo?: (number | null) | Media;
-  venues?: {
-    docs?: (number | Venue)[] | null;
-    hasNextPage?: boolean | null;
-  } | null;
+  alt?: string | null;
   updatedAt: string;
   createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -183,33 +277,6 @@ export interface TagGroup {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Price".
- */
-export interface Price {
-  value?: number | null;
-  currency?: (number | null) | Currency;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "currencies".
- */
-export interface Currency {
-  id: number;
-  title: string;
-  symbol: string;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "AreaSize".
- */
-export interface AreaSize {
-  value: number;
-  units: 'square-foot' | 'square-meter';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "activities".
  */
 export interface Activity {
@@ -228,34 +295,99 @@ export interface VenueOption {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "locations".
+ */
+export interface Location {
+  id: number;
+  name: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "map-images".
+ */
+export interface MapImage {
+  id: number;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "new-venue-requests".
+ */
+export interface NewVenueRequest {
+  id: number;
+  title?: string | null;
+  companyName?: string | null;
+  spaceName?: string | null;
+  venueDescription?: string | null;
+  address?: string | null;
+  activities: (number | Activity)[];
+  tags: (number | Tag)[];
+  cancellationPolicy?: string | null;
+  minimumCancellationDuration?: string | null;
+  operationalHours?: string | null;
+  pricingModel?: string | null;
+  seatingCapacity?: string | null;
+  diningCapacity?: string | null;
+  standingCapacity?: string | null;
+  contactInformation?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "admins".
+ */
+export interface Admin {
+  id: number;
+  updatedAt: string;
+  createdAt: string;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  password?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
   id: number;
   document?:
     | ({
-        relationTo: 'users';
-        value: number | User;
+        relationTo: 'venue-bookings-requests';
+        value: number | VenueBookingsRequest;
       } | null)
     | ({
-        relationTo: 'media';
-        value: number | Media;
+        relationTo: 'new-venue-requests';
+        value: number | NewVenueRequest;
       } | null)
     | ({
         relationTo: 'venues';
         value: number | Venue;
       } | null)
     | ({
-        relationTo: 'currencies';
-        value: number | Currency;
+        relationTo: 'owners';
+        value: number | Owner;
       } | null)
     | ({
         relationTo: 'activities';
         value: number | Activity;
-      } | null)
-    | ({
-        relationTo: 'owners';
-        value: number | Owner;
       } | null)
     | ({
         relationTo: 'tags';
@@ -264,12 +396,41 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'tag-groups';
         value: number | TagGroup;
+      } | null)
+    | ({
+        relationTo: 'gallery-media';
+        value: number | GalleryMedia;
+      } | null)
+    | ({
+        relationTo: 'logo-images';
+        value: number | LogoImage;
+      } | null)
+    | ({
+        relationTo: 'map-images';
+        value: number | MapImage;
+      } | null)
+    | ({
+        relationTo: 'locations';
+        value: number | Location;
+      } | null)
+    | ({
+        relationTo: 'currencies';
+        value: number | Currency;
+      } | null)
+    | ({
+        relationTo: 'admins';
+        value: number | Admin;
       } | null);
   globalSlug?: string | null;
-  user: {
-    relationTo: 'users';
-    value: number | User;
-  };
+  user:
+    | {
+        relationTo: 'owners';
+        value: number | Owner;
+      }
+    | {
+        relationTo: 'admins';
+        value: number | Admin;
+      };
   updatedAt: string;
   createdAt: string;
 }
@@ -279,10 +440,15 @@ export interface PayloadLockedDocument {
  */
 export interface PayloadPreference {
   id: number;
-  user: {
-    relationTo: 'users';
-    value: number | User;
-  };
+  user:
+    | {
+        relationTo: 'owners';
+        value: number | Owner;
+      }
+    | {
+        relationTo: 'admins';
+        value: number | Admin;
+      };
   key?: string | null;
   value?:
     | {
@@ -309,36 +475,40 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users_select".
+ * via the `definition` "venue-bookings-requests_select".
  */
-export interface UsersSelect<T extends boolean = true> {
+export interface VenueBookingsRequestsSelect<T extends boolean = true> {
+  desiredVenue?: T;
+  date?: T;
+  start?: T;
+  end?: T;
+  email?: T;
+  phone?: T;
   updatedAt?: T;
   createdAt?: T;
-  email?: T;
-  resetPasswordToken?: T;
-  resetPasswordExpiration?: T;
-  salt?: T;
-  hash?: T;
-  loginAttempts?: T;
-  lockUntil?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media_select".
+ * via the `definition` "new-venue-requests_select".
  */
-export interface MediaSelect<T extends boolean = true> {
-  alt?: T;
+export interface NewVenueRequestsSelect<T extends boolean = true> {
+  title?: T;
+  companyName?: T;
+  spaceName?: T;
+  venueDescription?: T;
+  address?: T;
+  activities?: T;
+  tags?: T;
+  cancellationPolicy?: T;
+  minimumCancellationDuration?: T;
+  operationalHours?: T;
+  pricingModel?: T;
+  seatingCapacity?: T;
+  diningCapacity?: T;
+  standingCapacity?: T;
+  contactInformation?: T;
   updatedAt?: T;
   createdAt?: T;
-  url?: T;
-  thumbnailURL?: T;
-  filename?: T;
-  mimeType?: T;
-  filesize?: T;
-  width?: T;
-  height?: T;
-  focalX?: T;
-  focalY?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -347,13 +517,13 @@ export interface MediaSelect<T extends boolean = true> {
 export interface VenuesSelect<T extends boolean = true> {
   title?: T;
   owner?: T;
-  tags?: T;
-  galleryImages?: T;
   maxGuestsCount?: T;
-  benefits?: T;
-  rating?: T;
   price?: T | PriceSelect<T>;
   areaSize?: T | AreaSizeSelect<T>;
+  benefits?: T;
+  rating?: T;
+  galleryImages?: T;
+  tags?: T;
   activities?: T;
   cateringAndDrinks?: T | VenueOptionSelect<T>;
   tablesAndSeating?: T | VenueOptionSelect<T>;
@@ -364,6 +534,10 @@ export interface VenuesSelect<T extends boolean = true> {
   accommodation?: T | VenueOptionSelect<T>;
   parking?: T | VenueOptionSelect<T>;
   event?: T | VenueOptionSelect<T>;
+  locations?: T;
+  map?: T;
+  geoCoords?: T;
+  _title?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -393,13 +567,24 @@ export interface VenueOptionSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "currencies_select".
+ * via the `definition` "owners_select".
  */
-export interface CurrenciesSelect<T extends boolean = true> {
-  title?: T;
-  symbol?: T;
+export interface OwnersSelect<T extends boolean = true> {
+  name?: T;
+  isSuperHost?: T;
+  logo?: T;
+  venues?: T;
   updatedAt?: T;
   createdAt?: T;
+  email?: T;
+  resetPasswordToken?: T;
+  resetPasswordExpiration?: T;
+  salt?: T;
+  hash?: T;
+  _verified?: T;
+  _verificationToken?: T;
+  loginAttempts?: T;
+  lockUntil?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -407,18 +592,6 @@ export interface CurrenciesSelect<T extends boolean = true> {
  */
 export interface ActivitiesSelect<T extends boolean = true> {
   title?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "owners_select".
- */
-export interface OwnersSelect<T extends boolean = true> {
-  name?: T;
-  isSuperOwner?: T;
-  logo?: T;
-  venues?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -441,6 +614,92 @@ export interface TagGroupsSelect<T extends boolean = true> {
   tags?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "gallery-media_select".
+ */
+export interface GalleryMediaSelect<T extends boolean = true> {
+  alt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "logo-images_select".
+ */
+export interface LogoImagesSelect<T extends boolean = true> {
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "map-images_select".
+ */
+export interface MapImagesSelect<T extends boolean = true> {
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "locations_select".
+ */
+export interface LocationsSelect<T extends boolean = true> {
+  name?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "currencies_select".
+ */
+export interface CurrenciesSelect<T extends boolean = true> {
+  name?: T;
+  symbol?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "admins_select".
+ */
+export interface AdminsSelect<T extends boolean = true> {
+  updatedAt?: T;
+  createdAt?: T;
+  email?: T;
+  resetPasswordToken?: T;
+  resetPasswordExpiration?: T;
+  salt?: T;
+  hash?: T;
+  loginAttempts?: T;
+  lockUntil?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
