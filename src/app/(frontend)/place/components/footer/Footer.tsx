@@ -1,9 +1,9 @@
 import Image from 'next/image';
-import logo from '../../../../assets/imgs/logo.svg';
-import inst from '../../../../assets/imgs/shared/instagram.svg';
+import logo from '../../../../../assets/imgs/logo.svg';
+import inst from '../../../../../assets/imgs/shared/instagram.svg';
 
-import linkedin from '../../../../assets/imgs/shared/linkedin.svg';
-import tiktok from '../../../../assets/imgs/shared/tiktok.svg';
+import linkedin from '../../../../../assets/imgs/shared/linkedin.svg';
+import tiktok from '../../../../../assets/imgs/shared/tiktok.svg';
 import Link from 'next/link';
 import { ROUTES } from '@/utils/constants/routes';
 

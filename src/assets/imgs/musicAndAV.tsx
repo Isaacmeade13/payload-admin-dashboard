@@ -1,7 +1,7 @@
 interface FixedIconProps {
   color?: string;
 }
-const MusicAndAVIcon = ({ color = 'black' }: FixedIconProps): JSX.Element => (
+const MusicAndAVIcon = ({ color = 'black' }: FixedIconProps) => (
   <svg
     width="22"
     height="18"

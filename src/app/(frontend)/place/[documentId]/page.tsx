@@ -6,13 +6,13 @@ import PlacePage from '../placePage';
 import { getLocationAPI } from '@/dependencies/requests/location';
 
 type PageProps = {
-  params: {
+  params: Promise<{
     documentId: string;
-  };
+  }>;
 };
 
 const SSRPlacePage = async ({ params }: PageProps) => {
-  const { documentId } = params;
+  const { documentId } = await params;
 
   const queryClient = getQueryClient();
   await queryClient.prefetchQuery({

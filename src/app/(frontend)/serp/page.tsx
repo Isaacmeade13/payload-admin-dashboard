@@ -5,7 +5,7 @@ import { getLocationsKey } from '@/dependencies/cash_key';
 import { getLocationsAPI } from '@/dependencies/requests/locations';
 
 type PageProps = {
-  searchParams: {
+  searchParams: Promise<{
     filters: string;
     locationName: string;
     'min-guests': string;
@@ -15,7 +15,7 @@ type PageProps = {
     'is-super-host': string;
     'is-flexible': string;
     activity: string;
-  };
+  }>;
 };
 
 const SSRSerpPage = async ({ searchParams }: PageProps) => {
@@ -29,7 +29,7 @@ const SSRSerpPage = async ({ searchParams }: PageProps) => {
     'is-super-host': isSuperHost,
     'is-flexible': isFlexible,
     activity,
-  } = searchParams;
+  } = await searchParams;
 
   const guest = `${minGuestsCount || ''}-${maxGuestsCount || ''}`;
   const price = `${minPrice || ''}-${maxPrice || ''}`;

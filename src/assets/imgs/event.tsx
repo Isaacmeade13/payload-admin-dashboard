@@ -1,7 +1,7 @@
 interface FixedIconProps {
   color?: string;
 }
-const EventIcon = ({ color = 'black' }: FixedIconProps): JSX.Element => (
+const EventIcon = ({ color = 'black' }: FixedIconProps) => (
   <svg
     width="26"
     height="26"

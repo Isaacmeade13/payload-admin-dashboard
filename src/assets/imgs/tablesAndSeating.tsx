@@ -1,9 +1,10 @@
+
 interface FixedIconProps {
   color?: string;
 }
 const TablesAndSeatingIcon = ({
   color = 'black',
-}: FixedIconProps): JSX.Element => (
+}: FixedIconProps)=> (
   <svg
     width="20"
     height="22"

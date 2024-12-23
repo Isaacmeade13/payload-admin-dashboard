@@ -3,7 +3,7 @@ interface FixedIconProps {
 }
 const AllowedEventsIcon = ({
   color = 'black',
-}: FixedIconProps): JSX.Element => (
+}: FixedIconProps)  => (
   <svg
     width="19"
     height="19"

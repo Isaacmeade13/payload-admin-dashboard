@@ -3,7 +3,7 @@ interface FixedIconProps {
 }
 const AlcoholicBeveragesIcon = ({
   color = 'black',
-}: FixedIconProps): JSX.Element => (
+}: FixedIconProps) => (
   <svg
     width="20"
     height="20"

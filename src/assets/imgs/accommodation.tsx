@@ -3,7 +3,7 @@ interface FixedIconProps {
 }
 const AccommodationIcon = ({
   color = 'black',
-}: FixedIconProps): JSX.Element => (
+}: FixedIconProps) => (
   <svg
     width="23"
     height="19"

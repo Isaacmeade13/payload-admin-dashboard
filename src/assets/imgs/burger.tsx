@@ -1,4 +1,4 @@
-const BurgerIcon = (): JSX.Element => (
+const BurgerIcon = () => (
   <div className="flex flex-col gap-[6px]">
     <svg
       width="27"

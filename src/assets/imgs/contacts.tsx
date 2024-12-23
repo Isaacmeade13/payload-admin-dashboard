@@ -1,7 +1,7 @@
 interface FixedIconProps {
   color?: string;
 }
-const ContactsIcon = ({ color = 'white' }: FixedIconProps): JSX.Element => (
+const ContactsIcon = ({ color = 'white' }: FixedIconProps)  => (
   <svg
     width="11"
     height="13"

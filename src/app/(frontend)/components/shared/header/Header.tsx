@@ -1,5 +1,5 @@
-import logoTitle from '../../../../assets/imgs/logoTitle.svg';
-import logo from '../../../../assets/imgs/logo.svg';
+import logoTitle from '../../../../../assets/imgs/logoTitle.svg';
+import logo from '../../../../../assets/imgs/logo.svg';
 import Image from 'next/image';
 import SearchBar from '../searchbar/Searchbar';
 import { ROUTES } from '@/utils/constants/routes';
