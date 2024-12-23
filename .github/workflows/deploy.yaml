@@ -16,6 +16,11 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment }}
+    env:
+      POSTGRES_URL: ${{ vars.POSTGRES_URL }}
+      BLOB_READ_WRITE_TOKEN: ${{ vars.BLOB_READ_WRITE_TOKEN }}
+      PAYLOAD_SECRET: ${{ vars.PAYLOAD_SECRET }}
     steps:
       - uses: actions/checkout@v2
 #      - name: Install Vercel CLI
@@ -37,13 +42,9 @@ jobs:
       - name: Build Project Artifacts
         run: echo " PAYLOAD_SECRET = $PAYLOAD_SECRET ; POSTGRES_URL= $POSTGRES_URL ; BLOB_READ_WRITE_TOKEN = $BLOB_READ_WRITE_TOKEN ;"
 #        run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
-        env:
-          POSTGRES_URL: ${{ vars.POSTGRES_URL }}
-          BLOB_READ_WRITE_TOKEN: ${{ vars.BLOB_READ_WRITE_TOKEN }}
-          PAYLOAD_SECRET: ${{ vars.PAYLOAD_SECRET }}
 #          NEXT_PUBLIC_STRAPI_HOST: ${{ vars.NEXT_PUBLIC_STRAPI_HOST }}
 #          NEXT_PUBLIC_API_V1_ENDPOINT: ${{ vars.NEXT_PUBLIC_API_V1_ENDPOINT }}
 #          NEXT_PUBLIC_API_V1_ENDPOINT_IMAGE: ${{ vars.NEXT_PUBLIC_API_V1_ENDPOINT_IMAGE }}
 
-      - name: Deploy Project Artifacts to Vercel
-        run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
+#      - name: Deploy Project Artifacts to Vercel
+#        run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
