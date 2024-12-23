@@ -13,7 +13,13 @@ export const Owner: CollectionConfig = {
     useAsTitle: 'email'
   },
   access: {
-    ...defaultAccessControl()
+    ...defaultAccessControl(),
+    read: ({ req: { user }, data }) => {
+      if(user?.collection === 'admin'){
+        return true
+      }
+      return false
+    },
   },
   fields: [
     {

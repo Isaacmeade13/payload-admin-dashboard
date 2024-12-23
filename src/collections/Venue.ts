@@ -26,11 +26,10 @@ export const Venue: CollectionConfig = {
             },
             {
               name: 'owner',
-              relationTo: 'owner',
+              relationTo: 'owner-profile',
               type: 'relationship',
               required: true,
               hasMany: false,
-              maxDepth: 2,
             },
             {
               name: 'maxGuestsCount', // guests
@@ -48,7 +47,7 @@ export const Venue: CollectionConfig = {
                   type: 'row',
                   fields: [
                     {
-                      name: 'value', // guests
+                      name: 'value',
                       type: 'number',
                       hasMany: false,
                       required: true

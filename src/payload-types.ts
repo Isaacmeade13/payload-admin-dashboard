@@ -133,7 +133,7 @@ export interface VenueBookingRequest {
 export interface Venue {
   id: number;
   title: string;
-  owner: number | Owner;
+  owner: number | OwnerProfile;
   maxGuestsCount: number;
   price: Price;
   areaSize: AreaSize;
@@ -161,26 +161,6 @@ export interface Venue {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "owner".
- */
-export interface Owner {
-  id: number;
-  profile: number | OwnerProfile;
-  updatedAt: string;
-  createdAt: string;
-  email: string;
-  resetPasswordToken?: string | null;
-  resetPasswordExpiration?: string | null;
-  salt?: string | null;
-  hash?: string | null;
-  _verified?: boolean | null;
-  _verificationToken?: string | null;
-  loginAttempts?: number | null;
-  lockUntil?: string | null;
-  password?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -357,6 +337,26 @@ export interface NewVenueRequest {
   contactInformation?: string | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "owner".
+ */
+export interface Owner {
+  id: number;
+  profile: number | OwnerProfile;
+  updatedAt: string;
+  createdAt: string;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  _verified?: boolean | null;
+  _verificationToken?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  password?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
