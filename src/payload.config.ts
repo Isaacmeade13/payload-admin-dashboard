@@ -90,9 +90,9 @@ export default buildConfig({
         return [
           vercelBlobStorage({
             collections: {
-              'gallery-media': true,
-              'logo-image': true,
-              'map-image': true,
+              [GalleryMedia.slug]: true,
+              [LogoImage.slug]: true,
+              [MapImage.slug]: true,
             },
             token: process.env.BLOB_READ_WRITE_TOKEN || '',
           }),
