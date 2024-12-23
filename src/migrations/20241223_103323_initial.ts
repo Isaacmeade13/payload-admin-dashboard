@@ -78,7 +78,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"event_is_available" boolean,
   	"event_additional_info" varchar,
   	"map_id" integer,
-  	"geo_coords" geometry(Point),
+  	"geo" geometry(Point),
   	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
   	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
   	"_status" "enum_venue_status" DEFAULT 'draft'
@@ -126,7 +126,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"version_event_is_available" boolean,
   	"version_event_additional_info" varchar,
   	"version_map_id" integer,
-  	"version_geo_coords" geometry(Point),
+  	"version_geo" geometry(Point),
   	"version_updated_at" timestamp(3) with time zone,
   	"version_created_at" timestamp(3) with time zone,
   	"version__status" "enum__venue_v_version_status" DEFAULT 'draft',

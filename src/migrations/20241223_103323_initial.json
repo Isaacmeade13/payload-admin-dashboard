@@ -1,5 +1,5 @@
 {
-  "id": "26c29e67-eaab-4444-97c9-83ced2115a3c",
+  "id": "e56bcb1a-9f43-423d-8329-75cc3ba2f70f",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -619,8 +619,8 @@
           "primaryKey": false,
           "notNull": false
         },
-        "geo_coords": {
-          "name": "geo_coords",
+        "geo": {
+          "name": "geo",
           "type": "geometry(Point)",
           "primaryKey": false,
           "notNull": false
@@ -1205,8 +1205,8 @@
           "primaryKey": false,
           "notNull": false
         },
-        "version_geo_coords": {
-          "name": "version_geo_coords",
+        "version_geo": {
+          "name": "version_geo",
           "type": "geometry(Point)",
           "primaryKey": false,
           "notNull": false

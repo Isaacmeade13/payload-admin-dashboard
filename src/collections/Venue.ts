@@ -166,7 +166,7 @@ export const Venue: CollectionConfig = {
               hasMany: false,
             },
             {
-              name: 'geoCoords',
+              name: 'geo',
               type: 'point',
             },
           ]

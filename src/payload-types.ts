@@ -157,7 +157,7 @@ export interface Venue {
    * @minItems 2
    * @maxItems 2
    */
-  geoCoords?: [number, number] | null;
+  geo?: [number, number] | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -553,7 +553,7 @@ export interface VenueSelect<T extends boolean = true> {
   event?: T | VenueOptionSelect<T>;
   locations?: T;
   map?: T;
-  geoCoords?: T;
+  geo?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
