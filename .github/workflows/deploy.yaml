@@ -17,10 +17,10 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     environment: ${{ github.event.inputs.environment }}
-    env:
-      POSTGRES_URL: ${{ vars.POSTGRES_URL }}
-      BLOB_READ_WRITE_TOKEN: ${{ vars.BLOB_READ_WRITE_TOKEN }}
-      PAYLOAD_SECRET: ${{ vars.PAYLOAD_SECRET }}
+#    env:
+#      POSTGRES_URL: ${{ vars.POSTGRES_URL }}
+#      BLOB_READ_WRITE_TOKEN: ${{ vars.BLOB_READ_WRITE_TOKEN }}
+#      PAYLOAD_SECRET: ${{ vars.PAYLOAD_SECRET }}
     steps:
       - uses: actions/checkout@v2
       - name: Install Vercel CLI
