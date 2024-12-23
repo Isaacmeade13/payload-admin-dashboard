@@ -19,10 +19,6 @@ export const OwnerProfile: CollectionConfig = {
       required: true,
     },
     {
-      name: 'isSuperHost',
-      type: 'checkbox',
-    },
-    {
       name: 'logo',
       type: 'upload',
       relationTo: 'logo-image',

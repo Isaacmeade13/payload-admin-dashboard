@@ -32,6 +32,14 @@ export const Venue: CollectionConfig = {
               hasMany: false,
             },
             {
+              name: 'isSuperHost',
+              type: 'checkbox',
+            },
+            {
+              name: 'isFlexible',
+              type: 'checkbox',
+            },
+            {
               name: 'maxGuestsCount', // guests
               type: 'number',
               hasMany: false,

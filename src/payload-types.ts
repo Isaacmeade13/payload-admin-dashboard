@@ -134,6 +134,8 @@ export interface Venue {
   id: number;
   title: string;
   owner: number | OwnerProfile;
+  isSuperHost?: boolean | null;
+  isFlexible?: boolean | null;
   maxGuestsCount: number;
   price: Price;
   areaSize: AreaSize;
@@ -169,7 +171,6 @@ export interface Venue {
 export interface OwnerProfile {
   id: number;
   companyName: string;
-  isSuperHost?: boolean | null;
   logo?: (number | null) | LogoImage;
   venues?: {
     docs?: (number | Venue)[] | null;
@@ -534,6 +535,8 @@ export interface NewVenueRequestSelect<T extends boolean = true> {
 export interface VenueSelect<T extends boolean = true> {
   title?: T;
   owner?: T;
+  isSuperHost?: T;
+  isFlexible?: T;
   maxGuestsCount?: T;
   price?: T | PriceSelect<T>;
   areaSize?: T | AreaSizeSelect<T>;
@@ -588,7 +591,6 @@ export interface VenueOptionSelect<T extends boolean = true> {
  */
 export interface OwnerProfileSelect<T extends boolean = true> {
   companyName?: T;
-  isSuperHost?: T;
   logo?: T;
   venues?: T;
   updatedAt?: T;
