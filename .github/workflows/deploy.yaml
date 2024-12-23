@@ -23,28 +23,20 @@ jobs:
       PAYLOAD_SECRET: ${{ vars.PAYLOAD_SECRET }}
     steps:
       - uses: actions/checkout@v2
-#      - name: Install Vercel CLI
-#        run: npm install --global vercel@latest
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
 
-#      - name: Install dependencies
-#        run: npm install
+      - name: Install dependencies
+        run: npm install
 
-#      - name: Pull Vercel Environment Information
-#        run: vercel pull --yes --environment=${{ matrix.environment }} --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Pull Vercel Environment Information
+        run: vercel pull --yes --environment=${{ matrix.environment }} --token=${{ secrets.VERCEL_TOKEN }}
 
 #      - name: Migrate database
 #        run: npm run migrate
-#        env:
-#          POSTGRES_URL: ${{ vars.POSTGRES_URL }}
-#          BLOB_READ_WRITE_TOKEN: ${{ vars.BLOB_READ_WRITE_TOKEN }}
-#          PAYLOAD_SECRET: ${{ vars.PAYLOAD_SECRET }}
 
       - name: Build Project Artifacts
-        run: echo " PAYLOAD_SECRET = $PAYLOAD_SECRET ; POSTGRES_URL= $POSTGRES_URL ; BLOB_READ_WRITE_TOKEN = $BLOB_READ_WRITE_TOKEN ;"
-#        run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
-#          NEXT_PUBLIC_STRAPI_HOST: ${{ vars.NEXT_PUBLIC_STRAPI_HOST }}
-#          NEXT_PUBLIC_API_V1_ENDPOINT: ${{ vars.NEXT_PUBLIC_API_V1_ENDPOINT }}
-#          NEXT_PUBLIC_API_V1_ENDPOINT_IMAGE: ${{ vars.NEXT_PUBLIC_API_V1_ENDPOINT_IMAGE }}
+        run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
 
-#      - name: Deploy Project Artifacts to Vercel
-#        run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Deploy Project Artifacts to Vercel
+        run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
