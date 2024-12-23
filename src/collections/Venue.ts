@@ -1,10 +1,13 @@
-import type { CollectionConfig, Field, FieldHookArgs } from 'payload'
+import type { CollectionConfig, Field } from 'payload'
 
 
 export const Venue: CollectionConfig = {
   slug: 'venue',
   admin: {
-    useAsTitle: '_title'
+    useAsTitle: 'title'
+  },
+  versions: {
+    drafts: true
   },
   fields: [
     {
@@ -16,6 +19,7 @@ export const Venue: CollectionConfig = {
             {
               name: 'title',
               type: 'text',
+              required: true,
             },
             {
               name: 'owner',
@@ -29,7 +33,8 @@ export const Venue: CollectionConfig = {
               name: 'maxGuestsCount', // guests
               type: 'number',
               hasMany: false,
-              min: 0
+              min: 0,
+              required: true,
             },
             {
               name: 'price',
@@ -43,12 +48,14 @@ export const Venue: CollectionConfig = {
                       name: 'value', // guests
                       type: 'number',
                       hasMany: false,
+                      required: true
                     },
                     {
                       name: 'currency',
                       type: 'relationship',
                       relationTo: 'currency',
-                      hasMany: false
+                      hasMany: false,
+                      required: true
                     }
                   ]
                 }
@@ -96,7 +103,8 @@ export const Venue: CollectionConfig = {
               type: 'number',
               hasMany: false,
               min: 0,
-              max: 5
+              max: 5,
+              required: true
             },
 
             {
@@ -162,35 +170,6 @@ export const Venue: CollectionConfig = {
           ]
         }
       ]
-    },
-    {
-      name: '_title',
-      type: 'text',
-      admin: {
-        hidden: true, // hides the field from the admin panel
-      },
-      hooks: {
-        beforeChange: [
-          ({ siblingData }) => {
-            // ensures data is not stored in DB
-            delete siblingData['_title']
-          }
-        ],
-        afterRead: [
-          async ({ data, req }: FieldHookArgs<any, any, any>) => {
-            console.log(data);
-            if(data){
-              const owner = await req.payload.findByID({
-                collection: 'owner',
-                id: data.owner,
-                depth: 0
-              });
-              return data ? `${owner.name} - ${data.title} `:'no title';
-            }
-            return 'no title'
-          }
-        ],
-      }
     },
   ],
 }

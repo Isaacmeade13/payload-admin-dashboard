@@ -15,6 +15,7 @@ export interface Config {
     'venue-booking-request': VenueBookingRequest;
     'new-venue-request': NewVenueRequest;
     venue: Venue;
+    'owner-profile': OwnerProfile;
     owner: Owner;
     activity: Activity;
     tag: Tag;
@@ -30,7 +31,7 @@ export interface Config {
     'payload-migrations': PayloadMigration;
   };
   collectionsJoins: {
-    owner: {
+    'owner-profile': {
       venues: 'venue';
     };
     'tag-group': {
@@ -41,6 +42,7 @@ export interface Config {
     'venue-booking-request': VenueBookingRequestSelect<false> | VenueBookingRequestSelect<true>;
     'new-venue-request': NewVenueRequestSelect<false> | NewVenueRequestSelect<true>;
     venue: VenueSelect<false> | VenueSelect<true>;
+    'owner-profile': OwnerProfileSelect<false> | OwnerProfileSelect<true>;
     owner: OwnerSelect<false> | OwnerSelect<true>;
     activity: ActivitySelect<false> | ActivitySelect<true>;
     tag: TagSelect<false> | TagSelect<true>;
@@ -130,13 +132,13 @@ export interface VenueBookingRequest {
  */
 export interface Venue {
   id: number;
-  title?: string | null;
+  title: string;
   owner: number | Owner;
-  maxGuestsCount?: number | null;
-  price?: Price;
+  maxGuestsCount: number;
+  price: Price;
   areaSize: AreaSize;
   benefits?: string | null;
-  rating?: number | null;
+  rating: number;
   galleryImages?: (number | GalleryMedia)[] | null;
   tags?: (number | Tag)[] | null;
   activities?: (number | Activity)[] | null;
@@ -156,9 +158,9 @@ export interface Venue {
    * @maxItems 2
    */
   geoCoords?: [number, number] | null;
-  _title?: string | null;
   updatedAt: string;
   createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -166,13 +168,7 @@ export interface Venue {
  */
 export interface Owner {
   id: number;
-  name: string;
-  isSuperHost?: boolean | null;
-  logo?: (number | null) | LogoImage;
-  venues?: {
-    docs?: (number | Venue)[] | null;
-    hasNextPage?: boolean | null;
-  } | null;
+  profile: number | OwnerProfile;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -185,6 +181,23 @@ export interface Owner {
   loginAttempts?: number | null;
   lockUntil?: string | null;
   password?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "owner-profile".
+ */
+export interface OwnerProfile {
+  id: number;
+  companyName: string;
+  isSuperHost?: boolean | null;
+  logo?: (number | null) | LogoImage;
+  venues?: {
+    docs?: (number | Venue)[] | null;
+    hasNextPage?: boolean | null;
+  } | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -209,8 +222,8 @@ export interface LogoImage {
  * via the `definition` "Price".
  */
 export interface Price {
-  value?: number | null;
-  currency?: (number | null) | Currency;
+  value: number;
+  currency: number | Currency;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -382,6 +395,10 @@ export interface PayloadLockedDocument {
         value: number | Venue;
       } | null)
     | ({
+        relationTo: 'owner-profile';
+        value: number | OwnerProfile;
+      } | null)
+    | ({
         relationTo: 'owner';
         value: number | Owner;
       } | null)
@@ -537,9 +554,9 @@ export interface VenueSelect<T extends boolean = true> {
   locations?: T;
   map?: T;
   geoCoords?: T;
-  _title?: T;
   updatedAt?: T;
   createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -567,13 +584,23 @@ export interface VenueOptionSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "owner_select".
+ * via the `definition` "owner-profile_select".
  */
-export interface OwnerSelect<T extends boolean = true> {
-  name?: T;
+export interface OwnerProfileSelect<T extends boolean = true> {
+  companyName?: T;
   isSuperHost?: T;
   logo?: T;
   venues?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "owner_select".
+ */
+export interface OwnerSelect<T extends boolean = true> {
+  profile?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;

@@ -17,6 +17,6 @@ export const Tag: CollectionConfig = {
       relationTo: 'tag-group',
       required: true,
       hasMany: false,
-    }
+    },
   ],
 }

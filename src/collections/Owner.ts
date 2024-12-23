@@ -9,29 +9,14 @@ export const Owner: CollectionConfig = {
     lockTime: 600 * 1000, // Time period to allow the max login attempts
   },
   admin: {
-    useAsTitle: 'name'
+    useAsTitle: 'email'
   },
   fields: [
     {
-      name: 'name',
-      type: 'text',
-      required: true,
-    },
-    {
-      name: 'isSuperHost',
-      type: 'checkbox',
-    },
-    {
-      name: 'logo',
-      type: 'upload',
-      relationTo: 'logo-image',
-      hasMany: false,
-    },
-    {
-      name: 'venues',
-      type: 'join',
-      collection: 'venue',
-      on: 'owner'
+      name: 'profile',
+      type: 'relationship',
+      relationTo: 'owner-profile',
+      required: true
     }
   ],
 }

@@ -12,6 +12,7 @@ import { Venue } from './collections/Venue'
 import { Currency } from './collections/Currency'
 import { Activity } from './collections/Activity'
 import { Owner } from './collections/Owner'
+import { OwnerProfile } from './collections/OwnerProfile'
 import { Tag } from './collections/Tag'
 import { TagGroup } from './collections/TagGroup'
 import { Location } from './collections/Location'
@@ -32,7 +33,7 @@ export default buildConfig({
     },
   },
   collections: [
-    VenueBookingRequest, NewVenueRequest, Venue, Owner, Activity, Tag, TagGroup,
+    VenueBookingRequest, NewVenueRequest, Venue, OwnerProfile, Owner, Activity, Tag, TagGroup,
      GalleryMedia, LogoImage, MapImage, Location, Currency, Admin,
   ],
   editor: lexicalEditor(),
