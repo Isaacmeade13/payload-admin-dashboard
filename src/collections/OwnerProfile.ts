@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { defaultAccessControl } from '@/accessControlHelpers'
 
 export const OwnerProfile: CollectionConfig = {
   slug: 'owner-profile',
@@ -7,6 +8,9 @@ export const OwnerProfile: CollectionConfig = {
   },
   versions: {
     drafts: true
+  },
+  access: {
+    ...defaultAccessControl()
   },
   fields: [
     {

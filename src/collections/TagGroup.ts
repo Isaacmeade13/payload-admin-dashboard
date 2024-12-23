@@ -1,9 +1,13 @@
 import type { CollectionConfig } from 'payload'
+import { defaultAccessControl } from '@/accessControlHelpers'
 
 export const  TagGroup: CollectionConfig = {
   slug: 'tag-group',
   admin: {
     useAsTitle: 'title'
+  },
+  access: {
+    ...defaultAccessControl()
   },
   fields: [
     {

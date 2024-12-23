@@ -1,9 +1,16 @@
 import type { CollectionConfig, FieldHookArgs } from 'payload'
+import { defaultAccessControl } from '@/accessControlHelpers'
 
 export const NewVenueRequest: CollectionConfig = {
   slug: 'new-venue-request',
   admin: {
     useAsTitle: 'title'
+  },
+  access: {
+    ...defaultAccessControl(),
+    create: ({ req: { user }, data }) => {
+      return true
+    },
   },
   fields: [
     {

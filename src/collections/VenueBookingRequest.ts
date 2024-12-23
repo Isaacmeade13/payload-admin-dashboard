@@ -1,9 +1,16 @@
 import type { CollectionConfig } from 'payload'
+import { defaultAccessControl } from '@/accessControlHelpers'
 
 export const VenueBookingRequest: CollectionConfig = {
   slug: 'venue-booking-request',
   admin: {
     useAsTitle: 'desiredVenue'
+  },
+  access: {
+    ...defaultAccessControl(),
+    create: ({ req: { user }, data }) => {
+      return true
+    },
   },
   fields: [
     {

@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { defaultAccessControl } from '@/accessControlHelpers'
 
 export const Owner: CollectionConfig = {
   slug: 'owner',
@@ -10,6 +11,9 @@ export const Owner: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'email'
+  },
+  access: {
+    ...defaultAccessControl()
   },
   fields: [
     {

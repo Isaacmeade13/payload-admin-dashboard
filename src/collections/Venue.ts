@@ -1,5 +1,5 @@
 import type { CollectionConfig, Field } from 'payload'
-
+import { defaultAccessControl } from '@/accessControlHelpers'
 
 export const Venue: CollectionConfig = {
   slug: 'venue',
@@ -8,6 +8,9 @@ export const Venue: CollectionConfig = {
   },
   versions: {
     drafts: true
+  },
+  access: {
+   ...defaultAccessControl()
   },
   fields: [
     {
