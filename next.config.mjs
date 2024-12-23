@@ -5,6 +5,15 @@ const nextConfig = {
   eslint: {
     dirs: ['src', 'components', 'lib'],
   },
+  webpack: (config) => ({
+    ...config,
+    externals: [
+      ...config.externals,
+      {
+        sharp: 'commonjs sharp'
+      }
+    ]
+  }),
  /*
  images: {
     domains: ['localhost', process.env.NEXT_PUBLIC_STRAPI_HOST],
