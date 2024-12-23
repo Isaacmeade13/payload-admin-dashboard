@@ -5,9 +5,11 @@ const nextConfig = {
   eslint: {
     dirs: ['src', 'components', 'lib'],
   },
-  images: {
+ /*
+ images: {
     domains: ['localhost', process.env.NEXT_PUBLIC_STRAPI_HOST],
   },
+  */
   reactStrictMode: true,
   // todo fix headers if necessary
   /*headers: ()=> {
