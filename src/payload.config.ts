@@ -21,6 +21,7 @@ import { LogoImage } from './collections/LogoImage'
 import { MapImage } from './collections/MapImage'
 import { NewVenueRequest } from './collections/NewVenueRequest'
 import { VenueBookingRequest } from './collections/VenueBookingRequest'
+import { postgresAdapter } from '@payloadcms/db-postgres'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -41,11 +42,20 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
+  db: postgresAdapter({
+                    // Postgres-specific arguments go here.
+                    // `pool` is required.
+                    pool: {
+                      connectionString: process.env.DATABASE_URI,
+                    },
+                  }),
+  /*
   db: sqliteAdapter({
     client: {
       url: process.env.DATABASE_URI || '',
     },
   }),
+  */
   /*db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
   }),*/
