@@ -138,10 +138,12 @@ export interface Venue {
   isFlexible?: boolean | null;
   maxGuestsCount: number;
   price: Price;
+  minBookingHours: number;
   areaSize: AreaSize;
   benefits?: string | null;
   rating: number;
   galleryImages?: (number | GalleryMedia)[] | null;
+  address: string;
   tags?: (number | Tag)[] | null;
   activities?: (number | Activity)[] | null;
   cateringAndDrinks?: VenueOption;
@@ -539,10 +541,12 @@ export interface VenueSelect<T extends boolean = true> {
   isFlexible?: T;
   maxGuestsCount?: T;
   price?: T | PriceSelect<T>;
+  minBookingHours?: T;
   areaSize?: T | AreaSizeSelect<T>;
   benefits?: T;
   rating?: T;
   galleryImages?: T;
+  address?: T;
   tags?: T;
   activities?: T;
   cateringAndDrinks?: T | VenueOptionSelect<T>;

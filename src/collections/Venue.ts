@@ -72,6 +72,11 @@ export const Venue: CollectionConfig = {
               ]
             },
             {
+              name: 'minBookingHours',
+              type: 'number',
+              required: true
+            },
+            {
               name: 'areaSize',
               type: 'group',
               interfaceName: 'AreaSize',
@@ -123,6 +128,11 @@ export const Venue: CollectionConfig = {
               relationTo: 'gallery-media',
               hasMany: true,
             },
+            {
+              name: 'address',
+              type: 'textarea',
+              required: true,
+            }
           ]
         },
         {
