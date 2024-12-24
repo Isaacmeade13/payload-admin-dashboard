@@ -5,7 +5,7 @@ export const submitFormOnboard = async (
   formData: FormOnboardData,
 ): Promise<FormOnboardData | Error> => {
   try {
-    const { data: res } = await axiosInstance.post('api/new-venue-request', {
+    const { data: res } = await axiosInstance.post('/new-venue-request', {
       ...formData,
     });
     return res.data;

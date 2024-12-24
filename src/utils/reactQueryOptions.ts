@@ -1,8 +1,8 @@
 const defaultOptionsReactQuery = {
   defaultOptions: {
     queries: {
-      cacheTime: 7000,
-      staleTime: 7000,
+      cacheTime: 50 * 60 * 1000,
+      staleTime: 50 * 60 * 1000,
       refetchOnWindowFocus: false,
     },
   },

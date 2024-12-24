@@ -1,6 +1,7 @@
 import * as migration_20241223_103323_initial from './20241223_103323_initial';
 import * as migration_20241223_112215_move_owner_flags_to_venue from './20241223_112215_move_owner_flags_to_venue';
 import * as migration_20241223_122640_add_min_booking_hours_and_address_fields from './20241223_122640_add_min_booking_hours_and_address_fields';
+import * as migration_20241224_114547 from './20241224_114547';
 
 export const migrations = [
   {
@@ -16,6 +17,11 @@ export const migrations = [
   {
     up: migration_20241223_122640_add_min_booking_hours_and_address_fields.up,
     down: migration_20241223_122640_add_min_booking_hours_and_address_fields.down,
-    name: '20241223_122640_add_min_booking_hours_and_address_fields'
+    name: '20241223_122640_add_min_booking_hours_and_address_fields',
+  },
+  {
+    up: migration_20241224_114547.up,
+    down: migration_20241224_114547.down,
+    name: '20241224_114547'
   },
 ];

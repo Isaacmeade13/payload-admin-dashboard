@@ -328,7 +328,7 @@ export interface NewVenueRequest {
   spaceName?: string | null;
   venueDescription?: string | null;
   address?: string | null;
-  activities: (number | Activity)[];
+  activities?: string | null;
   tags: (number | Tag)[];
   cancellationPolicy?: string | null;
   minimumCancellationDuration?: string | null;

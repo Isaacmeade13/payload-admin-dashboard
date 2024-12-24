@@ -1,15 +1,15 @@
-import type { CollectionConfig, FieldHookArgs } from 'payload'
-import { defaultAccessControl } from '@/accessControlHelpers'
+import type { CollectionConfig, FieldHookArgs } from 'payload';
+import { defaultAccessControl } from '@/accessControlHelpers';
 
 export const NewVenueRequest: CollectionConfig = {
   slug: 'new-venue-request',
   admin: {
-    useAsTitle: 'title'
+    useAsTitle: 'title',
   },
   access: {
     ...defaultAccessControl(),
     create: ({ req: { user }, data }) => {
-      return true
+      return true;
     },
   },
   fields: [
@@ -23,15 +23,15 @@ export const NewVenueRequest: CollectionConfig = {
         beforeChange: [
           ({ siblingData }) => {
             // ensures data is not stored in DB
-            delete siblingData['title']
-          }
+            delete siblingData['title'];
+          },
         ],
         afterRead: [
           ({ data }: FieldHookArgs<any, any, any>) => {
-            return data ? `${data.company} - ${data.spaceName} `:'no title';
-          }
+            return data ? `${data.company} - ${data.spaceName} ` : 'no title';
+          },
         ],
-      }
+      },
     },
     {
       name: 'companyName',
@@ -51,17 +51,14 @@ export const NewVenueRequest: CollectionConfig = {
     },
     {
       name: 'activities',
-      type: 'relationship',
-      relationTo: 'activity',
-      required: true,
-      hasMany: true
+      type: 'textarea',
     },
     {
       name: 'tags',
       type: 'relationship',
       relationTo: 'tag',
       required: true,
-      hasMany: true
+      hasMany: true,
     },
     {
       name: 'cancellationPolicy',
@@ -96,4 +93,4 @@ export const NewVenueRequest: CollectionConfig = {
       type: 'textarea',
     },
   ],
-}
+};
