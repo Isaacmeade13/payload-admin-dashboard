@@ -141,9 +141,11 @@ export interface Venue {
   minBookingHours: number;
   areaSize: AreaSize;
   benefits?: string | null;
-  rating: number;
+  rating?: number | null;
   galleryImages?: (number | GalleryMedia)[] | null;
   address: string;
+  policy?: string | null;
+  policyDays?: number | null;
   tags?: (number | Tag)[] | null;
   activities?: (number | Activity)[] | null;
   cateringAndDrinks?: VenueOption;
@@ -206,6 +208,7 @@ export interface LogoImage {
  */
 export interface Price {
   value: number;
+  per: string;
   currency: number | Currency;
 }
 /**
@@ -547,6 +550,8 @@ export interface VenueSelect<T extends boolean = true> {
   rating?: T;
   galleryImages?: T;
   address?: T;
+  policy?: T;
+  policyDays?: T;
   tags?: T;
   activities?: T;
   cateringAndDrinks?: T | VenueOptionSelect<T>;
@@ -571,6 +576,7 @@ export interface VenueSelect<T extends boolean = true> {
  */
 export interface PriceSelect<T extends boolean = true> {
   value?: T;
+  per?: T;
   currency?: T;
 }
 /**

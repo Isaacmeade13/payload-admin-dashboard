@@ -35,9 +35,8 @@ function About() {
       minBookingHours,
       areaSize,
       about,
-      // TODO: about
+      price,
       spaceIncludes = [],
-      pricePer,
     } = location;
 
     const spaceIncludesItems = isReadModeSpaceIncludes
@@ -75,7 +74,7 @@ function About() {
                 />
                 <InfoItem
                   value={minBookingHours}
-                  suffixText={`${pricePer || 'hr'} minimum`}
+                  suffixText={`${price.per || 'hr'} minimum`}
                   iconSrc={timeIcon}
                   altText="time"
                 />

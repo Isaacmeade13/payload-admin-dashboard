@@ -28,7 +28,7 @@ function EnguireForm() {
   const hour = location?.minBookingHours;
   const price = location?.price.value;
   const currency = location?.price?.currency?.symbol;
-  const pricePer = location?.pricePer || 'hr';
+  const pricePer = location?.price.per || 'hr';
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

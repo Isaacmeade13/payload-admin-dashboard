@@ -13,25 +13,23 @@ function Policy() {
   const { state: isShowMore, toggle } = useBoolean();
 
   if (isSuccess && location) {
-    const { policyText, policyDaysCount } = location;
+    const { policy, policyDays } = location;
 
     return (
       <>
-        {!!policyText?.length && (
+        {!!policy?.length && (
           <div className="px-4 max-xl:px-[5%] text-black">
             <h1 className="font-semibold text-2xl mt-[55px] max-lg:text-xl">
               Cancellation policy
             </h1>
             <div>
-              {!!policyDaysCount && (
+              {!!policyDays && (
                 <p className="font-semibold my-[10px] text-xl max-lg:text-lg">
-                  {policyDaysCount} Days
+                  {policyDays} Days
                 </p>
               )}
               <p className="whitespace-normal break-words  max-lg:text-base">
-                {isShowMore
-                  ? policyText
-                  : policyText.slice(0, POLICY_CHARACTER_COUNT)}
+                {isShowMore ? policy : policy.slice(0, POLICY_CHARACTER_COUNT)}
               </p>
             </div>
             <button

@@ -1,16 +1,16 @@
-import type { CollectionConfig, Field } from 'payload'
-import { defaultAccessControl } from '@/accessControlHelpers'
+import type { CollectionConfig, Field } from 'payload';
+import { defaultAccessControl } from '@/accessControlHelpers';
 
 export const Venue: CollectionConfig = {
   slug: 'venue',
   admin: {
-    useAsTitle: 'title'
+    useAsTitle: 'title',
   },
   versions: {
-    drafts: true
+    drafts: true,
   },
   access: {
-   ...defaultAccessControl()
+    ...defaultAccessControl(),
   },
   fields: [
     {
@@ -58,23 +58,29 @@ export const Venue: CollectionConfig = {
                       name: 'value',
                       type: 'number',
                       hasMany: false,
-                      required: true
+                      required: true,
+                    },
+                    {
+                      name: 'per',
+                      type: 'text',
+                      hasMany: false,
+                      required: true,
                     },
                     {
                       name: 'currency',
                       type: 'relationship',
                       relationTo: 'currency',
                       hasMany: false,
-                      required: true
-                    }
-                  ]
-                }
-              ]
+                      required: true,
+                    },
+                  ],
+                },
+              ],
             },
             {
               name: 'minBookingHours',
               type: 'number',
-              required: true
+              required: true,
             },
             {
               name: 'areaSize',
@@ -83,7 +89,7 @@ export const Venue: CollectionConfig = {
               fields: [
                 {
                   type: 'row',
-                  fields:[
+                  fields: [
                     {
                       name: 'value',
                       type: 'number',
@@ -104,10 +110,10 @@ export const Venue: CollectionConfig = {
                           value: 'square-meter',
                         },
                       ],
-                    }
+                    },
                   ],
-                }
-              ]
+                },
+              ],
             },
             {
               name: 'benefits',
@@ -119,9 +125,7 @@ export const Venue: CollectionConfig = {
               hasMany: false,
               min: 0,
               max: 5,
-              required: true
             },
-
             {
               name: 'galleryImages',
               type: 'upload',
@@ -132,8 +136,16 @@ export const Venue: CollectionConfig = {
               name: 'address',
               type: 'textarea',
               required: true,
-            }
-          ]
+            },
+            {
+              name: 'policy',
+              type: 'textarea',
+            },
+            {
+              name: 'policyDays',
+              type: 'number',
+            },
+          ],
         },
         {
           label: 'Params',
@@ -152,9 +164,9 @@ export const Venue: CollectionConfig = {
                   name: 'activities',
                   type: 'relationship',
                   relationTo: 'activity',
-                  hasMany: true
+                  hasMany: true,
                 },
-              ]
+              ],
             },
             getVenueOptionFieldConfig('cateringAndDrinks'),
             getVenueOptionFieldConfig('tablesAndSeating'),
@@ -165,7 +177,7 @@ export const Venue: CollectionConfig = {
             getVenueOptionFieldConfig('accommodation'),
             getVenueOptionFieldConfig('parking'),
             getVenueOptionFieldConfig('event'),
-          ]
+          ],
         },
         {
           label: 'Geo',
@@ -175,7 +187,7 @@ export const Venue: CollectionConfig = {
               type: 'relationship',
               relationTo: 'location',
               hasMany: true,
-              required: true
+              required: true,
             },
             {
               name: 'map',
@@ -187,14 +199,14 @@ export const Venue: CollectionConfig = {
               name: 'geo',
               type: 'point',
             },
-          ]
-        }
-      ]
+          ],
+        },
+      ],
     },
   ],
-}
+};
 
-function getVenueOptionFieldConfig(optionName: string): Field{
+function getVenueOptionFieldConfig(optionName: string): Field {
   return {
     name: optionName,
     type: 'group',
@@ -208,7 +220,6 @@ function getVenueOptionFieldConfig(optionName: string): Field{
         name: 'additionalInfo',
         type: 'textarea',
       },
-    ]
-  }
+    ],
+  };
 }
-

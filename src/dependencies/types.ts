@@ -86,6 +86,7 @@ export type LocationData = WithStrapiFields<{
   title: string;
   price: {
     value: number;
+    per: string;
     currency: {
       name: string;
       symbol: string;
@@ -114,8 +115,8 @@ export type LocationData = WithStrapiFields<{
   minBookingHours: number;
   about?: string;
   map?: strapiImage;
-  policyText?: string;
-  policyDaysCount?: number;
+  policy?: string;
+  policyDays?: number;
   spaceIncludes?: { text: string }[];
   pricePer?: string;
   activities: ActivitieData[];
