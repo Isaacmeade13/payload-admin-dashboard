@@ -8,12 +8,9 @@ type getLocationAPIProps = {
 
 export const getLocationAPI = async ({
   documentId,
-  baseUrl = '/api',
 }: getLocationAPIProps): Promise<LocationData | undefined> => {
   try {
-    const { data: res } = await axiosInstance.get(
-      `${baseUrl}/venue/${documentId}`,
-    );
+    const { data: res } = await axiosInstance.get(`/venue/${documentId}`);
 
     return res;
   } catch (error) {

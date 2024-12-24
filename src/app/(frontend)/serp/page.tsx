@@ -1,10 +1,24 @@
+import { getPayload } from 'payload';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
-import SerpPage from './serpPage';
 import getQueryClient from '@/utils/getQueryClient';
 import { getLocationsKey } from '@/dependencies/cash_key';
-import { getLocationsAPI } from '@/dependencies/requests/locations';
-import { headers } from 'next/headers';
-import { getHeaderDetailsSsr } from '@/utils';
+import configPromise from '@payload-config';
+
+import SerpPage from './serpPage';
+
+type Where = {
+  and: Array<Where | WhereField>;
+  or?: Array<Where | WhereField>;
+};
+
+type WhereField = {
+  [key: string]: {
+    equals?: unknown;
+    contains?: string;
+    greater_than_equal?: number;
+    less_than_equal?: number;
+  };
+};
 
 type PageProps = {
   searchParams: Promise<{
@@ -33,13 +47,15 @@ const SSRSerpPage = async ({ searchParams }: PageProps) => {
     activity,
   } = await searchParams;
 
-  const headerList = await headers();
-  const { baseUrl } = getHeaderDetailsSsr(headerList);
-
   const guest = `${minGuestsCount || ''}-${maxGuestsCount || ''}`;
   const price = `${minPrice || ''}-${maxPrice || ''}`;
 
+  const payload = await getPayload({
+    config: configPromise,
+  });
+
   const queryClient = getQueryClient();
+
   await queryClient.prefetchQuery({
     queryKey: getLocationsKey(
       locationNameId || '',
@@ -50,19 +66,67 @@ const SSRSerpPage = async ({ searchParams }: PageProps) => {
       isFlexible || '',
       activity,
     ),
-    queryFn: () =>
-      getLocationsAPI({
-        locationNameId,
-        filterIds,
-        maxGuestsCount,
-        minGuestsCount,
-        minPrice,
-        maxPrice,
-        isSuperHost,
-        isFlexible,
-        activity,
-        baseUrl,
-      }),
+    queryFn: async () => {
+      try {
+        const where: Where = { and: [] };
+
+        if (filterIds?.length) {
+          const ids = filterIds.split(',');
+          ids.forEach((id) => {
+            where.and.push({ tags: { contains: id } });
+          });
+        }
+
+        if (locationNameId?.length) {
+          where.and.push({ locations: { contains: locationNameId } });
+        }
+
+        if (minGuestsCount) {
+          where.and.push({
+            maxGuestsCount: {
+              greater_than_equal: parseInt(minGuestsCount, 10),
+            },
+          });
+        }
+
+        if (activity) {
+          where.and.push({ activities: { contains: activity } });
+        }
+
+        if (isSuperHost && isSuperHost === 'true') {
+          where.and.push({ isSuperHost: { equals: true } });
+        }
+
+        if (isFlexible && isFlexible === 'true') {
+          where.and.push({ isFlexible: { equals: true } });
+        }
+
+        if (minPrice || maxPrice) {
+          if (minPrice) {
+            where.and.push({
+              'price.value': { greater_than_equal: parseInt(minPrice, 10) },
+            });
+          }
+
+          if (maxPrice) {
+            where.and.push({
+              'price.value': { less_than_equal: parseInt(maxPrice, 10) },
+            });
+          }
+        }
+
+        const location = await payload.find({
+          collection: 'venue',
+          limit: 250,
+          where,
+        });
+
+        return location?.docs;
+      } catch (error) {
+        console.error('Error fetching locations:', error);
+        throw error;
+      }
+    },
   });
 
   const dehydratedState = dehydrate(queryClient);

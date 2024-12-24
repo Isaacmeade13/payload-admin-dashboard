@@ -1,19 +1,13 @@
 import axiosInstance from '@/dependencies/axios';
 import { FilterData } from '@/dependencies/types';
 
-type getFiltersAPIProps = {
-  baseUrl?: string;
-};
-
-export const getFiltersAPI = async ({
-  baseUrl = '/api',
-}: getFiltersAPIProps): Promise<FilterData[] | undefined> => {
+export const getFiltersAPI = async (): Promise<FilterData[] | undefined> => {
   try {
     const params = {
       limit: 250,
     };
 
-    const { data: res } = await axiosInstance.get(`${baseUrl}/tag-group`, {
+    const { data: res } = await axiosInstance.get('/tag-group', {
       params,
     });
 

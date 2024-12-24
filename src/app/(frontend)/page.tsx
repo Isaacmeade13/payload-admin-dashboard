@@ -1,25 +1,36 @@
 import HomePage from '@/app/(frontend)/home/homePage';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import getQueryClient from '@/utils/getQueryClient';
+import { getPayload } from 'payload';
+import configPromise from '@payload-config';
 import { getFiltersKey, getLocationNamesKey } from '@/dependencies/cash_key';
-import { getFiltersAPI } from '@/dependencies/requests/filters';
-import { getLocationNamesAPI } from '@/dependencies/requests/locationNames';
-import { headers } from 'next/headers';
-import { getHeaderDetailsSsr } from '@/utils';
 
 const SSRHomePage = async () => {
-  const headerList = await headers();
-  const { baseUrl } = getHeaderDetailsSsr(headerList);
+  const payload = await getPayload({
+    config: configPromise,
+  });
 
   const queryClient = getQueryClient();
   await queryClient.prefetchQuery({
     queryKey: getFiltersKey(),
-    queryFn: () => getFiltersAPI({ baseUrl }),
+    queryFn: async () => {
+      const tag = await payload.find({
+        collection: 'tag-group',
+        limit: 250,
+      });
+      return tag.docs;
+    },
   });
 
   await queryClient.prefetchQuery({
     queryKey: getLocationNamesKey(),
-    queryFn: () => getLocationNamesAPI({ baseUrl }),
+    queryFn: async () => {
+      const location = await payload.find({
+        collection: 'location',
+        limit: 250,
+      });
+      return location?.docs;
+    },
   });
 
   const dehydratedState = dehydrate(queryClient);

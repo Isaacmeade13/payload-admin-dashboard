@@ -73,21 +73,6 @@ export type FormOnboardData = {
   spaceName?: string;
   standingCapacity?: string;
   venueDescription?: string;
-
-  // companyName: string;
-  // spaceName: string;
-  // venueDescription: string;
-  // address: string;
-  // activities: number[];
-  // tags: number[];
-  // cancellationPolicy: string;
-  // minimumCancellationDuration: string;
-  // operationalHours: string;
-  // pricingModel: string;
-  // seatingCapacity: string;
-  // diningCapacity: string;
-  // standingCapacity: string;
-  // contactInformation: string;
 };
 
 export type OnboardFormItem = {

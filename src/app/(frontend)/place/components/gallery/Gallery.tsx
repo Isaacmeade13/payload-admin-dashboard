@@ -19,13 +19,13 @@ function Gallery() {
   if (isSuccess && location) {
     const { galleryImages } = location;
 
-    const showedImages = galleryImages.slice(0, MAX_GALLERY_ITEMS);
-    const imageCount = showedImages.length;
+    const showedImages = galleryImages?.slice(0, MAX_GALLERY_ITEMS);
+    const imageCount = showedImages?.length;
 
     return (
       <>
         <div className="grid gap-1 grid-cols-5 grid-rows-2 mb-8 h-[471px] relative max-xl:grid-cols-1 max-xl:grid-rows-1 max-[450px]:h-[326px]">
-          {showedImages.map((img, index) => {
+          {showedImages?.map((img, index) => {
             const isBlurred = imageCount > 1 && index + 1 === imageCount;
             const pos = getPosition(index, imageCount);
             return (
@@ -48,7 +48,7 @@ function Gallery() {
             onClick={() => setOpenCarousel(true)}
             className="absolute right-0 bottom-0 m-8 p-2 max-w-[100px] bg-mainGrey-100 text-white text-xs font-semibold max-xl:hidden"
           >
-            View all {galleryImages.length} photos
+            View all {galleryImages?.length} photos
           </button>
           <button
             onClick={() => setOpenCarousel(true)}

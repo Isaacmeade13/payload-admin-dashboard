@@ -25,11 +25,8 @@ export const getRemainingLocationsAPI = async ({
   isFlexible,
   activity,
   minGuestsCount,
-  baseUrl,
 }: getLocationsAPIProps): Promise<LocationData[] | undefined> => {
   try {
-    const url = baseUrl || '/api';
-
     if (
       !locationNameId &&
       !filterIds &&
@@ -81,7 +78,7 @@ export const getRemainingLocationsAPI = async ({
       }
     }
 
-    const { data: res } = await axiosInstance.get(`${url}/venue`, {
+    const { data: res } = await axiosInstance.get(`/venue`, {
       params,
     });
 

@@ -131,7 +131,7 @@ const AdvancedFilters = ({
                                   name={title}
                                   checked={selectedFilterIds.includes(`${id}`)}
                                   type="checkbox"
-                                  aria-describedby={`${name}-description`}
+                                  aria-describedby={`${title}-description`}
                                   className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                                 />
                               </div>

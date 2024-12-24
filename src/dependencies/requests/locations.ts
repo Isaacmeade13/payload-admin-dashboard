@@ -29,7 +29,6 @@ export const getLocationsAPI = async ({
   isSuperHost,
   isFlexible,
   activity,
-  baseUrl = '/api',
 }: getLocationsAPIProps): Promise<LocationData[] | undefined> => {
   try {
     const where: any = { and: [] };
@@ -78,7 +77,7 @@ export const getLocationsAPI = async ({
       }
     }
 
-    const { data: res } = await axiosInstance.get(`${baseUrl}/venue`, {
+    const { data: res } = await axiosInstance.get(`/venue`, {
       params,
     });
 
