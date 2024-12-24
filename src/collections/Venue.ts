@@ -27,7 +27,6 @@ export const Venue: CollectionConfig = {
             {
               name: 'about',
               type: 'textarea',
-              required: true,
             },
             {
               name: 'owner',
@@ -113,14 +112,6 @@ export const Venue: CollectionConfig = {
                         {
                           label: 'Square meter',
                           value: 'square-meter',
-                        },
-                        {
-                          label: 'Square meters',
-                          value: 'square-meters',
-                        },
-                        {
-                          label: 'Square feet',
-                          value: 'square-feet',
                         },
                       ],
                     },

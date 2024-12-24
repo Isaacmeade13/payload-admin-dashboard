@@ -107,7 +107,7 @@ export type LocationData = WithStrapiFields<{
   accommodation: AvailabilityText;
   parking: AvailabilityText;
   event: AvailabilityText;
-  areaSize?: {
+  areaSize: {
     value: number;
     units: string;
   };

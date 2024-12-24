@@ -136,12 +136,9 @@ const AdvancedFilters = ({
                                 />
                               </div>
                               <div className="ml-3 text-xs leading-6">
-                                <label
-                                  htmlFor={title}
-                                  className="font-medium text-gray-900"
-                                >
+                                <div className="font-medium text-gray-900">
                                   {title}
-                                </label>
+                                </div>
                               </div>
                             </label>
                           ),
@@ -186,12 +183,7 @@ const AdvancedFilters = ({
                 </label>
                 <label className="relative px-[17px] flex gap-[2px] items-center h-[51px] bg-mainGrey-100 text-white pl-6 rounded-[19px] max-w-[222px] max-lg:max-w-[250px] max-lg:w-[260px] max-lg:h-[55px] max-lg:px-[7px] max-lg:py-[7px]">
                   <div className="min-w-0 text-sm leading-[10.5px] flex flex-col gap-y-[1px]">
-                    <label
-                      htmlFor={'flexibility'}
-                      className="text-[11px] pb-[3px]"
-                    >
-                      Super Hosts
-                    </label>
+                    <div className="text-[11px] pb-[3px]">Super Hosts</div>
                     <p id={'flexibility-description'} className="text-[7px]">
                       Super Hosts are our top picks, committed to providing the
                       best service.

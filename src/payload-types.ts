@@ -135,7 +135,7 @@ export interface VenueBookingRequest {
 export interface Venue {
   id: number;
   title: string;
-  about: string;
+  about?: string | null;
   owner: number | OwnerProfile;
   isSuperHost?: boolean | null;
   isFlexible?: boolean | null;
@@ -232,7 +232,7 @@ export interface Currency {
  */
 export interface AreaSize {
   value: number;
-  units: 'square-foot' | 'square-meter' | 'square-meters' | 'square-feet';
+  units: 'square-foot' | 'square-meter';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
