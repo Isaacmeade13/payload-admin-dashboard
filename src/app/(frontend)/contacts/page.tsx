@@ -1,11 +1,12 @@
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import logoTitle from '@/assets/imgs/logoTitle.svg';
 import Link from 'next/link';
 import { ROUTES } from '@/utils/constants/routes';
 
-export const metadata = {
-  title: 'Contact Us',
-  description: 'Get in touch with us via email or phone.',
+export const metadata: Metadata = {
+  title: 'Eventcage - Seamlessly browse spaces',
+  description: 'Seamlessly browse spaces',
 };
 
 export const dynamic = 'force-static';
