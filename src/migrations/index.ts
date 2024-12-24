@@ -4,6 +4,7 @@ import * as migration_20241223_122640_add_min_booking_hours_and_address_fields f
 import * as migration_20241224_114547 from './20241224_114547';
 import * as migration_20241224_121436 from './20241224_121436';
 import * as migration_20241224_131704 from './20241224_131704';
+import * as migration_20241224_141550 from './20241224_141550';
 
 export const migrations = [
   {
@@ -34,6 +35,11 @@ export const migrations = [
   {
     up: migration_20241224_131704.up,
     down: migration_20241224_131704.down,
-    name: '20241224_131704'
+    name: '20241224_131704',
+  },
+  {
+    up: migration_20241224_141550.up,
+    down: migration_20241224_141550.down,
+    name: '20241224_141550'
   },
 ];

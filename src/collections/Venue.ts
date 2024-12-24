@@ -25,6 +25,11 @@ export const Venue: CollectionConfig = {
               required: true,
             },
             {
+              name: 'about',
+              type: 'textarea',
+              required: true,
+            },
+            {
               name: 'owner',
               relationTo: 'owner-profile',
               type: 'relationship',

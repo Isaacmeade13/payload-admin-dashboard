@@ -19,13 +19,13 @@ export interface Config {
     owner: Owner;
     activity: Activity;
     tag: Tag;
-    spaceIncludes: SpaceInclude;
     'tag-group': TagGroup;
     'gallery-media': GalleryMedia;
     'logo-image': LogoImage;
     'map-image': MapImage;
     location: Location;
     currency: Currency;
+    spaceIncludes: SpaceInclude;
     admin: Admin;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -50,13 +50,13 @@ export interface Config {
     owner: OwnerSelect<false> | OwnerSelect<true>;
     activity: ActivitySelect<false> | ActivitySelect<true>;
     tag: TagSelect<false> | TagSelect<true>;
-    spaceIncludes: SpaceIncludesSelect<false> | SpaceIncludesSelect<true>;
     'tag-group': TagGroupSelect<false> | TagGroupSelect<true>;
     'gallery-media': GalleryMediaSelect<false> | GalleryMediaSelect<true>;
     'logo-image': LogoImageSelect<false> | LogoImageSelect<true>;
     'map-image': MapImageSelect<false> | MapImageSelect<true>;
     location: LocationSelect<false> | LocationSelect<true>;
     currency: CurrencySelect<false> | CurrencySelect<true>;
+    spaceIncludes: SpaceIncludesSelect<false> | SpaceIncludesSelect<true>;
     admin: AdminSelect<false> | AdminSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -138,6 +138,7 @@ export interface VenueBookingRequest {
 export interface Venue {
   id: number;
   title: string;
+  about: string;
   owner: number | OwnerProfile;
   isSuperHost?: boolean | null;
   isFlexible?: boolean | null;
@@ -437,10 +438,6 @@ export interface PayloadLockedDocument {
         value: number | Tag;
       } | null)
     | ({
-        relationTo: 'spaceIncludes';
-        value: number | SpaceInclude;
-      } | null)
-    | ({
         relationTo: 'tag-group';
         value: number | TagGroup;
       } | null)
@@ -463,6 +460,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'currency';
         value: number | Currency;
+      } | null)
+    | ({
+        relationTo: 'spaceIncludes';
+        value: number | SpaceInclude;
       } | null)
     | ({
         relationTo: 'admin';
@@ -563,6 +564,7 @@ export interface NewVenueRequestSelect<T extends boolean = true> {
  */
 export interface VenueSelect<T extends boolean = true> {
   title?: T;
+  about?: T;
   owner?: T;
   isSuperHost?: T;
   isFlexible?: T;
@@ -671,16 +673,6 @@ export interface TagSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "spaceIncludes_select".
- */
-export interface SpaceIncludesSelect<T extends boolean = true> {
-  text?: T;
-  spaceIncludesGroup?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "tag-group_select".
  */
 export interface TagGroupSelect<T extends boolean = true> {
@@ -757,6 +749,16 @@ export interface LocationSelect<T extends boolean = true> {
 export interface CurrencySelect<T extends boolean = true> {
   name?: T;
   symbol?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "spaceIncludes_select".
+ */
+export interface SpaceIncludesSelect<T extends boolean = true> {
+  text?: T;
+  spaceIncludesGroup?: T;
   updatedAt?: T;
   createdAt?: T;
 }
