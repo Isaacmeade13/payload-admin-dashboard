@@ -80,7 +80,6 @@ export type OnboardFormItem = {
   inputType?: 'input' | 'textArea';
   name: string;
   placeholder?: string;
-  id: number;
 };
 
 export type LocationData = WithStrapiFields<{
