@@ -118,7 +118,6 @@ export type LocationData = WithStrapiFields<{
   policy?: string;
   policyDays?: number;
   spaceIncludes?: { text: string }[];
-  pricePer?: string;
   activities: ActivitieData[];
   isSuperHost: boolean | null;
   isFlexible: boolean | null;

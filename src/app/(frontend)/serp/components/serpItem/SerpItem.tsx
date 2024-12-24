@@ -17,14 +17,8 @@ type SerpItemProps = {
 const MAX_BENEFIT_LENGTH = 100;
 
 function SerpItem({ location }: SerpItemProps) {
-  const {
-    isSuperHost,
-    price,
-    benefits,
-    maxGuestsCount,
-    galleryImages,
-    pricePer,
-  } = location;
+  const { isSuperHost, price, benefits, maxGuestsCount, galleryImages } =
+    location;
   const [imageIndex, setImageIndex] = useState(0);
   const placeRoute = `${ROUTES.place}/${location.id}`;
   const imageSrc = galleryImages?.[imageIndex]?.url;
@@ -101,7 +95,7 @@ function SerpItem({ location }: SerpItemProps) {
           )}
           <span className="absolute bottom-4 right-3.5 rounded-xl px-3 bg-mainGrey-100 py-2 text-sm text-white font-semibold ">
             from {price?.currency?.symbol}
-            {price.value}/{pricePer || 'hr'}
+            {price.value}/{price?.per || 'hr'}
           </span>
         </div>
         <div className="h-[228px] px-6 max-lg:px-0 max-lg:h-auto w-full">
@@ -121,7 +115,7 @@ function SerpItem({ location }: SerpItemProps) {
           <div className="flex justify-between divide-x divide-mainGrey-600 text-mainGrey-100 font-semibold text-center max-lg:justify-between">
             <div className="h-fit p-5 max-lg:bg-mainGrey-100 max-lg:text-white max-lg:rounded-[23px] max-lg:h-[21px] max-lg:flex max-lg:items-center max-lg:justify-center max-lg:text-[13px] max-lg:py-[2px] max-lg:px-[10px]">
               From {price?.currency?.symbol}
-              {price?.value}/{pricePer || 'hr'}
+              {price?.value}/{price?.per || 'hr'}
             </div>
             {!!maxGuestsCount && (
               <>
