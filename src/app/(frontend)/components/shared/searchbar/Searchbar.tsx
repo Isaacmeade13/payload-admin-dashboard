@@ -7,29 +7,29 @@ import magnifierIcon from '@/assets/imgs/magnifier.svg';
 import Image from 'next/image';
 import clsx from 'clsx';
 
-const findByDocId = <T extends { documentId: string }>(
+const findByDocId = <T extends { id: string | number }>(
   data: T[],
-  documentId: string,
+  id: string | number,
 ): T | undefined => {
-  return data.find((item) => item.documentId === documentId);
+  return data.find((item) => item.id == id);
 };
 
 function SearchBar({ withMobileSearchBar }: { withMobileSearchBar: boolean }) {
   const searchParams = useSearchParams();
-  const locationNameDocId = searchParams.get('locationName') || '';
-  const activityDocumentId = searchParams.get('activity') || '';
+  const locationId = searchParams.get('locationName') || '';
+  const activityId = searchParams.get('activity') || '';
 
   const { locationNames } = useLocationNamesData();
   const { activities } = useActivities();
 
   const currentLocation = useMemo(
-    () => findByDocId(locationNames, locationNameDocId),
-    [locationNames, locationNameDocId],
+    () => findByDocId(locationNames, locationId),
+    [locationNames, locationId],
   );
 
   const currentActivity = useMemo(
-    () => findByDocId(activities, activityDocumentId),
-    [activities, activityDocumentId],
+    () => findByDocId(activities, activityId),
+    [activities, activityId],
   );
 
   const value = useMemo(() => {

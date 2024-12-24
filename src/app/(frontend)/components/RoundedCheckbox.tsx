@@ -14,15 +14,27 @@ const RoundedCheckbox: React.FC<RoundedCheckboxProps> = ({
   className = '',
   children,
 }) => {
+  const handleToggle = () => {
+    onChange(!checked);
+  };
+
   return (
-    <div className={'flex items-center gap-[13px] ' + className}>
+    <div
+      className={`flex items-center gap-[13px] cursor-pointer ${className}`}
+      onClick={handleToggle}
+    >
       <Checkbox
         checked={checked}
         onChange={onChange}
-        className="group block size-4 rounded-[50%] p-[1.5px] border bg-white data-[checked]:bg-gray-500 data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50 data-[checked]:data-[disabled]:bg-gray-500"
+        className="group block size-4 rounded-full p-[1.5px] border bg-white 
+                   data-[checked]:bg-gray-500 
+                   data-[disabled]:cursor-not-allowed 
+                   data-[disabled]:opacity-50 
+                   data-[checked]:data-[disabled]:bg-gray-500"
+        onClick={(e) => e.stopPropagation()}
       >
         <svg
-          className="stroke-white opacity-0 group-data-[checked]:opacity-100"
+          className="stroke-white opacity-0 group-data-[checked]:opacity-100 transition-opacity duration-200"
           viewBox="0 0 14 14"
           fill="none"
         >
@@ -34,7 +46,7 @@ const RoundedCheckbox: React.FC<RoundedCheckboxProps> = ({
           />
         </svg>
       </Checkbox>
-      {!!children && children}
+      {children && <span>{children}</span>}
     </div>
   );
 };

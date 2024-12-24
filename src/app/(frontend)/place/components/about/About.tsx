@@ -68,7 +68,7 @@ function About() {
                 />
                 <InfoItem
                   value={maxGuestsCount}
-                  suffixText=" people"
+                  suffixText={maxGuestsCount > 1 ? ' people' : ' person'}
                   iconSrc={peopleIcon}
                   altText="people"
                 />

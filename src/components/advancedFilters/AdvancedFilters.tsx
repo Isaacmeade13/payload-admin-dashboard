@@ -120,7 +120,7 @@ const AdvancedFilters = ({
                       <div className="grid grid-cols-2 gap-y-3.5">
                         {getVisibleTypes(tags?.docs, id).map(
                           ({ title, id }, index) => (
-                            <div
+                            <label
                               key={index}
                               className="relative flex items-start"
                             >
@@ -143,7 +143,7 @@ const AdvancedFilters = ({
                                   {title}
                                 </label>
                               </div>
-                            </div>
+                            </label>
                           ),
                         )}
                         {canShowToggleButton(id) && (
@@ -164,14 +164,11 @@ const AdvancedFilters = ({
             </div>
             <fieldset>
               <div className="divide-y divide-gray-200 flex flex-col items-center justify-center gap-8 my-8">
-                <div className="relative px-[17px] flex gap-[2px] items-center h-[51px] bg-mainGrey-100 text-white pl-6 rounded-[19px] max-w-[222px] max-lg:max-w-[250px] max-lg:w-[260px] max-lg:h-[55px] max-lg:px-[7px] max-lg:py-[7px]">
+                <label className="relative px-[17px] flex gap-[2px] items-center h-[51px] bg-mainGrey-100 text-white pl-6 rounded-[19px] max-w-[222px] max-lg:max-w-[250px] max-lg:w-[260px] max-lg:h-[55px] max-lg:px-[7px] max-lg:py-[7px]">
                   <div className="min-w-0 text-sm leading-[10.5px] flex flex-col gap-y-[1px]">
-                    <label
-                      htmlFor={'flexibility'}
-                      className="text-[11px] pb-[3px]"
-                    >
+                    <div className="text-[11px] pb-[3px]">
                       Cancellation flexibility
-                    </label>
+                    </div>
                     <p id={'flexibility-description'} className="text-[7px]">
                       Only show spaces that offer cancellation flexibility.
                     </p>
@@ -186,8 +183,8 @@ const AdvancedFilters = ({
                       className="h-4 w-4 rounded border-gray-300 focus:ring-indigo-600"
                     />
                   </div>
-                </div>
-                <div className="relative px-[17px] flex gap-[2px] items-center h-[51px] bg-mainGrey-100 text-white pl-6 rounded-[19px] max-w-[222px] max-lg:max-w-[250px] max-lg:w-[260px] max-lg:h-[55px] max-lg:px-[7px] max-lg:py-[7px]">
+                </label>
+                <label className="relative px-[17px] flex gap-[2px] items-center h-[51px] bg-mainGrey-100 text-white pl-6 rounded-[19px] max-w-[222px] max-lg:max-w-[250px] max-lg:w-[260px] max-lg:h-[55px] max-lg:px-[7px] max-lg:py-[7px]">
                   <div className="min-w-0 text-sm leading-[10.5px] flex flex-col gap-y-[1px]">
                     <label
                       htmlFor={'flexibility'}
@@ -210,7 +207,7 @@ const AdvancedFilters = ({
                       className="h-4 w-4 rounded border-gray-300 focus:ring-indigo-600"
                     />
                   </div>
-                </div>
+                </label>
               </div>
             </fieldset>
             <div className="m-auto w-full pr-[17px] sticky bottom-0 flex justify-between items-center bg-white py-3 border-t border-mainGrey-600">

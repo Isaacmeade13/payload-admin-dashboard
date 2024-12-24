@@ -44,18 +44,22 @@ function Gallery() {
               </button>
             );
           })}
-          <button
-            onClick={() => setOpenCarousel(true)}
-            className="absolute right-0 bottom-0 m-8 p-2 max-w-[100px] bg-mainGrey-100 text-white text-xs font-semibold max-xl:hidden"
-          >
-            View all {galleryImages?.length} photos
-          </button>
-          <button
-            onClick={() => setOpenCarousel(true)}
-            className="hidden absolute right-[11px] bottom-[11px] p-2 max-w-[100px] bg-mainGrey-100 text-white text-xs font-semibold max-xl:block bg-opacity-10 rounded-[5px]"
-          >
-            1 / {galleryImages.length}
-          </button>
+          {galleryImages.length > 1 && (
+            <button
+              onClick={() => setOpenCarousel(true)}
+              className="absolute right-0 bottom-0 m-8 p-2 max-w-[100px] bg-mainGrey-100 text-white text-xs font-semibold max-xl:hidden"
+            >
+              View all {galleryImages?.length} photos
+            </button>
+          )}
+          {galleryImages.length > 1 && (
+            <button
+              onClick={() => setOpenCarousel(true)}
+              className="hidden absolute right-[11px] bottom-[11px] p-2 max-w-[100px] bg-mainGrey-100 text-white text-xs font-semibold max-xl:block bg-opacity-10 rounded-[5px]"
+            >
+              1 / {galleryImages.length}
+            </button>
+          )}
         </div>
 
         <Carousel

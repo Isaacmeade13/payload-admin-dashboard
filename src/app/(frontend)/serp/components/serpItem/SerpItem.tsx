@@ -121,7 +121,8 @@ function SerpItem({ location }: SerpItemProps) {
               <>
                 <div className="max-lg:hidden" />
                 <div className="h-fit p-5 border-none max-lg:bg-mainGrey-100 max-lg:text-white max-lg:rounded-[23px] max-lg:h-[21px] max-lg:flex max-lg:items-center max-lg:justify-center max-lg:text-[13px] max-lg:py-[2px] max-lg:px-[10px]">
-                  Fits {maxGuestsCount} guests
+                  Fits {maxGuestsCount}{' '}
+                  {maxGuestsCount > 1 ? 'guests' : 'guest'}
                 </div>
               </>
             )}

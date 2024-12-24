@@ -43,7 +43,7 @@ export const getRemainingLocationsAPI = async ({
     const where: any = { and: [], or: [] };
     const params: Params = {
       where,
-      limit: 99,
+      limit: 100,
       draft: false,
     };
 
