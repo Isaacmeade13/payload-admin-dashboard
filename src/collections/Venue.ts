@@ -144,9 +144,9 @@ export const Venue: CollectionConfig = {
             },
             {
               name: 'spaceIncludes',
-              type: 'join',
-              collection: 'spaceIncludes',
-              on: 'spaceIncludesGroup',
+              type: 'relationship',
+              relationTo: 'space-include',
+              hasMany: true,
             },
             {
               name: 'policy',

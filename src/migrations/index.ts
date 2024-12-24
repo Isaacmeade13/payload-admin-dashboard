@@ -5,6 +5,9 @@ import * as migration_20241224_114547 from './20241224_114547';
 import * as migration_20241224_121436 from './20241224_121436';
 import * as migration_20241224_131704 from './20241224_131704';
 import * as migration_20241224_141550 from './20241224_141550';
+import * as migration_20241224_154327 from './20241224_154327';
+import * as migration_20241224_154623 from './20241224_154623';
+import * as migration_20241224_154839 from './20241224_154839';
 
 export const migrations = [
   {
@@ -40,6 +43,21 @@ export const migrations = [
   {
     up: migration_20241224_141550.up,
     down: migration_20241224_141550.down,
-    name: '20241224_141550'
+    name: '20241224_141550',
+  },
+  {
+    up: migration_20241224_154327.up,
+    down: migration_20241224_154327.down,
+    name: '20241224_154327',
+  },
+  {
+    up: migration_20241224_154623.up,
+    down: migration_20241224_154623.down,
+    name: '20241224_154623',
+  },
+  {
+    up: migration_20241224_154839.up,
+    down: migration_20241224_154839.down,
+    name: '20241224_154839'
   },
 ];

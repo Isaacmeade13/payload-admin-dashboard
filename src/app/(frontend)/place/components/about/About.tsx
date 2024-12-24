@@ -38,13 +38,10 @@ function About() {
       price,
       spaceIncludes,
     } = location;
-    console.log('🚀 ~ About ~ spaceIncludes:', spaceIncludes);
-
-    const includes = spaceIncludes?.docs || [];
 
     const spaceIncludesItems = isReadModeSpaceIncludes
-      ? includes
-      : includes!.slice(0, SPACE_INCLUDE_ITEMS_COUNT);
+      ? spaceIncludes
+      : spaceIncludes!.slice(0, SPACE_INCLUDE_ITEMS_COUNT);
 
     return (
       <div>
@@ -92,24 +89,6 @@ function About() {
                 <EnguireForm />
               </div>
             </div>
-            {/* <div className="flex justify-between p-7 border-y border-y-mainGrey-600">
-              <div className="flex items-center justify-start gap-[16px]">
-                {logo && (
-                  <Image
-                    className="object-cover w-[44px] h-[44px]"
-                    src={logo.url}
-                    width={44}
-                    height={44}
-                    alt="about space"
-                  />
-                )}
-                <span>{hostName}</span>
-              </div>
-
-              <button className="py-1 px-4 text-xs border border-black">
-                See more
-              </button>
-            </div> */}
             {about && (
               <div className="px-3">
                 <h1 className="text-xl font-bold py-4 max-lg:text-xl text-black">
@@ -131,7 +110,7 @@ function About() {
               </div>
             )}
             <Categories />
-            {!!includes.length && (
+            {spaceIncludes && !!spaceIncludes.length && (
               <div className="mt-11 px-4 max-xl:px-0">
                 <h1 className="text-2xl font-semibold pb-8 max-lg:text-xl text-black">
                   This space includes
@@ -141,7 +120,7 @@ function About() {
                     <div key={index}>{text}</div>
                   ))}
                 </div>
-                {includes.length > SPACE_INCLUDE_ITEMS_COUNT && (
+                {spaceIncludes.length > SPACE_INCLUDE_ITEMS_COUNT && (
                   <button
                     onClick={toggleSpaceIncludes}
                     className="text-xl font-semibold underline mt-6 px-4"

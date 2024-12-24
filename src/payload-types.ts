@@ -25,16 +25,13 @@ export interface Config {
     'map-image': MapImage;
     location: Location;
     currency: Currency;
-    spaceIncludes: SpaceInclude;
+    'space-include': SpaceInclude;
     admin: Admin;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
   collectionsJoins: {
-    venue: {
-      spaceIncludes: 'spaceIncludes';
-    };
     'owner-profile': {
       venues: 'venue';
     };
@@ -56,7 +53,7 @@ export interface Config {
     'map-image': MapImageSelect<false> | MapImageSelect<true>;
     location: LocationSelect<false> | LocationSelect<true>;
     currency: CurrencySelect<false> | CurrencySelect<true>;
-    spaceIncludes: SpaceIncludesSelect<false> | SpaceIncludesSelect<true>;
+    'space-include': SpaceIncludeSelect<false> | SpaceIncludeSelect<true>;
     admin: AdminSelect<false> | AdminSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -150,10 +147,7 @@ export interface Venue {
   rating?: number | null;
   galleryImages?: (number | GalleryMedia)[] | null;
   address: string;
-  spaceIncludes?: {
-    docs?: (number | SpaceInclude)[] | null;
-    hasNextPage?: boolean | null;
-  } | null;
+  spaceIncludes?: (number | SpaceInclude)[] | null;
   policy?: string | null;
   policyDays?: number | null;
   tags?: (number | Tag)[] | null;
@@ -261,12 +255,11 @@ export interface GalleryMedia {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "spaceIncludes".
+ * via the `definition` "space-include".
  */
 export interface SpaceInclude {
   id: number;
   text?: string | null;
-  spaceIncludesGroup?: (number | null) | Venue;
   updatedAt: string;
   createdAt: string;
 }
@@ -462,7 +455,7 @@ export interface PayloadLockedDocument {
         value: number | Currency;
       } | null)
     | ({
-        relationTo: 'spaceIncludes';
+        relationTo: 'space-include';
         value: number | SpaceInclude;
       } | null)
     | ({
@@ -754,11 +747,10 @@ export interface CurrencySelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "spaceIncludes_select".
+ * via the `definition` "space-include_select".
  */
-export interface SpaceIncludesSelect<T extends boolean = true> {
+export interface SpaceIncludeSelect<T extends boolean = true> {
   text?: T;
-  spaceIncludesGroup?: T;
   updatedAt?: T;
   createdAt?: T;
 }
