@@ -33,10 +33,10 @@ function SearchBar({ withMobileSearchBar }: { withMobileSearchBar: boolean }) {
   );
 
   const value = useMemo(() => {
-    return [currentActivity?.name, currentLocation?.name]
+    return [currentActivity?.title, currentLocation?.name]
       .filter(Boolean)
       .join(', ');
-  }, [currentLocation?.name, currentActivity?.name]);
+  }, [currentLocation?.name, currentActivity?.title]);
 
   return (
     <div
