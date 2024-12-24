@@ -209,6 +209,7 @@ export const Venue: CollectionConfig = {
             {
               name: 'geo',
               type: 'point',
+              hidden: true,
             },
           ],
         },
