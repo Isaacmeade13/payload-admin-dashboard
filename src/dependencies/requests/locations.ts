@@ -11,47 +11,13 @@ type getLocationsAPIProps = {
   isSuperHost: string;
   isFlexible: string;
   activity: string | undefined | null;
+  baseUrl?: string;
 };
 
 type Params = {
-  pagination: {
-    pageSize?: number;
-  };
-  populate: string[];
-  'filters[location_names]'?: {
-    documentId: {
-      $eq: string | null | undefined;
-    };
-  };
-  'filters[activities]'?: {
-    documentId: {
-      $eq: string | null | undefined;
-    };
-  };
-  filters: {
-    $and?:
-      | {
-          types: {
-            documentId: {
-              $eq: string;
-            };
-          };
-        }[]
-      | undefined;
-    guests: {
-      $gte: string | null | undefined;
-    };
-    price: {
-      $gte: string | null | undefined;
-      $lte: string | null | undefined;
-    };
-    isSuperHost?: {
-      $eq: string;
-    };
-    isFlexible?: {
-      $eq: string;
-    };
-  };
+  where: { and: any[] };
+  limit: number;
+  draft: boolean;
 };
 
 export const getLocationsAPI = async ({
@@ -63,66 +29,60 @@ export const getLocationsAPI = async ({
   isSuperHost,
   isFlexible,
   activity,
+  baseUrl = '/api',
 }: getLocationsAPIProps): Promise<LocationData[] | undefined> => {
   try {
+    const where: any = { and: [] };
     const params: Params = {
-      pagination: { pageSize: 100 },
-      populate: ['images', 'logo', 'types'],
-
-      filters: {
-        guests: {
-          $gte: minGuestsCount,
-        },
-        price: {
-          $gte: minPrice,
-          $lte: maxPrice,
-        },
-      },
+      where,
+      limit: 100,
+      draft: false,
     };
 
     if (filterIds?.length) {
-      params['filters']['$and'] = filterIds?.split(',').map((id) => ({
-        types: {
-          documentId: {
-            $eq: id,
-          },
-        },
-      }));
+      const ids = filterIds.split(',');
+      ids.forEach((id) => {
+        where.and.push({ tags: { contains: id } });
+      });
     }
 
     if (locationNameId?.length) {
-      params['filters[location_names]'] = {
-        documentId: {
-          $eq: locationNameId,
-        },
-      };
+      where.and.push({ locations: { contains: locationNameId } });
+    }
+
+    if (minGuestsCount) {
+      where.and.push({
+        maxGuestsCount: { greater_than_equal: minGuestsCount },
+      });
     }
 
     if (activity) {
-      params['filters[activities]'] = {
-        documentId: {
-          $eq: activity,
-        },
-      };
+      where.and.push({ activities: { contains: activity } });
     }
 
     if (isSuperHost && isSuperHost === 'true') {
-      params['filters']['isSuperHost'] = {
-        $eq: isSuperHost,
-      };
+      where.and.push({ isSuperHost: { equals: true } });
     }
 
     if (isFlexible && isFlexible === 'true') {
-      params['filters']['isFlexible'] = {
-        $eq: isFlexible,
-      };
+      where.and.push({ isFlexible: { equals: true } });
     }
 
-    const { data: res } = await axiosInstance.get('/locations', {
+    if (minPrice || maxPrice) {
+      if (minPrice) {
+        where.and.push({ 'price.value': { greater_than_equal: minPrice } });
+      }
+
+      if (maxPrice) {
+        where.and.push({ 'price.value': { less_than_equal: maxPrice } });
+      }
+    }
+
+    const { data: res } = await axiosInstance.get(`${baseUrl}/venue`, {
       params,
     });
 
-    return res.data;
+    return res.docs;
   } catch (error) {
     console.error('🚀 ~ error:', error);
     return;

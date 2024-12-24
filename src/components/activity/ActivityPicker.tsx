@@ -16,13 +16,13 @@ import { Dispatch, SetStateAction, useState } from 'react';
 type ActivityPickerProps = {
   selectedActivity:
     | WithStrapiFields<{
-        name: string;
+        title: string;
       }>
     | undefined;
   setSelectedActivity: Dispatch<
     SetStateAction<
       | WithStrapiFields<{
-          name: string;
+          title: string;
         }>
       | undefined
     >
@@ -39,17 +39,17 @@ function ActivityPicker({
     query === ''
       ? activities
       : activities.filter((activity) => {
-          return activity.name.toLowerCase().includes(query.toLowerCase());
+          return activity.title.toLowerCase().includes(query.toLowerCase());
         });
 
   return (
     <Combobox
       as="div"
       className="w-full"
-      value={selectedActivity?.name}
+      value={selectedActivity?.title}
       onChange={(activity) => {
         setQuery('');
-        const newActivity = activities.find((act) => act.name === activity);
+        const newActivity = activities.find((act) => act.title === activity);
         if (newActivity) {
           setSelectedActivity(newActivity);
         }
@@ -76,12 +76,12 @@ function ActivityPicker({
           <ComboboxOptions className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
             {filteredActivities.map((activity) => (
               <ComboboxOption
-                key={activity.documentId}
-                value={activity.name}
+                key={activity.id}
+                value={activity.title}
                 className="group relative cursor-default select-none py-2 pl-3 pr-9 text-gray-900 data-[focus]:bg-mainGrey-300 data-[focus]:text-white"
               >
                 <span className="block truncate group-data-[selected]:font-semibold">
-                  {activity.name}
+                  {activity.title}
                 </span>
                 <span className="absolute inset-y-0 right-0 hidden items-center pr-4 text-indigo-600 group-data-[selected]:flex group-data-[focus]:text-white">
                   <CheckIcon className="h-5 w-5" aria-hidden="true" />

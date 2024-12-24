@@ -3,7 +3,7 @@ export const guests = [
   { min: 11, max: 25, title: '11 to 25' },
   { min: 26, max: 50, title: '26 to 50' },
   { min: 51, max: 100, title: '51 to 100' },
-  { max: 101, title: 'over 100' },
+  { min: 101, title: 'over 100' },
 ];
 
 export const price = [

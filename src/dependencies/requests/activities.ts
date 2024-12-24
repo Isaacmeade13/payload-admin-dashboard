@@ -1,18 +1,22 @@
 import axiosInstance from '@/dependencies/axios';
 import { ActivityData } from '@/dependencies/types';
 
-export const getActivitiesAPI = async (): Promise<
-  ActivityData[] | undefined
-> => {
+type getActivitiesAPIProps = {
+  baseUrl?: string;
+};
+
+export const getActivitiesAPI = async ({
+  baseUrl = '/api',
+}: getActivitiesAPIProps): Promise<ActivityData[] | undefined> => {
   try {
     const params = {
-      pagination: { pageSize: 250 },
+      limit: 250,
     };
 
-    const { data: res } = await axiosInstance.get('/activities', {
+    const { data: res } = await axiosInstance.get(`${baseUrl}/activity`, {
       params,
     });
-    return res.data;
+    return res.docs;
   } catch (error) {
     console.error('🚀 ~ error:', error);
     return;

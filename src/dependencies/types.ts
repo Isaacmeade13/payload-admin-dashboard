@@ -7,41 +7,29 @@ export type WithStrapiFields<T> = T & {
 };
 
 export type TypeData = WithStrapiFields<{
-  name: string;
+  title: string;
+}>;
+
+export type ActivitieData = WithStrapiFields<{
+  title: string;
+  type: TypeData;
+  priceRange: string;
 }>;
 
 export type FilterData = WithStrapiFields<{
   title: string;
-  types: TypeData[];
+  tags: { docs: TypeData[] };
 }>;
 
 export type ActivityData = WithStrapiFields<{
-  name: string;
+  title: string;
 }>;
 
 export type strapiImage = {
   id: number;
-  documentId: string;
   width: number;
   height: number;
   url: string;
-  formats: {
-    thumbnail: {
-      width: number;
-      height: number;
-      url: string;
-    };
-    small: {
-      width: number;
-      height: number;
-      url: string;
-    };
-    large: {
-      width: number;
-      height: number;
-      url: string;
-    };
-  };
 };
 
 export type LocationName = WithStrapiFields<{
@@ -50,31 +38,29 @@ export type LocationName = WithStrapiFields<{
 
 export type AvailabilityText = {
   isAvailable: boolean;
-  text: string | null;
-  id: number;
+  additionalInfo: string | null;
 };
 
 export type FormData = {
+  date: Date | null;
+  start: Date | null;
+  end: Date | null;
   email: string;
   phone: string;
-  StartTime: Date | null;
-  EndTime: Date | null;
-  Date: Date | null;
-  LocationUrl?: string;
 };
 
 export type FormDataSubmit = {
+  desiredVenue?: number;
+  date: Date | null;
+  start: Date | null;
+  end: Date | null;
   email: string;
   phone: string;
-  StartTime: string;
-  EndTime: string;
-  Date: string;
-  LocationUrl?: string;
 };
 
 export type FormOnboardData = {
   activities?: string;
-  types?: string[];
+  tags?: number[];
   address?: string;
   cancellationPolicy?: string;
   companyName?: string;
@@ -87,6 +73,21 @@ export type FormOnboardData = {
   spaceName?: string;
   standingCapacity?: string;
   venueDescription?: string;
+
+  // companyName: string;
+  // spaceName: string;
+  // venueDescription: string;
+  // address: string;
+  // activities: number[];
+  // tags: number[];
+  // cancellationPolicy: string;
+  // minimumCancellationDuration: string;
+  // operationalHours: string;
+  // pricingModel: string;
+  // seatingCapacity: string;
+  // diningCapacity: string;
+  // standingCapacity: string;
+  // contactInformation: string;
 };
 
 export type OnboardFormItem = {
@@ -94,20 +95,24 @@ export type OnboardFormItem = {
   inputType?: 'input' | 'textArea';
   name: string;
   placeholder?: string;
+  id: number;
 };
 
 export type LocationData = WithStrapiFields<{
-  name: string;
-  price: number;
-  currency: string;
-  address: string;
-  guests: number;
-  isSuperHost: boolean;
-  benefit: string;
+  title: string;
+  price: {
+    value: number;
+    currency: {
+      name: string;
+      symbol: string;
+    };
+  };
+  maxGuestsCount: number;
+  locations: WithStrapiFields<{ name: string }>[];
+  benefits: string;
   rating: number;
-  images: strapiImage[];
-  logo: strapiImage;
-  types: TypeData[];
+  galleryImages: strapiImage[];
+  tags: TypeData[];
   cateringAndDrinks: AvailabilityText;
   tablesAndSeating: AvailabilityText;
   alcoholicBeverages: AvailabilityText;
@@ -117,13 +122,19 @@ export type LocationData = WithStrapiFields<{
   accommodation: AvailabilityText;
   parking: AvailabilityText;
   event: AvailabilityText;
-  hostName: string;
-  sqlft?: number;
-  hour?: number;
+  areaSize?: {
+    value: number;
+    units: string;
+  };
+  address: string;
+  minBookingHours: number;
   about?: string;
-  locationImage?: strapiImage;
+  map?: strapiImage;
   policyText?: string;
   policyDaysCount?: number;
   spaceIncludes?: { text: string }[];
   pricePer?: string;
+  activities: ActivitieData[];
+  isSuperHost: boolean | null;
+  isFlexible: boolean | null;
 }>;

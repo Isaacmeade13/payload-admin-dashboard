@@ -1,16 +1,23 @@
 import axiosInstance from '@/dependencies/axios';
 import { FilterData } from '@/dependencies/types';
 
-export const getFiltersAPI = async (): Promise<FilterData[] | undefined> => {
+type getFiltersAPIProps = {
+  baseUrl?: string;
+};
+
+export const getFiltersAPI = async ({
+  baseUrl = '/api',
+}: getFiltersAPIProps): Promise<FilterData[] | undefined> => {
   try {
     const params = {
-      pagination: { pageSize: 250 },
+      limit: 250,
     };
 
-    const { data: res } = await axiosInstance.get('/filters?populate=types', {
+    const { data: res } = await axiosInstance.get(`${baseUrl}/tag-group`, {
       params,
     });
-    return res.data;
+
+    return res.docs;
   } catch (error) {
     console.error('🚀 ~ error:', error);
     return;

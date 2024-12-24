@@ -3,6 +3,8 @@ import SerpPage from './serpPage';
 import getQueryClient from '@/utils/getQueryClient';
 import { getLocationsKey } from '@/dependencies/cash_key';
 import { getLocationsAPI } from '@/dependencies/requests/locations';
+import { headers } from 'next/headers';
+import { getHeaderDetailsSsr } from '@/utils';
 
 type PageProps = {
   searchParams: Promise<{
@@ -31,6 +33,9 @@ const SSRSerpPage = async ({ searchParams }: PageProps) => {
     activity,
   } = await searchParams;
 
+  const headerList = await headers();
+  const { baseUrl } = getHeaderDetailsSsr(headerList);
+
   const guest = `${minGuestsCount || ''}-${maxGuestsCount || ''}`;
   const price = `${minPrice || ''}-${maxPrice || ''}`;
 
@@ -56,6 +61,7 @@ const SSRSerpPage = async ({ searchParams }: PageProps) => {
         isSuperHost,
         isFlexible,
         activity,
+        baseUrl,
       }),
   });
 

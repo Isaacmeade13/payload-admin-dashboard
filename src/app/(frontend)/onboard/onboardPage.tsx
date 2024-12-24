@@ -22,17 +22,17 @@ function OnboardPage() {
   const { submitForm, isSuccess, isError } = useSubmitOnboardForm();
 
   const [formValues, setFormValues] = useState<FormValues>({});
-  const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
+  const [selectedFilters, setSelectedFilters] = useState<number[]>([]);
 
   const handleInputChange = (name: string, value: string) => {
     setFormValues((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  const handleCheckboxChange = (documentId: string) => {
+  const handleCheckboxChange = (documentId: number) => {
     setSelectedFilters((prevState) =>
       prevState.includes(documentId)
-        ? prevState.filter((id) => id !== documentId)
-        : [...prevState, documentId],
+        ? prevState.filter((id) => id != documentId)
+        : [...prevState, Number(documentId)],
     );
   };
 
@@ -40,7 +40,7 @@ function OnboardPage() {
     e.preventDefault();
     const data = {
       ...formValues,
-      types: selectedFilters,
+      tags: selectedFilters,
     };
     submitForm(data);
   };
@@ -76,7 +76,7 @@ function OnboardPage() {
             Tick the boxes that apply to your space.
           </p>
           <div className="pb-[100px] border-b border-mainGrey-600">
-            {filters.map(({ id, title, types }) => (
+            {filters.map(({ id, title, tags }) => (
               <div
                 key={id}
                 className="mt-2 px-[17px] border-t border-mainGrey-600"
@@ -88,28 +88,25 @@ function OnboardPage() {
                   <fieldset>
                     <legend className="sr-only">{title}</legend>
                     <div className="grid grid-cols-2 gap-y-3.5">
-                      {types.map(({ name, documentId }) => (
-                        <div
-                          key={documentId}
-                          className="relative flex items-start"
-                        >
+                      {tags?.docs.map(({ title, id }) => (
+                        <div key={id} className="relative flex items-start">
                           <div className="flex h-6 items-center">
                             <input
-                              id={documentId}
-                              name={name}
+                              id={`${id}`}
+                              name={title}
                               type="checkbox"
-                              checked={selectedFilters.includes(documentId)}
-                              onChange={() => handleCheckboxChange(documentId)}
+                              checked={selectedFilters.includes(id)}
+                              onChange={() => handleCheckboxChange(id)}
                               aria-describedby={`${name}-description`}
                               className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                             />
                           </div>
                           <div className="mx-3 text-xs leading-6 max-xl:text-[10px]">
                             <label
-                              htmlFor={documentId}
+                              htmlFor={`${id}`}
                               className="font-medium text-gray-900 text-[20px] max-xl:text-[16px]"
                             >
-                              {name}
+                              {title}
                             </label>
                           </div>
                         </div>

@@ -27,12 +27,8 @@ function HomePage() {
     LocationName | undefined
   >(undefined);
   const [selectedFilterIds, setSelectedFilterIds] = useState<string[]>([]);
-  // const [selectedGuestCount, setSelectedGuestCount] = useState<{
-  //   max: number | undefined;
-  //   min: number | undefined;
-  // }>({ min: undefined, max: undefined });
   const [selectedActivity, setSelectedActivity] = useState<
-    WithStrapiFields<{ name: string }> | undefined
+    WithStrapiFields<{ title: string }> | undefined
   >();
 
   const router = useRouter();
@@ -48,8 +44,8 @@ function HomePage() {
 
   const onSearch = useCallback(() => {
     const url = generateSearchUrl({
-      selectedLocation: selectedLocation?.documentId,
-      selectedActivity: selectedActivity?.documentId,
+      selectedLocation: selectedLocation?.id,
+      selectedActivity: selectedActivity?.id,
       selectedFilterIds,
       isSuperHost,
       isFlexible,

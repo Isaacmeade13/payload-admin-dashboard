@@ -14,9 +14,9 @@ import Image from 'next/image';
 
 function EnguireForm() {
   const [formData, setFormData] = useState<FormData>({
-    Date: null,
-    StartTime: null,
-    EndTime: null,
+    date: null,
+    start: null,
+    end: null,
     email: '',
     phone: '',
   });
@@ -25,9 +25,9 @@ function EnguireForm() {
   const { documentId }: { documentId: string } = useParams();
   const { location } = useLocationData(documentId);
 
-  const hour = location?.hour;
-  const price = location?.price;
-  const currency = location?.currency;
+  const hour = location?.minBookingHours;
+  const price = location?.price.value;
+  const currency = location?.price?.currency?.symbol;
   const pricePer = location?.pricePer || 'hr';
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -40,37 +40,10 @@ function EnguireForm() {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const LocationUrl =
-      typeof window !== 'undefined' ? window?.location?.href : '';
-
-    const formatTime = (date: Date | null) =>
-      date
-        ? `${date.getHours()}:${date.getMinutes().toString().padStart(2, '0')}`
-        : '';
-
-    const formatDate = (date: Date | null) =>
-      date
-        ? `${date.getFullYear()}-${(date.getMonth() + 1)
-            .toString()
-            .padStart(2, '0')}-${date.getDay() + 1}`
-        : '';
-
-    const newDate = formData?.Date ? new Date(formData?.Date) : null;
-    const startTimeDate = formData?.StartTime
-      ? new Date(formData?.StartTime)
-      : null;
-    const endTimeDate = formData?.EndTime ? new Date(formData?.EndTime) : null;
-
-    const DateString = formatDate(newDate);
-    const StartTime = formatTime(startTimeDate);
-    const EndTime = formatTime(endTimeDate);
 
     submitForm({
       ...formData,
-      LocationUrl,
-      StartTime,
-      EndTime,
-      Date: DateString,
+      desiredVenue: location!.id,
     });
   };
 
@@ -90,21 +63,21 @@ function EnguireForm() {
         </h3>
         <form action="" onSubmit={handleSubmit}>
           <CustomDatePicker
-            value={formData?.Date}
-            onChange={(Date) => setFormData((prev) => ({ ...prev, Date }))}
+            value={formData?.date}
+            onChange={(date) => setFormData((prev) => ({ ...prev, date }))}
           />
           <div className="mb-4 flex justify-between items-center">
             <CustomTimePicker
-              value={formData?.StartTime}
-              onChange={(StartTime: Date | null) =>
-                setFormData((prev) => ({ ...prev, StartTime }))
+              value={formData?.start}
+              onChange={(start: Date | null) =>
+                setFormData((prev) => ({ ...prev, start }))
               }
               placeholder="Start time"
             />
             <CustomTimePicker
-              value={formData?.EndTime}
-              onChange={(EndTime: Date | null) =>
-                setFormData((prev) => ({ ...prev, EndTime }))
+              value={formData?.end}
+              onChange={(end: Date | null) =>
+                setFormData((prev) => ({ ...prev, end }))
               }
               placeholder="End time"
             />

@@ -24,7 +24,7 @@ const useActivities = (): UseActivities => {
     isSuccess,
   } = useQuery({
     queryKey: getActivitiesKey(),
-    queryFn: getActivitiesAPI,
+    queryFn: () => getActivitiesAPI({}),
   });
 
   return {

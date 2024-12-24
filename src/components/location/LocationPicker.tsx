@@ -11,7 +11,13 @@ import {
   Label,
 } from '@headlessui/react';
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
-import { Dispatch, ReactElement, SetStateAction, useCallback, useState } from 'react'
+import {
+  Dispatch,
+  ReactElement,
+  SetStateAction,
+  useCallback,
+  useState,
+} from 'react';
 
 type LocationPickerProps = {
   setSelectedLocation: Dispatch<SetStateAction<LocationName | undefined>>;
@@ -69,7 +75,7 @@ const LocationPicker = ({
           <ComboboxOptions className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
             {filteredLocations.map((loc) => (
               <ComboboxOption
-                key={loc.documentId}
+                key={loc.id}
                 value={loc.name}
                 className="group relative cursor-default select-none py-2 pl-3 pr-9 text-gray-900 data-[focus]:bg-mainGrey-300 data-[focus]:text-white"
               >

@@ -4,17 +4,22 @@ import getQueryClient from '@/utils/getQueryClient';
 import { getFiltersKey, getLocationNamesKey } from '@/dependencies/cash_key';
 import { getFiltersAPI } from '@/dependencies/requests/filters';
 import { getLocationNamesAPI } from '@/dependencies/requests/locationNames';
+import { headers } from 'next/headers';
+import { getHeaderDetailsSsr } from '@/utils';
 
 const SSRHomePage = async () => {
+  const headerList = await headers();
+  const { baseUrl } = getHeaderDetailsSsr(headerList);
+
   const queryClient = getQueryClient();
   await queryClient.prefetchQuery({
     queryKey: getFiltersKey(),
-    queryFn: getFiltersAPI,
+    queryFn: () => getFiltersAPI({ baseUrl }),
   });
 
   await queryClient.prefetchQuery({
     queryKey: getLocationNamesKey(),
-    queryFn: getLocationNamesAPI,
+    queryFn: () => getLocationNamesAPI({ baseUrl }),
   });
 
   const dehydratedState = dehydrate(queryClient);

@@ -17,9 +17,9 @@ function Gallery() {
   const [openCarousel, setOpenCarousel] = useState(false);
 
   if (isSuccess && location) {
-    const { images } = location;
+    const { galleryImages } = location;
 
-    const showedImages = images.slice(0, MAX_GALLERY_ITEMS);
+    const showedImages = galleryImages.slice(0, MAX_GALLERY_ITEMS);
     const imageCount = showedImages.length;
 
     return (
@@ -30,7 +30,7 @@ function Gallery() {
             const pos = getPosition(index, imageCount);
             return (
               <button
-                key={img.documentId}
+                key={img.id}
                 onClick={() => setOpenCarousel(true)}
                 className={getImageClasses(pos, isBlurred, index)}
               >
@@ -48,18 +48,18 @@ function Gallery() {
             onClick={() => setOpenCarousel(true)}
             className="absolute right-0 bottom-0 m-8 p-2 max-w-[100px] bg-mainGrey-100 text-white text-xs font-semibold max-xl:hidden"
           >
-            View all {images.length} photos
+            View all {galleryImages.length} photos
           </button>
           <button
             onClick={() => setOpenCarousel(true)}
             className="hidden absolute right-[11px] bottom-[11px] p-2 max-w-[100px] bg-mainGrey-100 text-white text-xs font-semibold max-xl:block bg-opacity-10 rounded-[5px]"
           >
-            1 / {images.length}
+            1 / {galleryImages.length}
           </button>
         </div>
 
         <Carousel
-          imageSrcs={images}
+          imageSrcs={galleryImages}
           open={openCarousel}
           setOpen={setOpenCarousel}
         />

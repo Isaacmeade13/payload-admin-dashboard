@@ -28,14 +28,15 @@ function About() {
 
   if (isSuccess && location) {
     const {
-      name,
+      title,
       address,
       rating,
-      guests,
-      hour,
-      sqlft,
+      maxGuestsCount,
+      minBookingHours,
+      areaSize,
       about,
-      spaceIncludes,
+      // TODO: about
+      spaceIncludes = [],
       pricePer,
     } = location;
 
@@ -49,7 +50,7 @@ function About() {
           <div className="w-auto max-w-[900px]">
             <div className="pb-6">
               <h1 className="text-2xl font-semibold max-xl:text-base text-black">
-                {name}
+                {title}
               </h1>
               <div className="text-mainGrey-100 py-4 max-xl:text-sm flex items-center justify-start gap-[3px]">
                 <Image
@@ -67,22 +68,22 @@ function About() {
                   imageFirst={true}
                 />
                 <InfoItem
-                  value={guests}
+                  value={maxGuestsCount}
                   suffixText=" people"
                   iconSrc={peopleIcon}
                   altText="people"
                 />
                 <InfoItem
-                  value={hour}
+                  value={minBookingHours}
                   suffixText={`${pricePer || 'hr'} minimum`}
                   iconSrc={timeIcon}
                   altText="time"
                 />
                 <InfoItem
-                  value={sqlft}
-                  suffixText=" sqft"
+                  value={areaSize?.value}
+                  suffixText={` ${areaSize?.units}`}
                   iconSrc={sqftIcon}
-                  altText="sqft"
+                  altText={` ${areaSize?.units}`}
                 />
               </div>
               <div className="hidden max-xl:block">

@@ -6,8 +6,8 @@ function Location() {
   const { documentId }: { documentId: string } = useParams();
   const { location, isSuccess } = useLocationData(documentId);
 
-  if (isSuccess && location?.locationImage?.url) {
-    const imageUrl = location.locationImage.url;
+  if (isSuccess && location?.map?.url) {
+    const imageUrl = location.map.url;
     return (
       <div className="mt-11 px-4 max-xl:px-0 mb-[5%]">
         <h1 className="text-2xl font-bold py-4 text-black max-xl:text-xl">

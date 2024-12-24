@@ -11,8 +11,12 @@ type getLocationsAPIProps = {
   isSuperHost: string;
   isFlexible: string;
   activity: string | undefined | null;
+  baseUrl?: string;
 };
-const _generateFilters = ({
+
+type Params = { where: any[]; limit: number; draft: boolean };
+
+export const getRemainingLocationsAPI = async ({
   locationNameId,
   filterIds,
   maxPrice,
@@ -21,102 +25,67 @@ const _generateFilters = ({
   isFlexible,
   activity,
   minGuestsCount,
-}: getLocationsAPIProps) => {
-  const filters = [];
-  const ors = [];
-
-  if (filterIds?.length) {
-    ors.push({
-      $or: filterIds?.split(',').map((id) => ({
-        types: {
-          documentId: {
-            $ne: id,
-          },
-        },
-      })),
-    });
-  }
-
-  if (minGuestsCount) {
-    ors.push({
-      $or: [{ guests: { $lt: minGuestsCount } }],
-    });
-  }
-
-  if (maxPrice || minPrice) {
-    ors.push({
-      $or: [
-        { price: { ...(maxPrice && { $gt: maxPrice }) } },
-        { price: { ...(minPrice && { $lt: minPrice }) } },
-      ],
-    });
-  }
-
-  if (activity) {
-    ors.push({
-      $or: [
-        {
-          activities: {
-            documentId: {
-              $ne: activity,
-            },
-          },
-        },
-        { activities: { $eq: [] } },
-        { activities: { $null: true } },
-      ],
-    });
-  }
-
-  if (locationNameId) {
-    ors.push({
-      $or: [
-        {
-          location_names: {
-            documentId: {
-              $notContains: locationNameId,
-            },
-          },
-        },
-        { location_names: { $eq: [] } },
-        { location_names: { $null: true } },
-      ],
-    });
-  }
-
-  if (isSuperHost === 'true') {
-    filters.push({ isSuperHost: { $ne: true } });
-  }
-
-  if (isFlexible === 'true') {
-    filters.push({ isFlexible: { $ne: true } });
-  }
-
-  return [filters, ors];
-};
-
-export const getRemainingLocationsAPI = async (
-  props: getLocationsAPIProps,
-): Promise<LocationData[] | undefined> => {
+  baseUrl,
+}: getLocationsAPIProps): Promise<LocationData[] | undefined> => {
   try {
-    const [filters, ors] = _generateFilters(props);
+    const url = baseUrl || '/api';
 
-    if (!filters.length && !ors.length) {
+    if (
+      !locationNameId &&
+      !filterIds &&
+      !maxPrice &&
+      !minPrice &&
+      !isFlexible &&
+      !isSuperHost &&
+      !activity &&
+      !minGuestsCount
+    ) {
       return [];
     }
 
-    const params = {
-      randomSort: true,
-      populate: ['images', 'logo', 'types', 'location_names'],
-      filters: { $and: filters, $or: ors },
-      pagination: { pageSize: 100 },
+    const where: any = { and: [], or: [] };
+    const params: Params = {
+      where,
+      limit: 99,
+      draft: false,
     };
 
-    const { data: res } = await axiosInstance.get('/locations', {
+    if (locationNameId?.length) {
+      where.and.push({ locations: { not_in: [locationNameId] } });
+    }
+
+    if (minGuestsCount) {
+      where.and.push({
+        maxGuestsCount: { less_than: minGuestsCount },
+      });
+    }
+
+    if (activity) {
+      where.and.push({ activities: { not_in: [activity] } });
+    }
+
+    if (isSuperHost && isSuperHost === 'true') {
+      where.and.push({ isSuperHost: { equals: false } });
+    }
+
+    if (isFlexible && isFlexible === 'true') {
+      where.and.push({ isFlexible: { equals: false } });
+    }
+
+    if (minPrice || maxPrice) {
+      if (minPrice) {
+        where.or.push({ 'price.value': { less_than: minPrice } });
+      }
+      if (maxPrice) {
+        where.or.push({ 'price.value': { greater_than: maxPrice } });
+      }
+    }
+
+    const { data: res } = await axiosInstance.get(`${url}/venue`, {
       params,
     });
 
-    return res.data;
+    return res.docs;
   } catch (error) {
     console.error('🚀 ~ error:', error);
     return;

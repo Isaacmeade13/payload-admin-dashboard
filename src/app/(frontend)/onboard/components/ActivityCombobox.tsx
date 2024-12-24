@@ -15,8 +15,8 @@ const ActivityCombobox: React.FC<ActivityComboboxProps> = ({
 }) => {
   const handleComboboxChange = (activity: ActivityData) => {
     setSelectedActivities((prevSelected) => {
-      if (prevSelected.some((a) => a.documentId === activity?.documentId)) {
-        return prevSelected.filter((a) => a.documentId !== activity.documentId);
+      if (prevSelected.some((a) => a.id == activity?.id)) {
+        return prevSelected.filter((a) => a.id != activity.id);
       } else {
         return [...prevSelected, activity];
       }
@@ -30,7 +30,7 @@ const ActivityCombobox: React.FC<ActivityComboboxProps> = ({
       .filter(Boolean);
 
     const filteredActivities = activities.filter((activity) =>
-      inputValues.includes(activity.name),
+      inputValues.includes(activity.title),
     );
 
     setSelectedActivities(filteredActivities);
@@ -52,7 +52,7 @@ const ActivityCombobox: React.FC<ActivityComboboxProps> = ({
             className="bg-mainGrey-400 w-full min-h-[61px] text-[20px] px-[17px] rounded-[6px] focus:ring-0"
             onChange={handleInputChange}
             displayValue={() => {
-              const val = selectedActivities.map((a) => a?.name).join(', ');
+              const val = selectedActivities.map((a) => a?.title).join(', ');
               return val.length > 70 ? `${val.slice(0, 70)}...` : val;
             }}
           />
@@ -66,7 +66,7 @@ const ActivityCombobox: React.FC<ActivityComboboxProps> = ({
             <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
               {activities.map((activity) => (
                 <Combobox.Option
-                  key={activity.documentId}
+                  key={activity.id}
                   value={activity}
                   className={({ active }) =>
                     `relative cursor-default select-none py-2 pl-3 pr-9 ${
@@ -76,7 +76,7 @@ const ActivityCombobox: React.FC<ActivityComboboxProps> = ({
                 >
                   {({ active }) => {
                     const isSelected = selectedActivities.some(
-                      (a) => a?.documentId === activity?.documentId,
+                      (a) => a?.id === activity?.id,
                     );
                     return (
                       <>
@@ -85,7 +85,7 @@ const ActivityCombobox: React.FC<ActivityComboboxProps> = ({
                             isSelected ? 'font-semibold' : ''
                           }`}
                         >
-                          {activity?.name}
+                          {activity?.title}
                         </span>
                         {isSelected && (
                           <span
@@ -119,10 +119,10 @@ const SelectedActivities: React.FC<SelectedActivitiesProps> = ({
   <div className="mt-4 flex flex-wrap gap-2">
     {selectedActivities.map((activity) => (
       <div
-        key={activity.documentId}
+        key={activity.id}
         className="bg-mainGrey-400 rounded-[5px] px-[15px] py-1"
       >
-        {activity?.name}
+        {activity?.title}
       </div>
     ))}
   </div>

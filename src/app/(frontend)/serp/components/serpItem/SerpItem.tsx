@@ -17,28 +17,34 @@ type SerpItemProps = {
 const MAX_BENEFIT_LENGTH = 100;
 
 function SerpItem({ location }: SerpItemProps) {
-  const { isSuperHost, price, currency, benefit, guests, images, pricePer } =
-    location;
+  const {
+    isSuperHost,
+    price,
+    benefits,
+    maxGuestsCount,
+    galleryImages,
+    pricePer,
+  } = location;
   const [imageIndex, setImageIndex] = useState(0);
-  const placeRoute = `${ROUTES.place}/${location.documentId}`;
-  const imageSrc = images?.[imageIndex]?.url;
-  const isButtonsActive = images?.length > 1;
+  const placeRoute = `${ROUTES.place}/${location.id}`;
+  const imageSrc = galleryImages?.[imageIndex]?.url;
+  const isButtonsActive = galleryImages?.length > 1;
   const searchParams = useSearchParams();
   const currentQuery = Object.fromEntries(searchParams.entries());
   const handleNext = useCallback(() => {
-    if (imageIndex + 1 < images?.length) {
+    if (imageIndex + 1 < galleryImages?.length) {
       return setImageIndex((prev) => prev + 1);
     }
     setImageIndex(0);
-  }, [imageIndex, images?.length]);
+  }, [imageIndex, galleryImages?.length]);
 
   const handlePrev = useCallback(() => {
     if (imageIndex === 0) {
-      const lastIndex = images?.length - 1;
+      const lastIndex = galleryImages?.length - 1;
       return setImageIndex(lastIndex);
     }
     setImageIndex((prev) => prev - 1);
-  }, [imageIndex, images?.length]);
+  }, [imageIndex, galleryImages?.length]);
 
   return (
     <div className="flex flex-col max-lg:border-b max-lg:border-mainGrey-600 max-lg:pb-[22px] p-0 max-lg:p-6">
@@ -94,18 +100,18 @@ function SerpItem({ location }: SerpItemProps) {
             </span>
           )}
           <span className="absolute bottom-4 right-3.5 rounded-xl px-3 bg-mainGrey-100 py-2 text-sm text-white font-semibold ">
-            from {currency}
-            {price}/{pricePer || 'hr'}
+            from {price?.currency?.symbol}
+            {price.value}/{pricePer || 'hr'}
           </span>
         </div>
         <div className="h-[228px] px-6 max-lg:px-0 max-lg:h-auto w-full">
-          {benefit && (
+          {benefits && (
             <div className="p-3.5 mt-3 max-w-[333px] max-h-[100px] h-fit border border-mainGrey-600 rounded-md text-center max-lg:absolute max-lg:top-[13px] max-lg:left-[13px] max-lg:bg-white max-lg:max-h-[66px] max-lg:w-[224px] overflow-hidden shadow-lg mb-[24px]">
               <h1 className="text-mainGrey-100 font-semibold max-lg:text-[9px]">
                 Benefits with Eventcage!
               </h1>
               <p className="text-xs max-lg:text-[8px]">
-                {truncateText(benefit, MAX_BENEFIT_LENGTH)}
+                {truncateText(benefits, MAX_BENEFIT_LENGTH)}
               </p>
             </div>
           )}
@@ -114,14 +120,14 @@ function SerpItem({ location }: SerpItemProps) {
           </div>
           <div className="flex justify-between divide-x divide-mainGrey-600 text-mainGrey-100 font-semibold text-center max-lg:justify-between">
             <div className="h-fit p-5 max-lg:bg-mainGrey-100 max-lg:text-white max-lg:rounded-[23px] max-lg:h-[21px] max-lg:flex max-lg:items-center max-lg:justify-center max-lg:text-[13px] max-lg:py-[2px] max-lg:px-[10px]">
-              From {currency}
-              {price}/{pricePer || 'hr'}
+              From {price?.currency?.symbol}
+              {price?.value}/{pricePer || 'hr'}
             </div>
-            {!!guests && (
+            {!!maxGuestsCount && (
               <>
                 <div className="max-lg:hidden" />
                 <div className="h-fit p-5 border-none max-lg:bg-mainGrey-100 max-lg:text-white max-lg:rounded-[23px] max-lg:h-[21px] max-lg:flex max-lg:items-center max-lg:justify-center max-lg:text-[13px] max-lg:py-[2px] max-lg:px-[10px]">
-                  Fits {guests} guests
+                  Fits {maxGuestsCount} guests
                 </div>
               </>
             )}

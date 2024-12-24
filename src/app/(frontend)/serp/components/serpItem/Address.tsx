@@ -9,12 +9,12 @@ type AddressProps = {
 };
 
 function Address({ location }: AddressProps) {
-  const { address, name, rating } = location;
+  const { address, rating, title } = location;
 
   return (
     <div className="flex flex-wrap flex-col max-lg:flex-col max-lg:items-start max-lg:justify-center">
       <div className="flex items-center justify-start gap-[12px]">
-        <h1 className="font-semibold max-lg:text-[15px]">{name}</h1>
+        <h1 className="font-semibold max-lg:text-[15px]">{title}</h1>
         {!!rating && (
           <div className="hidden items-center justify-center gap-[3px] max-lg:flex">
             <Image src={starIcon} alt="Logo" className="h-[20px] w-[20px]" />

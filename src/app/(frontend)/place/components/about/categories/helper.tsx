@@ -41,7 +41,7 @@ function createItemsWithIcons({
       isAvailable: cateringAndDrinks.isAvailable,
       id: 'cateringAndDrinks',
       title: 'Catering and Drinks',
-      desc: cateringAndDrinks.text,
+      desc: cateringAndDrinks.additionalInfo,
       icon: (
         <CateringAndDrinksIcon
           color={getIconColor(cateringAndDrinks.isAvailable)}
@@ -54,7 +54,7 @@ function createItemsWithIcons({
       isAvailable: alcoholicBeverages.isAvailable,
       id: 'alcoholicBeverages',
       title: 'Alcoholic Beverages',
-      desc: alcoholicBeverages.text,
+      desc: alcoholicBeverages.additionalInfo,
       icon: (
         <AlcoholicBeveragesIcon
           color={getIconColor(alcoholicBeverages.isAvailable)}
@@ -68,7 +68,7 @@ function createItemsWithIcons({
       isAvailable: tablesAndSeating.isAvailable,
       id: 'tablesAndSeating',
       title: 'Tables and Seating',
-      desc: tablesAndSeating.text,
+      desc: tablesAndSeating.additionalInfo,
       icon: (
         <TablesAndSeatingIcon
           color={getIconColor(tablesAndSeating.isAvailable)}
@@ -82,7 +82,7 @@ function createItemsWithIcons({
       isAvailable: restrooms.isAvailable,
       id: 'restrooms',
       title: 'Restrooms',
-      desc: restrooms.text,
+      desc: restrooms.additionalInfo,
       icon: <RestroomsIcon color={getIconColor(restrooms.isAvailable)} />,
     });
   }
@@ -92,7 +92,7 @@ function createItemsWithIcons({
       isAvailable: musicAndAV.isAvailable,
       id: 'musicAndAV',
       title: 'Music and AV',
-      desc: musicAndAV.text,
+      desc: musicAndAV.additionalInfo,
       icon: <MusicAndAVIcon color={getIconColor(musicAndAV.isAvailable)} />,
     });
   }
@@ -102,7 +102,7 @@ function createItemsWithIcons({
       isAvailable: allowedEvents.isAvailable,
       id: 'allowedEvents',
       title: 'Allowed events',
-      desc: allowedEvents.text,
+      desc: allowedEvents.additionalInfo,
       icon: (
         <AllowedEventsIcon color={getIconColor(allowedEvents.isAvailable)} />
       ),
@@ -114,7 +114,7 @@ function createItemsWithIcons({
       isAvailable: accommodation.isAvailable,
       id: 'accommodation',
       title: 'Accommodation',
-      desc: accommodation.text,
+      desc: accommodation.additionalInfo,
       icon: (
         <AccommodationIcon color={getIconColor(accommodation.isAvailable)} />
       ),
@@ -126,7 +126,7 @@ function createItemsWithIcons({
       isAvailable: parking.isAvailable,
       id: 'parking',
       title: 'Parking',
-      desc: parking.text,
+      desc: parking.additionalInfo,
       icon: <ParkingIcon color={getIconColor(parking.isAvailable)} />,
     });
   }
@@ -136,7 +136,7 @@ function createItemsWithIcons({
       isAvailable: event.isAvailable,
       id: 'event',
       title: 'Event / Host rules',
-      desc: event.text,
+      desc: event.additionalInfo,
       icon: <EventIcon color={getIconColor(event.isAvailable)} />,
     });
   }

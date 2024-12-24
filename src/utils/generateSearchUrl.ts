@@ -9,13 +9,13 @@ interface SelectedPrice {
 }
 
 interface GenerateSearchUrlParams {
-  selectedLocation?: string | undefined;
+  selectedLocation?: string | number | undefined;
   selectedFilterIds?: string[];
   selectedGuestCount?: SelectedGuestCount;
   selectedPrice?: SelectedPrice;
   isSuperHost?: boolean;
   isFlexible?: boolean;
-  selectedActivity?: string | null | undefined;
+  selectedActivity?: string | number | null | undefined;
 }
 
 export function generateSearchUrl({
@@ -29,12 +29,12 @@ export function generateSearchUrl({
 }: GenerateSearchUrlParams): string {
   const url = new URL('/serp', window.location.origin);
 
-  if (selectedLocation?.length) {
-    url.searchParams.set('locationName', selectedLocation);
+  if (selectedLocation) {
+    url.searchParams.set('locationName', String(selectedLocation));
   }
 
-  if (selectedActivity?.length) {
-    url.searchParams.set('activity', selectedActivity);
+  if (selectedActivity) {
+    url.searchParams.set('activity', String(selectedActivity));
   }
 
   if (selectedFilterIds && selectedFilterIds?.length > 0) {

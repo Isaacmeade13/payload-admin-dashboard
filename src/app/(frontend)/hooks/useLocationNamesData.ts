@@ -24,7 +24,7 @@ const useLocationNamesData = (): UseLocationNamesData => {
     isSuccess,
   } = useQuery({
     queryKey: getLocationNamesKey(),
-    queryFn: getLocationNamesAPI,
+    queryFn: () => getLocationNamesAPI({}),
   });
 
   return {

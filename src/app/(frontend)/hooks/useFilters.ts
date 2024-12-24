@@ -24,7 +24,7 @@ const useFiltersData = (): UseFiltersData => {
     isSuccess,
   } = useQuery({
     queryKey: getFiltersKey(),
-    queryFn: getFiltersAPI,
+    queryFn: () => getFiltersAPI({}),
   });
 
   return {

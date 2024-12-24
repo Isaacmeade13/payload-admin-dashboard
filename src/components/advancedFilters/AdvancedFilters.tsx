@@ -56,15 +56,15 @@ const AdvancedFilters = ({
       const filter = filters.find((filter) => filter.id === filterId);
       if (!filter) return false;
 
-      return filter.types.length > LESS_ITEMS_COUNT;
+      return filter?.tags?.docs.length > LESS_ITEMS_COUNT;
     },
     [filters],
   );
 
   const getVisibleTypes = useCallback(
-    (types: FilterData['types'], itemId: number) => {
+    (docs: FilterData['tags']['docs'], itemId: number) => {
       const isExpanded = expandedFilters[itemId];
-      return isExpanded ? types : types.slice(0, LESS_ITEMS_COUNT);
+      return isExpanded ? docs : docs?.slice(0, LESS_ITEMS_COUNT);
     },
     [expandedFilters],
   );
@@ -106,7 +106,7 @@ const AdvancedFilters = ({
                   </button>
                 </div>
               </DialogTitle>
-              {filters.map(({ id, title, types }, i) => (
+              {filters.map(({ id, title, tags }, i) => (
                 <div
                   key={id}
                   className={clsx('px-[17px]', {
@@ -118,20 +118,18 @@ const AdvancedFilters = ({
                     <fieldset>
                       <legend className="sr-only">Filters</legend>
                       <div className="grid grid-cols-2 gap-y-3.5">
-                        {getVisibleTypes(types, id).map(
-                          ({ name, documentId }, index) => (
+                        {getVisibleTypes(tags?.docs, id).map(
+                          ({ title, id }, index) => (
                             <div
                               key={index}
                               className="relative flex items-start"
                             >
                               <div className="flex h-6 items-center">
                                 <input
-                                  id={documentId}
-                                  onClick={() => onSelect(documentId)}
-                                  name={name}
-                                  checked={selectedFilterIds.includes(
-                                    documentId,
-                                  )}
+                                  id={`${id}`}
+                                  onChange={() => onSelect(`${id}`)}
+                                  name={title}
+                                  checked={selectedFilterIds.includes(`${id}`)}
                                   type="checkbox"
                                   aria-describedby={`${name}-description`}
                                   className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
@@ -139,10 +137,10 @@ const AdvancedFilters = ({
                               </div>
                               <div className="ml-3 text-xs leading-6">
                                 <label
-                                  htmlFor={name}
+                                  htmlFor={title}
                                   className="font-medium text-gray-900"
                                 >
-                                  {name}
+                                  {title}
                                 </label>
                               </div>
                             </div>
@@ -183,7 +181,7 @@ const AdvancedFilters = ({
                       name={'flexibility'}
                       type="checkbox"
                       checked={isFlexible}
-                      onClick={toggleFlexible}
+                      onChange={toggleFlexible}
                       aria-describedby={'flexibility-description'}
                       className="h-4 w-4 rounded border-gray-300 focus:ring-indigo-600"
                     />
@@ -207,7 +205,7 @@ const AdvancedFilters = ({
                       name={'flexibility'}
                       type="checkbox"
                       checked={isSuperHost}
-                      onClick={toggleSuperHost}
+                      onChange={toggleSuperHost}
                       aria-describedby={'flexibility-description'}
                       className="h-4 w-4 rounded border-gray-300 focus:ring-indigo-600"
                     />
