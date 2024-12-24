@@ -232,7 +232,7 @@ export interface Currency {
  */
 export interface AreaSize {
   value: number;
-  units: 'square-foot' | 'square-meter';
+  units: 'square-foot' | 'square-meter' | 'square-meters' | 'square-feet';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

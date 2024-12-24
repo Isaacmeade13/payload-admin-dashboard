@@ -114,6 +114,14 @@ export const Venue: CollectionConfig = {
                           label: 'Square meter',
                           value: 'square-meter',
                         },
+                        {
+                          label: 'Square meters',
+                          value: 'square-meters',
+                        },
+                        {
+                          label: 'Square feet',
+                          value: 'square-feet',
+                        },
                       ],
                     },
                   ],

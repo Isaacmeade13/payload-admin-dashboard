@@ -43,6 +43,8 @@ function About() {
       ? spaceIncludes
       : spaceIncludes!.slice(0, SPACE_INCLUDE_ITEMS_COUNT);
 
+    const areaSizePer = ' ' + areaSize?.units.replace('-', ' ');
+
     return (
       <div>
         <div className="flex max-xl:flex-col max-xl:mx-[5%]">
@@ -80,9 +82,9 @@ function About() {
                 />
                 <InfoItem
                   value={areaSize?.value}
-                  suffixText={` ${areaSize?.units}`}
+                  suffixText={areaSizePer}
                   iconSrc={sqftIcon}
-                  altText={` ${areaSize?.units}`}
+                  altText={areaSizePer}
                 />
               </div>
               <div className="hidden max-xl:block">
