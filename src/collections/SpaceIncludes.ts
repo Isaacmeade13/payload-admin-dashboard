@@ -6,6 +6,7 @@ export const SpaceIncludes: CollectionConfig = {
   admin: {
     useAsTitle: 'text',
   },
+
   access: {
     ...defaultAccessControl(),
   },

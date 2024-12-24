@@ -24,7 +24,7 @@ import { VenueBookingRequest } from './collections/VenueBookingRequest';
 import { postgresAdapter } from '@payloadcms/db-postgres';
 import { vercelPostgresAdapter } from '@payloadcms/db-vercel-postgres';
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob';
-import { SpaceIncludes } from './collections/spaceIncludes';
+import { SpaceIncludes } from './collections/SpaceIncludes';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -51,13 +51,13 @@ export default buildConfig({
     Owner,
     Activity,
     Tag,
-    SpaceIncludes,
     TagGroup,
     GalleryMedia,
     LogoImage,
     MapImage,
     Location,
     Currency,
+    SpaceIncludes,
     Admin,
   ],
   editor: lexicalEditor(),
