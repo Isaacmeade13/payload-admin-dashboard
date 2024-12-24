@@ -36,10 +36,10 @@ function GuestsPicker({ setSelectedGuestCount = () => {} }: GuestsPickerProps) {
 
           const queryNum = Number(query);
 
-          if (min) {
+          if (max) {
             return queryNum >= min && queryNum <= max;
           } else {
-            return queryNum > max;
+            return queryNum > min;
           }
         });
 
