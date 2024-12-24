@@ -48,17 +48,17 @@ export const getRemainingLocationsAPI = async ({
     };
 
     if (locationNameId?.length) {
-      where.and.push({ locations: { not_in: [locationNameId] } });
+      where.or.push({ locations: { not_in: [locationNameId] } });
     }
 
     if (minGuestsCount) {
-      where.and.push({
+      where.or.push({
         maxGuestsCount: { less_than: minGuestsCount },
       });
     }
 
     if (activity) {
-      where.and.push({ activities: { not_in: [activity] } });
+      where.or.push({ activities: { not_in: [activity] } });
     }
 
     if (isSuperHost && isSuperHost === 'true') {
