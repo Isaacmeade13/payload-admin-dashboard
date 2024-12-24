@@ -113,7 +113,7 @@ function About() {
             )}
             <Categories />
             {spaceIncludes && !!spaceIncludes.length && (
-              <div className="mt-11 px-4 max-xl:px-0">
+              <div className="mt-11 px-4 max-xl:px-0 mb-[5%]">
                 <h1 className="text-2xl font-semibold pb-8 max-lg:text-xl text-black">
                   This space includes
                 </h1>
