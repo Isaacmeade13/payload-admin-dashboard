@@ -82,6 +82,10 @@ export type OnboardFormItem = {
   placeholder?: string;
 };
 
+type SpaceIncludes = {
+  docs: { text: string }[];
+};
+
 export type LocationData = WithStrapiFields<{
   title: string;
   price: {
@@ -117,7 +121,7 @@ export type LocationData = WithStrapiFields<{
   map?: strapiImage;
   policy?: string;
   policyDays?: number;
-  spaceIncludes?: { text: string }[];
+  spaceIncludes?: SpaceIncludes;
   pricePer?: string;
   activities: ActivitieData[];
   isSuperHost: boolean | null;

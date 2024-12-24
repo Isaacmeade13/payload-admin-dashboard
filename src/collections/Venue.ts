@@ -138,6 +138,12 @@ export const Venue: CollectionConfig = {
               required: true,
             },
             {
+              name: 'spaceIncludes',
+              type: 'join',
+              collection: 'spaceIncludes',
+              on: 'spaceIncludesGroup',
+            },
+            {
               name: 'policy',
               type: 'textarea',
             },

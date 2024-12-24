@@ -36,12 +36,15 @@ function About() {
       areaSize,
       about,
       price,
-      spaceIncludes = [],
+      spaceIncludes,
     } = location;
+    console.log('🚀 ~ About ~ spaceIncludes:', spaceIncludes);
+
+    const includes = spaceIncludes?.docs || [];
 
     const spaceIncludesItems = isReadModeSpaceIncludes
-      ? spaceIncludes
-      : spaceIncludes!.slice(0, SPACE_INCLUDE_ITEMS_COUNT);
+      ? includes
+      : includes!.slice(0, SPACE_INCLUDE_ITEMS_COUNT);
 
     return (
       <div>
@@ -128,7 +131,7 @@ function About() {
               </div>
             )}
             <Categories />
-            {!!spaceIncludes?.length && (
+            {!!includes.length && (
               <div className="mt-11 px-4 max-xl:px-0">
                 <h1 className="text-2xl font-semibold pb-8 max-lg:text-xl text-black">
                   This space includes
@@ -138,7 +141,7 @@ function About() {
                     <div key={index}>{text}</div>
                   ))}
                 </div>
-                {spaceIncludes.length > SPACE_INCLUDE_ITEMS_COUNT && (
+                {includes.length > SPACE_INCLUDE_ITEMS_COUNT && (
                   <button
                     onClick={toggleSpaceIncludes}
                     className="text-xl font-semibold underline mt-6 px-4"

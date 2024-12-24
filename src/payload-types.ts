@@ -19,6 +19,7 @@ export interface Config {
     owner: Owner;
     activity: Activity;
     tag: Tag;
+    spaceIncludes: SpaceInclude;
     'tag-group': TagGroup;
     'gallery-media': GalleryMedia;
     'logo-image': LogoImage;
@@ -31,6 +32,9 @@ export interface Config {
     'payload-migrations': PayloadMigration;
   };
   collectionsJoins: {
+    venue: {
+      spaceIncludes: 'spaceIncludes';
+    };
     'owner-profile': {
       venues: 'venue';
     };
@@ -46,6 +50,7 @@ export interface Config {
     owner: OwnerSelect<false> | OwnerSelect<true>;
     activity: ActivitySelect<false> | ActivitySelect<true>;
     tag: TagSelect<false> | TagSelect<true>;
+    spaceIncludes: SpaceIncludesSelect<false> | SpaceIncludesSelect<true>;
     'tag-group': TagGroupSelect<false> | TagGroupSelect<true>;
     'gallery-media': GalleryMediaSelect<false> | GalleryMediaSelect<true>;
     'logo-image': LogoImageSelect<false> | LogoImageSelect<true>;
@@ -144,6 +149,10 @@ export interface Venue {
   rating?: number | null;
   galleryImages?: (number | GalleryMedia)[] | null;
   address: string;
+  spaceIncludes?: {
+    docs?: (number | SpaceInclude)[] | null;
+    hasNextPage?: boolean | null;
+  } | null;
   policy?: string | null;
   policyDays?: number | null;
   tags?: (number | Tag)[] | null;
@@ -248,6 +257,17 @@ export interface GalleryMedia {
   height?: number | null;
   focalX?: number | null;
   focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "spaceIncludes".
+ */
+export interface SpaceInclude {
+  id: number;
+  text?: string | null;
+  spaceIncludesGroup?: (number | null) | Venue;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -417,6 +437,10 @@ export interface PayloadLockedDocument {
         value: number | Tag;
       } | null)
     | ({
+        relationTo: 'spaceIncludes';
+        value: number | SpaceInclude;
+      } | null)
+    | ({
         relationTo: 'tag-group';
         value: number | TagGroup;
       } | null)
@@ -550,6 +574,7 @@ export interface VenueSelect<T extends boolean = true> {
   rating?: T;
   galleryImages?: T;
   address?: T;
+  spaceIncludes?: T;
   policy?: T;
   policyDays?: T;
   tags?: T;
@@ -641,6 +666,16 @@ export interface ActivitySelect<T extends boolean = true> {
 export interface TagSelect<T extends boolean = true> {
   title?: T;
   tagGroup?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "spaceIncludes_select".
+ */
+export interface SpaceIncludesSelect<T extends boolean = true> {
+  text?: T;
+  spaceIncludesGroup?: T;
   updatedAt?: T;
   createdAt?: T;
 }
