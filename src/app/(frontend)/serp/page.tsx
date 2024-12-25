@@ -1,10 +1,14 @@
 import { getPayload } from 'payload';
-import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
-import getQueryClient from '@/utils/getQueryClient';
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from '@tanstack/react-query';
 import { getLocationsKey } from '@/dependencies/cash_key';
 import configPromise from '@payload-config';
 
 import SerpPage from './serpPage';
+import defaultOptionsReactQuery from '@/utils/reactQueryOptions';
 
 type Where = {
   and: Array<Where | WhereField>;
@@ -54,7 +58,7 @@ const SSRSerpPage = async ({ searchParams }: PageProps) => {
     config: configPromise,
   });
 
-  const queryClient = getQueryClient();
+  const queryClient = new QueryClient(defaultOptionsReactQuery);
 
   await queryClient.prefetchQuery({
     queryKey: getLocationsKey(

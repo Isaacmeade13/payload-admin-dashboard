@@ -1,16 +1,20 @@
 import HomePage from '@/app/(frontend)/home/homePage';
-import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
-import getQueryClient from '@/utils/getQueryClient';
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from '@tanstack/react-query';
 import { getPayload } from 'payload';
 import configPromise from '@payload-config';
 import { getFiltersKey, getLocationNamesKey } from '@/dependencies/cash_key';
+import defaultOptionsReactQuery from '@/utils/reactQueryOptions';
 
 const SSRHomePage = async () => {
   const payload = await getPayload({
     config: configPromise,
   });
 
-  const queryClient = getQueryClient();
+  const queryClient = new QueryClient(defaultOptionsReactQuery);
   await queryClient.prefetchQuery({
     queryKey: getFiltersKey(),
     queryFn: async () => {

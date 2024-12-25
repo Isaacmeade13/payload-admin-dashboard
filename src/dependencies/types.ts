@@ -109,7 +109,7 @@ export type LocationData = WithStrapiFields<{
   event: AvailabilityText;
   areaSize: {
     value: number;
-    units: string;
+    units: 'square-foot' | 'square-meter';
   };
   address: string;
   minBookingHours: number;

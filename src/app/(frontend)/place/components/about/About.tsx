@@ -15,19 +15,10 @@ import EnguireForm from '../form/EnquireForm';
 import InfoItem from '../infoItem/InfoItem';
 import Location from './location/Location';
 import Image from 'next/image';
+import { formatAreaLabel } from '@/utils/formatAreaLabel';
 
 const READ_LESS_CHARACTER_COUNT = 150;
 const SPACE_INCLUDE_ITEMS_COUNT = 6;
-
-const getLengthDeclensions = (count: number, areaSizePer: string) => {
-  if (count > 1 && areaSizePer.includes('-meter')) {
-    return areaSizePer.replace('-meter', ' meters');
-  } else if (count > 1) {
-    return areaSizePer.replace('-foot', ' feet');
-  }
-
-  return areaSizePer.replace('-', ' ');
-};
 
 function About() {
   const { documentId }: { documentId: string } = useParams();
@@ -53,7 +44,7 @@ function About() {
       ? spaceIncludes
       : spaceIncludes!.slice(0, SPACE_INCLUDE_ITEMS_COUNT);
 
-    const areaSizePer = getLengthDeclensions(areaSize?.value, areaSize?.units);
+    const areaSizePer = formatAreaLabel(areaSize);
 
     return (
       <div>

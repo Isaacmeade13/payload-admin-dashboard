@@ -25,6 +25,7 @@ import { postgresAdapter } from '@payloadcms/db-postgres';
 import { vercelPostgresAdapter } from '@payloadcms/db-vercel-postgres';
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob';
 import { SpaceInclude } from './collections/SpaceInclude';
+import { nodemailerAdapter } from '@payloadcms/email-nodemailer';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -65,6 +66,18 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
+  email: nodemailerAdapter({
+    defaultFromAddress: process.env.EMAIL || '',
+    defaultFromName: 'Event Cage',
+    transportOptions: {
+      host: 'smtp.gmail.com',
+      port: 587,
+      auth: {
+        user: process.env.EMAIL,
+        pass: process.env.EMAIL_TOKEN,
+      },
+    },
+  }),
   db: (function () {
     switch (whichEnvironment()) {
       case 'localPg':

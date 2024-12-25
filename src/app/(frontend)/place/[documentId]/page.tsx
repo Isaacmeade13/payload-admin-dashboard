@@ -1,9 +1,13 @@
-import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
-import getQueryClient from '@/utils/getQueryClient';
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from '@tanstack/react-query';
 import { getLocationKey } from '@/dependencies/cash_key';
 import PlacePage from '../placePage';
 import { getPayload } from 'payload';
 import configPromise from '@payload-config';
+import defaultOptionsReactQuery from '@/utils/reactQueryOptions';
 
 type PageProps = {
   params: Promise<{
@@ -18,7 +22,7 @@ const SSRPlacePage = async ({ params }: PageProps) => {
     config: configPromise,
   });
 
-  const queryClient = getQueryClient();
+  const queryClient = new QueryClient(defaultOptionsReactQuery);
 
   await queryClient.prefetchQuery({
     queryKey: getLocationKey(documentId),

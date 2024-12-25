@@ -1,6 +1,5 @@
 import type { CollectionConfig, FieldHookArgs } from 'payload';
 import { defaultAccessControl } from '@/accessControlHelpers';
-import transporter from '@/utils/nodemailer';
 
 export const NewVenueRequest: CollectionConfig = {
   slug: 'new-venue-request',
@@ -96,11 +95,10 @@ export const NewVenueRequest: CollectionConfig = {
   ],
   hooks: {
     afterChange: [
-      async ({ operation, doc }) => {
+      async ({ operation, doc, req }) => {
         if (operation === 'create' && process.env.VERCEL_ENV === 'production') {
           try {
-            const info = await transporter.sendMail({
-              from: 'Event Cage',
+            await req.payload.sendEmail({
               to: process.env.EMAIL_TO,
               replyTo: doc?.email || '',
               subject: 'New Venue Request',
@@ -112,8 +110,6 @@ export const NewVenueRequest: CollectionConfig = {
                 <p><strong>Contact information:</strong> ${doc?.contactInformation || 'N/A'}</p>
               `,
             });
-
-            console.log('Email sent:', info.messageId);
           } catch (error) {
             console.error('Error sending email:', error);
           }

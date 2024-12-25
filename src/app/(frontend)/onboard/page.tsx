@@ -1,12 +1,16 @@
-import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
-import getQueryClient from '@/utils/getQueryClient';
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from '@tanstack/react-query';
 import OnboardPage from './onboardPage';
 import { getPayload } from 'payload';
 import configPromise from '@payload-config';
 import { getFiltersKey } from '@/dependencies/cash_key';
+import defaultOptionsReactQuery from '@/utils/reactQueryOptions';
 
 const SSROnboardPage = async () => {
-  const queryClient = getQueryClient();
+  const queryClient = new QueryClient(defaultOptionsReactQuery);
   const payload = await getPayload({
     config: configPromise,
   });
