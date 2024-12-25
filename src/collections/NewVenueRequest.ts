@@ -97,17 +97,16 @@ export const NewVenueRequest: CollectionConfig = {
   hooks: {
     afterChange: [
       async ({ operation, doc }) => {
-        if (operation === 'create') {
+        if (
+          operation === 'create' &&
+          process.env.VERCEL_ENV === 'development'
+        ) {
           try {
-            const environmentLabel =
-              process.env.NODE_ENV === 'development' ? 'DEVELOPMENT' : '';
-            const subject = `*** ${environmentLabel} *** New Venue Request`;
-
             const info = await transporter.sendMail({
               from: 'Event Cage',
               to: process.env.EMAIL_TO,
               replyTo: doc?.email || '',
-              subject,
+              subject: 'New Venue Request',
               html: `
                 <h1>New Venue Request</h1>
                 <p><strong>Company name:</strong> ${doc?.companyName || 'N/A'}</p>

@@ -53,7 +53,6 @@ function About() {
       ? spaceIncludes
       : spaceIncludes!.slice(0, SPACE_INCLUDE_ITEMS_COUNT);
 
-    // const areaSizePer = ' ' + areaSize?.units.replace('-', ' ');
     const areaSizePer = getLengthDeclensions(areaSize?.value, areaSize?.units);
 
     return (
