@@ -97,10 +97,7 @@ export const NewVenueRequest: CollectionConfig = {
   hooks: {
     afterChange: [
       async ({ operation, doc }) => {
-        if (
-          operation === 'create' &&
-          process.env.VERCEL_ENV === 'development'
-        ) {
+        if (operation === 'create' && process.env.VERCEL_ENV === 'preview') {
           try {
             const info = await transporter.sendMail({
               from: 'Event Cage',
