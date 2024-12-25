@@ -6,7 +6,7 @@ export const submitForm = async (
 ): Promise<FormDataSubmit | Error> => {
   try {
     const { data: res } = await axiosInstance.post(
-      '/api/venue-booking-request',
+      '/venue-booking-request',
       formData,
     );
 

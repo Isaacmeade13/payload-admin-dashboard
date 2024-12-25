@@ -1,15 +1,16 @@
-import type { CollectionConfig } from 'payload'
-import { defaultAccessControl } from '@/accessControlHelpers'
+import type { CollectionConfig } from 'payload';
+import { defaultAccessControl } from '@/accessControlHelpers';
+import transporter from '@/utils/nodemailer';
 
 export const VenueBookingRequest: CollectionConfig = {
   slug: 'venue-booking-request',
   admin: {
-    useAsTitle: 'desiredVenue'
+    useAsTitle: 'desiredVenue',
   },
   access: {
     ...defaultAccessControl(),
     create: ({ req: { user }, data }) => {
-      return true
+      return true;
     },
   },
   fields: [
@@ -61,6 +62,33 @@ export const VenueBookingRequest: CollectionConfig = {
       name: 'phone',
       type: 'text',
       required: true,
-    }
+    },
   ],
-}
+  hooks: {
+    afterChange: [
+      async ({ operation, doc }) => {
+        if (operation === 'create') {
+          try {
+            const info = await transporter.sendMail({
+              from: 'Event Cage',
+              to: process.env.EMAIL_TO,
+              replyTo: doc?.email || '',
+              subject: `New Booking Request: ${doc?.companyName || ''} - ${doc?.spaceName || ''}`,
+              html: `
+                <h1>New Booking Request</h1>
+                <p><strong>Phone:</strong> ${doc?.phone || 'N/A'}</p>
+                <p><strong>Start:</strong> ${doc?.start || 'N/A'}</p>
+                <p><strong>End:</strong> ${doc?.end || 'N/A'}</p>
+                <p><strong>Email:</strong> ${doc?.email || 'N/A'}</p>
+              `,
+            });
+
+            console.log('Email sent:', info.messageId);
+          } catch (error) {
+            console.error('Error sending email:', error);
+          }
+        }
+      },
+    ],
+  },
+};
