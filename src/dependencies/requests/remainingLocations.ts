@@ -14,7 +14,16 @@ type getLocationsAPIProps = {
   baseUrl?: string;
 };
 
-type Params = { where: any[]; limit: number; draft: boolean };
+const sortParameters = [
+  '-createdAt',
+  'createdAt',
+  '-updatedAt',
+  'updatedAt',
+  'id',
+  '-id',
+];
+
+type Params = { where: any[]; limit: number; draft: boolean; sort: string };
 
 export const getRemainingLocationsAPI = async ({
   locationNameId,
@@ -41,10 +50,16 @@ export const getRemainingLocationsAPI = async ({
     }
 
     const where: any = { and: [], or: [] };
+    const sortParameterIndex = Math.floor(
+      Math.random() * sortParameters.length,
+    );
+    const randomSort = sortParameters[sortParameterIndex];
+
     const params: Params = {
       where,
       limit: 100,
       draft: false,
+      sort: randomSort,
     };
 
     if (locationNameId?.length) {
