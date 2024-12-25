@@ -69,11 +69,15 @@ export const VenueBookingRequest: CollectionConfig = {
       async ({ operation, doc }) => {
         if (operation === 'create') {
           try {
+            const environmentLabel =
+              process.env.NODE_ENV === 'development' ? 'DEVELOPMENT' : '';
+            const subject = `*** ${environmentLabel} *** New Booking Request`;
+
             const info = await transporter.sendMail({
               from: 'Event Cage',
               to: process.env.EMAIL_TO,
               replyTo: doc?.email || '',
-              subject: `New Booking Request: ${doc?.companyName || ''} - ${doc?.spaceName || ''}`,
+              subject,
               html: `
                 <h1>New Booking Request</h1>
                 <p><strong>Phone:</strong> ${doc?.phone || 'N/A'}</p>
