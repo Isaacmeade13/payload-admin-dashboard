@@ -1,13 +1,13 @@
-import type { CollectionConfig } from 'payload'
-import { defaultAccessControl } from '@/accessControlHelpers'
+import type { CollectionConfig } from 'payload';
+import { defaultAccessControl } from '@/accessControlHelpers';
 
-export const  TagGroup: CollectionConfig = {
+export const TagGroup: CollectionConfig = {
   slug: 'tag-group',
   admin: {
-    useAsTitle: 'title'
+    useAsTitle: 'title',
   },
   access: {
-    ...defaultAccessControl()
+    ...defaultAccessControl(),
   },
   fields: [
     {
@@ -19,9 +19,10 @@ export const  TagGroup: CollectionConfig = {
       name: 'tags',
       type: 'join',
       collection: 'tag',
-      on: 'tagGroup'
-    }
-   /* {
+      on: 'tagGroup',
+      defaultLimit: 250,
+    },
+    /* {
       name: 'feature',
       type: 'relationship',
       relationTo: 'features',
@@ -48,4 +49,4 @@ export const  TagGroup: CollectionConfig = {
       ],
     }, */
   ],
-}
+};
