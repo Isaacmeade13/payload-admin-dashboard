@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 
 import { useSubmitOnboardForm } from '@/app/(frontend)/hooks/useSubmitFormOnboard';
-import { useFiltersData } from '@/app/(frontend)/hooks/useFilters';
+import { useTagGroupsData } from '@/app/(frontend)/hooks//useTagGroupsData';
 import logo from '@/assets/imgs/logo.svg';
 
 import { FormField } from './components/FormField';
@@ -18,18 +18,18 @@ interface FormValues {
 }
 
 function OnboardPage() {
-  const { filters } = useFiltersData();
+  const { tagGroups } = useTagGroupsData();
   const { submitForm, isSuccess, isError } = useSubmitOnboardForm();
 
   const [formValues, setFormValues] = useState<FormValues>({});
-  const [selectedFilters, setSelectedFilters] = useState<number[]>([]);
+  const [selectedTagGroups, setSelectedTagGroups] = useState<number[]>([]);
 
   const handleInputChange = (name: string, value: string) => {
     setFormValues((prevState) => ({ ...prevState, [name]: value }));
   };
 
   const handleCheckboxChange = (documentId: number) => {
-    setSelectedFilters((prevState) =>
+    setSelectedTagGroups((prevState) =>
       prevState.includes(documentId)
         ? prevState.filter((id) => id != documentId)
         : [...prevState, Number(documentId)],
@@ -40,7 +40,7 @@ function OnboardPage() {
     e.preventDefault();
     const data = {
       ...formValues,
-      tags: selectedFilters,
+      tags: selectedTagGroups,
     };
     submitForm(data);
   };
@@ -76,7 +76,7 @@ function OnboardPage() {
             Tick the boxes that apply to your space.
           </p>
           <div className="pb-[100px] border-b border-mainGrey-600">
-            {filters.map(({ id, title, tags }) => (
+            {tagGroups.map(({ id, title, tags }) => (
               <div
                 key={id}
                 className="mt-2 px-[17px] border-t border-mainGrey-600"
@@ -95,7 +95,7 @@ function OnboardPage() {
                               id={`${id}`}
                               name={title}
                               type="checkbox"
-                              checked={selectedFilters.includes(id)}
+                              checked={selectedTagGroups.includes(id)}
                               onChange={() => handleCheckboxChange(id)}
                               aria-describedby={`${title}-description`}
                               className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"

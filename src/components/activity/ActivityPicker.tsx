@@ -1,7 +1,7 @@
 'use client';
 
 import { useActivities } from '@/app/(frontend)/hooks/useActivities';
-import { WithStrapiFields } from '@/dependencies/types';
+import { WithPayloadFields } from '@/dependencies/types';
 import {
   Combobox,
   ComboboxButton,
@@ -15,13 +15,13 @@ import { Dispatch, SetStateAction, useState } from 'react';
 
 type ActivityPickerProps = {
   selectedActivity:
-    | WithStrapiFields<{
+    | WithPayloadFields<{
         title: string;
       }>
     | undefined;
   setSelectedActivity: Dispatch<
     SetStateAction<
-      | WithStrapiFields<{
+      | WithPayloadFields<{
           title: string;
         }>
       | undefined

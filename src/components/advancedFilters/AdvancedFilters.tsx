@@ -1,7 +1,6 @@
 'use client';
 
-import { useFiltersData } from '@/app/(frontend)/hooks/useFiltersData';
-import { FilterData } from '@/dependencies/types';
+import { TagGroupsData } from '@/dependencies/types';
 import {
   Dialog,
   DialogBackdrop,
@@ -10,6 +9,7 @@ import {
 } from '@headlessui/react';
 import Image from 'next/image';
 import { Dispatch, SetStateAction, useCallback, useState } from 'react';
+import { useTagGroupsData } from '@/app/(frontend)/hooks/useTagGroupsData';
 
 import XIcon from '@/assets/imgs/XIcon.svg';
 import clsx from 'clsx';
@@ -38,14 +38,14 @@ const AdvancedFilters = ({
   isFlexible,
   toggleFlexible,
 }: PropType) => {
-  const { filters } = useFiltersData();
+  const { tagGroups } = useTagGroupsData();
 
-  const [expandedFilters, setExpandedFilters] = useState<
+  const [expandedTagGroups, setExpandedTagGroups] = useState<
     Record<number, boolean>
   >({});
 
-  const handleToggleFilterExpansion = useCallback((filterId: number) => {
-    setExpandedFilters((prev) => ({
+  const handleToggleTagGroupsExpansion = useCallback((filterId: number) => {
+    setExpandedTagGroups((prev) => ({
       ...prev,
       [filterId]: !prev[filterId],
     }));
@@ -53,20 +53,20 @@ const AdvancedFilters = ({
 
   const canShowToggleButton = useCallback(
     (filterId: number) => {
-      const filter = filters.find((filter) => filter.id === filterId);
+      const filter = tagGroups.find((filter) => filter.id === filterId);
       if (!filter) return false;
 
       return filter?.tags?.docs.length > LESS_ITEMS_COUNT;
     },
-    [filters],
+    [tagGroups],
   );
 
   const getVisibleTypes = useCallback(
-    (docs: FilterData['tags']['docs'], itemId: number) => {
-      const isExpanded = expandedFilters[itemId];
+    (docs: TagGroupsData['tags']['docs'], itemId: number) => {
+      const isExpanded = expandedTagGroups[itemId];
       return isExpanded ? docs : docs?.slice(0, LESS_ITEMS_COUNT);
     },
-    [expandedFilters],
+    [expandedTagGroups],
   );
 
   const onSelect = useCallback(
@@ -106,7 +106,7 @@ const AdvancedFilters = ({
                   </button>
                 </div>
               </DialogTitle>
-              {filters.map(({ id, title, tags }, i) => (
+              {tagGroups.map(({ id, title, tags }, i) => (
                 <div
                   key={id}
                   className={clsx('px-[17px]', {
@@ -146,10 +146,10 @@ const AdvancedFilters = ({
                         {canShowToggleButton(id) && (
                           <div className="col-span-2">
                             <button
-                              onClick={() => handleToggleFilterExpansion(id)}
+                              onClick={() => handleToggleTagGroupsExpansion(id)}
                               className="text-black font-semibold py-4 w-full max-w-[90px]"
                             >
-                              {expandedFilters[id] ? 'Show less' : 'Show all'}
+                              {expandedTagGroups[id] ? 'Show less' : 'Show all'}
                             </button>
                           </div>
                         )}

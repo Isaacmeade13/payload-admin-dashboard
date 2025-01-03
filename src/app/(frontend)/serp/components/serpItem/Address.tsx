@@ -1,11 +1,11 @@
 import Image from 'next/image';
-import { LocationData } from '@/dependencies/types';
+import { VenueData } from '@/dependencies/types';
 import locationIcon from '@/assets/imgs/location.svg';
 
 import starIcon from '@/assets/imgs/star.svg';
 
 type AddressProps = {
-  location: LocationData;
+  location: VenueData;
 };
 
 function Address({ location }: AddressProps) {

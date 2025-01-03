@@ -1,7 +1,7 @@
 import axiosInstance from '@/dependencies/axios';
-import { LocationData } from '@/dependencies/types';
+import { VenueData } from '@/dependencies/types';
 
-type getLocationsAPIProps = {
+type getVenuesAPIProps = {
   locationNameId?: string | undefined | null;
   filterIds?: string | undefined | null;
   maxGuestsCount?: string | undefined | null;
@@ -20,7 +20,7 @@ type Params = {
   draft: boolean;
 };
 
-export const getLocationsAPI = async ({
+export const getVenuesAPI = async ({
   locationNameId,
   filterIds,
   minGuestsCount,
@@ -29,7 +29,7 @@ export const getLocationsAPI = async ({
   isSuperHost,
   isFlexible,
   activity,
-}: getLocationsAPIProps): Promise<LocationData[] | undefined> => {
+}: getVenuesAPIProps): Promise<VenueData[] | undefined> => {
   try {
     const where: any = { and: [] };
     const params: Params = {

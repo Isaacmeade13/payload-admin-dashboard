@@ -1,21 +1,21 @@
 import { useSearchParams } from 'next/navigation';
-import { LocationData } from '@/dependencies/types';
+import { VenueData } from '@/dependencies/types';
 import { QueryObserverResult, RefetchOptions } from '@tanstack/react-query';
 
-import { useFetchRemainingLocations } from './useFetchRemainingLocations';
+import { useFetchRemainingVenues } from './useFetchRemainingVenues';
 
-type UseRemainingLocationsDataType = {
-  remainingLocations: LocationData[];
+type UseRemainingVenuesDataType = {
+  remainingVenues: VenueData[];
   refetch: (
     options?: RefetchOptions,
-  ) => Promise<QueryObserverResult<LocationData[] | undefined, Error>>;
+  ) => Promise<QueryObserverResult<VenueData[] | undefined, Error>>;
   isLoading: boolean;
   isSuccess: boolean;
   isError: boolean;
   error: Error | null;
 };
 
-const useRemainingLocationsData = (): UseRemainingLocationsDataType => {
+const useRemainingVenuesData = (): UseRemainingVenuesDataType => {
   const searchParams = useSearchParams();
   const locationNameId = searchParams.get('locationName') || undefined;
   const filterIds = searchParams.get('filters') || '';
@@ -30,7 +30,7 @@ const useRemainingLocationsData = (): UseRemainingLocationsDataType => {
   const guests = `${minGuestsCount}-${maxGuestsCount}`;
   const price = `${minPrice}-${maxPrice}`;
 
-  return useFetchRemainingLocations({
+  return useFetchRemainingVenues({
     locationNameId,
     filterIds,
     guests,
@@ -45,4 +45,4 @@ const useRemainingLocationsData = (): UseRemainingLocationsDataType => {
   });
 };
 
-export { useRemainingLocationsData };
+export { useRemainingVenuesData };

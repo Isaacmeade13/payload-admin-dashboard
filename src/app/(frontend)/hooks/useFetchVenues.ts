@@ -1,17 +1,18 @@
-import { getRemainingLocationsKey } from '@/dependencies/cash_key';
-import { getRemainingLocationsAPI } from '@/dependencies/requests/remainingLocations';
-import { LocationData } from '@/dependencies/types';
+import { getVenuesKey } from '@/dependencies/cash_key';
+import { getVenuesAPI } from '@/dependencies/requests/venues';
+import { VenueData } from '@/dependencies/types';
+
 import {
   QueryObserverResult,
   RefetchOptions,
   useQuery,
 } from '@tanstack/react-query';
 
-type UseFetchRemainingLocationsType = {
-  remainingLocations: LocationData[];
+type UseFetchVenuesType = {
+  venues: VenueData[];
   refetch: (
     options?: RefetchOptions,
-  ) => Promise<QueryObserverResult<LocationData[] | undefined, Error>>;
+  ) => Promise<QueryObserverResult<VenueData[] | undefined, Error>>;
   isLoading: boolean;
   isSuccess: boolean;
   isError: boolean;
@@ -32,8 +33,8 @@ type FetchLocationsParams = {
   activity: string | undefined | null;
 };
 
-const useFetchRemainingLocations = ({
-  locationNameId = undefined,
+const useFetchVenues = ({
+  locationNameId = '',
   filterIds = '',
   guests = '',
   price = '',
@@ -44,26 +45,28 @@ const useFetchRemainingLocations = ({
   activity,
   isSuperHost,
   isFlexible,
-}: FetchLocationsParams): UseFetchRemainingLocationsType => {
+}: FetchLocationsParams): UseFetchVenuesType => {
+  const queryKey = getVenuesKey(
+    locationNameId,
+    filterIds,
+    guests,
+    price,
+    isSuperHost,
+    isFlexible,
+    activity,
+  );
+
   const {
-    data: locations,
+    data: venues,
     refetch,
     isLoading,
     isSuccess,
     isError,
     error,
-  } = useQuery<LocationData[] | undefined, Error>({
-    queryKey: getRemainingLocationsKey(
-      locationNameId,
-      filterIds,
-      guests,
-      price,
-      isSuperHost,
-      isFlexible,
-      activity,
-    ),
+  } = useQuery<VenueData[] | undefined, Error>({
+    queryKey,
     queryFn: () =>
-      getRemainingLocationsAPI({
+      getVenuesAPI({
         locationNameId,
         filterIds,
         maxGuestsCount,
@@ -77,7 +80,7 @@ const useFetchRemainingLocations = ({
   });
 
   return {
-    remainingLocations: locations ?? [],
+    venues: venues ?? [],
     refetch,
     isLoading,
     isSuccess,
@@ -86,4 +89,4 @@ const useFetchRemainingLocations = ({
   };
 };
 
-export { useFetchRemainingLocations };
+export { useFetchVenues };

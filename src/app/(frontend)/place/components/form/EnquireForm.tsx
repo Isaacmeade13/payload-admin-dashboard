@@ -3,7 +3,7 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { useParams } from 'next/navigation';
 
-import { useLocationData } from '@/app/(frontend)/hooks/useLocationData';
+import { useVenueData } from '@/app/(frontend)/hooks/useVenueData';
 import { useSubmitForm } from '@/app/(frontend)/hooks/useSubmitForm';
 import { CustomDatePicker } from '@/components/customDatePicker/CustomDatePicker';
 import { CustomTimePicker } from '@/components/customTimePicker/CustomTimePicker';
@@ -23,12 +23,12 @@ function EnguireForm() {
 
   const { submitForm, isSuccess, isError } = useSubmitForm();
   const { documentId }: { documentId: string } = useParams();
-  const { location } = useLocationData(documentId);
+  const { venue } = useVenueData(documentId);
 
-  const hour = location?.minBookingHours;
-  const price = location?.price.value;
-  const currency = location?.price?.currency?.symbol;
-  const pricePer = location?.price.per || 'hr';
+  const hour = venue?.minBookingHours;
+  const price = venue?.price.value;
+  const currency = venue?.price?.currency?.symbol;
+  const pricePer = venue?.price.per || 'hr';
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -43,7 +43,7 @@ function EnguireForm() {
 
     submitForm({
       ...formData,
-      desiredVenue: location!.id,
+      desiredVenue: venue!.id,
     });
   };
 

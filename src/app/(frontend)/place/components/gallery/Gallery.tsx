@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
-import { useLocationData } from '@/app/(frontend)/hooks/useLocationData';
+import { useVenueData } from '@/app/(frontend)/hooks/useVenueData';
 
 import Carousel from './Carousel';
 import { getImageClasses, getPosition } from './helper';
@@ -12,12 +12,12 @@ const MAX_GALLERY_ITEMS = 4;
 
 function Gallery() {
   const { documentId }: { documentId: string } = useParams();
-  const { location, isSuccess } = useLocationData(documentId);
+  const { venue, isSuccess } = useVenueData(documentId);
 
   const [openCarousel, setOpenCarousel] = useState(false);
 
-  if (isSuccess && location) {
-    const { galleryImages } = location;
+  if (isSuccess && venue) {
+    const { galleryImages } = venue;
 
     const showedImages = galleryImages?.slice(0, MAX_GALLERY_ITEMS);
     const imageCount = showedImages?.length;

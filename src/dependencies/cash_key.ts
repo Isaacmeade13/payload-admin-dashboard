@@ -5,9 +5,9 @@ export const REMAINING_LOCATIONS = 'remaining-locations';
 export const LOCATION = 'location';
 export const LOCATION_NAMES = 'location_names';
 
-const getFiltersKey = (): [string] => [FILTERS];
+const getTagGroupsKey = (): [string] => [FILTERS];
 const getActivitiesKey = (): [string] => [ACTIVITIES];
-const getLocationsKey = (
+const getVenuesKey = (
   locationNameId?: string | undefined | null,
   filterIds?: string | undefined | null,
   guests?: string | undefined | null,
@@ -34,7 +34,7 @@ const getLocationsKey = (
   isFlexible,
   activity,
 ];
-const getRemainingLocationsKey = (
+const getRemainingVenuesKey = (
   locationNameId?: string | undefined | null,
   filterIds?: string | undefined | null,
   guests?: string | undefined | null,
@@ -61,14 +61,14 @@ const getRemainingLocationsKey = (
   isFlexible,
   activity,
 ];
-const getLocationKey = (id: string): [string, string] => [LOCATION, id];
+const getVenueKey = (id: string): [string, string] => [LOCATION, id];
 const getLocationNamesKey = (): [string] => [LOCATION_NAMES];
 
 export {
-  getFiltersKey,
-  getLocationsKey,
-  getRemainingLocationsKey,
-  getLocationKey,
+  getTagGroupsKey,
+  getVenuesKey,
+  getRemainingVenuesKey,
+  getVenueKey,
   getLocationNamesKey,
   getActivitiesKey,
 };

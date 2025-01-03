@@ -1,7 +1,9 @@
 import axiosInstance from '@/dependencies/axios';
-import { FilterData } from '@/dependencies/types';
+import { TagGroupsData } from '@/dependencies/types';
 
-export const getFiltersAPI = async (): Promise<FilterData[] | undefined> => {
+export const getTagGroupsAPI = async (): Promise<
+  TagGroupsData[] | undefined
+> => {
   try {
     const params = {
       limit: 250,

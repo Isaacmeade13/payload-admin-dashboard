@@ -1,19 +1,19 @@
 'use client';
 
 import { useBoolean } from '@/app/(frontend)/hooks/useBoolean';
-import { useLocationData } from '@/app/(frontend)/hooks/useLocationData';
+import { useVenueData } from '@/app/(frontend)/hooks/useVenueData';
 import { useParams } from 'next/navigation';
 
 const POLICY_CHARACTER_COUNT = 150;
 
 function Policy() {
   const { documentId }: { documentId: string } = useParams();
-  const { location, isSuccess } = useLocationData(documentId);
+  const { venue, isSuccess } = useVenueData(documentId);
 
   const { state: isShowMore, toggle } = useBoolean();
 
-  if (isSuccess && location) {
-    const { policy, policyDays } = location;
+  if (isSuccess && venue) {
+    const { policy, policyDays } = venue;
 
     return (
       <>

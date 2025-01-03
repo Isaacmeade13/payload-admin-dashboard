@@ -1,6 +1,6 @@
 'use client';
 
-import { useLocationData } from '@/app/(frontend)/hooks/useLocationData';
+import { useVenueData } from '@/app/(frontend)/hooks/useVenueData';
 import { useBoolean } from '@/app/(frontend)/hooks/useBoolean';
 import { useParams } from 'next/navigation';
 
@@ -22,12 +22,12 @@ const SPACE_INCLUDE_ITEMS_COUNT = 6;
 
 function About() {
   const { documentId }: { documentId: string } = useParams();
-  const { location, isSuccess } = useLocationData(documentId);
+  const { venue, isSuccess } = useVenueData(documentId);
   const { state: isReadModeAbout, toggle: toggleAbout } = useBoolean();
   const { state: isReadModeSpaceIncludes, toggle: toggleSpaceIncludes } =
     useBoolean();
 
-  if (isSuccess && location) {
+  if (isSuccess && venue) {
     const {
       title,
       address,
@@ -38,7 +38,7 @@ function About() {
       about,
       price,
       spaceIncludes,
-    } = location;
+    } = venue;
 
     const spaceIncludesItems = isReadModeSpaceIncludes
       ? spaceIncludes

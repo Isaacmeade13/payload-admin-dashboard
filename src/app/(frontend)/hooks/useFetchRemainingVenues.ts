@@ -1,25 +1,24 @@
-import { getLocationsKey } from '@/dependencies/cash_key';
-import { getLocationsAPI } from '@/dependencies/requests/locations';
-import { LocationData } from '@/dependencies/types';
-
+import { getRemainingVenuesKey } from '@/dependencies/cash_key';
+import { getRemainingVenuesAPI } from '@/dependencies/requests/remainingVenues';
+import { VenueData } from '@/dependencies/types';
 import {
   QueryObserverResult,
   RefetchOptions,
   useQuery,
 } from '@tanstack/react-query';
 
-type UseFetchLocationsType = {
-  locations: LocationData[];
+type UseFetchRemainingVenuesType = {
+  remainingVenues: VenueData[];
   refetch: (
     options?: RefetchOptions,
-  ) => Promise<QueryObserverResult<LocationData[] | undefined, Error>>;
+  ) => Promise<QueryObserverResult<VenueData[] | undefined, Error>>;
   isLoading: boolean;
   isSuccess: boolean;
   isError: boolean;
   error: Error | null;
 };
 
-type FetchLocationsParams = {
+type FetchVenuesParams = {
   locationNameId?: string;
   filterIds?: string;
   guests?: string;
@@ -33,8 +32,8 @@ type FetchLocationsParams = {
   activity: string | undefined | null;
 };
 
-const useFetchLocations = ({
-  locationNameId = '',
+const useFetchRemainingVenues = ({
+  locationNameId = undefined,
   filterIds = '',
   guests = '',
   price = '',
@@ -45,28 +44,26 @@ const useFetchLocations = ({
   activity,
   isSuperHost,
   isFlexible,
-}: FetchLocationsParams): UseFetchLocationsType => {
-  const queryKey = getLocationsKey(
-    locationNameId,
-    filterIds,
-    guests,
-    price,
-    isSuperHost,
-    isFlexible,
-    activity,
-  );
-
+}: FetchVenuesParams): UseFetchRemainingVenuesType => {
   const {
-    data: locations,
+    data: remainingVenues,
     refetch,
     isLoading,
     isSuccess,
     isError,
     error,
-  } = useQuery<LocationData[] | undefined, Error>({
-    queryKey,
+  } = useQuery<VenueData[] | undefined, Error>({
+    queryKey: getRemainingVenuesKey(
+      locationNameId,
+      filterIds,
+      guests,
+      price,
+      isSuperHost,
+      isFlexible,
+      activity,
+    ),
     queryFn: () =>
-      getLocationsAPI({
+      getRemainingVenuesAPI({
         locationNameId,
         filterIds,
         maxGuestsCount,
@@ -80,7 +77,7 @@ const useFetchLocations = ({
   });
 
   return {
-    locations: locations ?? [],
+    remainingVenues: remainingVenues ?? [],
     refetch,
     isLoading,
     isSuccess,
@@ -89,4 +86,4 @@ const useFetchLocations = ({
   };
 };
 
-export { useFetchLocations };
+export { useFetchRemainingVenues };

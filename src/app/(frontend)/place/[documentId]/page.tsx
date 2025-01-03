@@ -3,7 +3,7 @@ import {
   HydrationBoundary,
   QueryClient,
 } from '@tanstack/react-query';
-import { getLocationKey } from '@/dependencies/cash_key';
+import { getVenueKey } from '@/dependencies/cash_key';
 import PlacePage from '../placePage';
 import { getPayload } from 'payload';
 import configPromise from '@payload-config';
@@ -25,7 +25,7 @@ const SSRPlacePage = async ({ params }: PageProps) => {
   const queryClient = new QueryClient(defaultOptionsReactQuery);
 
   await queryClient.prefetchQuery({
-    queryKey: getLocationKey(documentId),
+    queryKey: getVenueKey(documentId),
     queryFn: async () => {
       const venue = await payload.findByID({
         collection: 'venue',

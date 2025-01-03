@@ -1,4 +1,4 @@
-export type WithStrapiFields<T> = T & {
+export type WithPayloadFields<T> = T & {
   id: number;
   documentId: string;
   createdAt: string;
@@ -6,33 +6,33 @@ export type WithStrapiFields<T> = T & {
   publishedAt: string;
 };
 
-export type TypeData = WithStrapiFields<{
+export type TypeData = WithPayloadFields<{
   title: string;
 }>;
 
-export type ActivitieData = WithStrapiFields<{
+export type ActivitieData = WithPayloadFields<{
   title: string;
   type: TypeData;
   priceRange: string;
 }>;
 
-export type FilterData = WithStrapiFields<{
+export type TagGroupsData = WithPayloadFields<{
   title: string;
   tags: { docs: TypeData[] };
 }>;
 
-export type ActivityData = WithStrapiFields<{
+export type ActivityData = WithPayloadFields<{
   title: string;
 }>;
 
-export type strapiImage = {
+export type payloadImage = {
   id: number;
   width: number;
   height: number;
   url: string;
 };
 
-export type LocationName = WithStrapiFields<{
+export type LocationName = WithPayloadFields<{
   name: string;
 }>;
 
@@ -82,7 +82,7 @@ export type OnboardFormItem = {
   placeholder?: string;
 };
 
-export type LocationData = WithStrapiFields<{
+export type VenueData = WithPayloadFields<{
   title: string;
   price: {
     value: number;
@@ -93,10 +93,10 @@ export type LocationData = WithStrapiFields<{
     };
   };
   maxGuestsCount: number;
-  locations: WithStrapiFields<{ name: string }>[];
+  locations: WithPayloadFields<{ name: string }>[];
   benefits: string;
   rating: number;
-  galleryImages: strapiImage[];
+  galleryImages: payloadImage[];
   tags: TypeData[];
   cateringAndDrinks: AvailabilityText;
   tablesAndSeating: AvailabilityText;
@@ -114,7 +114,7 @@ export type LocationData = WithStrapiFields<{
   address: string;
   minBookingHours: number;
   about?: string;
-  map?: strapiImage;
+  map?: payloadImage;
   policy?: string;
   policyDays?: number;
   spaceIncludes?: { text: string }[];

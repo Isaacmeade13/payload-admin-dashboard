@@ -1,11 +1,11 @@
 import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react';
 import Image from 'next/image';
 import { useCallback, useState } from 'react';
-import { strapiImage } from '@/dependencies/types';
+import { payloadImage } from '@/dependencies/types';
 
 interface PropTypes {
   open: boolean;
-  imageSrcs: strapiImage[];
+  imageSrcs: payloadImage[];
   setOpen: (val: boolean) => void;
 }
 

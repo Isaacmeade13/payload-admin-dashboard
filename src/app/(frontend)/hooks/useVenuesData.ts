@@ -1,21 +1,20 @@
 import { useSearchParams } from 'next/navigation';
-import { LocationData } from '@/dependencies/types';
+import { VenueData } from '@/dependencies/types';
 import { QueryObserverResult, RefetchOptions } from '@tanstack/react-query';
+import { useFetchVenues } from './useFetchVenues';
 
-import { useFetchLocations } from './useFetchLocations';
-
-type UseLocationsDataType = {
-  locations: LocationData[];
+type UseVenuesDataType = {
+  venues: VenueData[];
   refetch: (
     options?: RefetchOptions,
-  ) => Promise<QueryObserverResult<LocationData[] | undefined, Error>>;
+  ) => Promise<QueryObserverResult<VenueData[] | undefined, Error>>;
   isLoading: boolean;
   isSuccess: boolean;
   isError: boolean;
   error: Error | null;
 };
 
-const useLocationsData = (): UseLocationsDataType => {
+const useVenuesData = (): UseVenuesDataType => {
   const searchParams = useSearchParams();
   const locationNameId = searchParams.get('locationName') || '';
   const filterIds = searchParams.get('filters') || '';
@@ -30,7 +29,7 @@ const useLocationsData = (): UseLocationsDataType => {
   const guests = `${minGuestsCount}-${maxGuestsCount}`;
   const price = `${minPrice}-${maxPrice}`;
 
-  return useFetchLocations({
+  return useFetchVenues({
     locationNameId,
     filterIds,
     guests,
@@ -45,4 +44,4 @@ const useLocationsData = (): UseLocationsDataType => {
   });
 };
 
-export { useLocationsData };
+export { useVenuesData };

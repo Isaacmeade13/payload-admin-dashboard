@@ -4,7 +4,7 @@ import {
   HydrationBoundary,
   QueryClient,
 } from '@tanstack/react-query';
-import { getLocationsKey } from '@/dependencies/cash_key';
+import { getVenuesKey } from '@/dependencies/cash_key';
 import configPromise from '@payload-config';
 
 import SerpPage from './serpPage';
@@ -61,7 +61,7 @@ const SSRSerpPage = async ({ searchParams }: PageProps) => {
   const queryClient = new QueryClient(defaultOptionsReactQuery);
 
   await queryClient.prefetchQuery({
-    queryKey: getLocationsKey(
+    queryKey: getVenuesKey(
       locationNameId || '',
       filterIds || '',
       guest,

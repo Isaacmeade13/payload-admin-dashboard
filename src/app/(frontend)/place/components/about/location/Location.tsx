@@ -1,13 +1,13 @@
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
-import { useLocationData } from '@/app/(frontend)/hooks/useLocationData';
+import { useVenueData } from '@/app/(frontend)/hooks/useVenueData';
 
 function Location() {
   const { documentId }: { documentId: string } = useParams();
-  const { location, isSuccess } = useLocationData(documentId);
+  const { venue, isSuccess } = useVenueData(documentId);
 
-  if (isSuccess && location?.map?.url) {
-    const imageUrl = location.map.url;
+  if (isSuccess && venue?.map?.url) {
+    const imageUrl = venue.map.url;
     return (
       <div className="mt-11 px-4 max-xl:px-0 mb-[5%]">
         <h1 className="text-2xl font-bold py-4 text-black max-xl:text-xl">

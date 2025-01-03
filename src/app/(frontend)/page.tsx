@@ -6,7 +6,7 @@ import {
 } from '@tanstack/react-query';
 import { getPayload } from 'payload';
 import configPromise from '@payload-config';
-import { getFiltersKey, getLocationNamesKey } from '@/dependencies/cash_key';
+import { getTagGroupsKey, getLocationNamesKey } from '@/dependencies/cash_key';
 import defaultOptionsReactQuery from '@/utils/reactQueryOptions';
 
 const SSRHomePage = async () => {
@@ -16,7 +16,7 @@ const SSRHomePage = async () => {
 
   const queryClient = new QueryClient(defaultOptionsReactQuery);
   await queryClient.prefetchQuery({
-    queryKey: getFiltersKey(),
+    queryKey: getTagGroupsKey(),
     queryFn: async () => {
       const tag = await payload.find({
         collection: 'tag-group',

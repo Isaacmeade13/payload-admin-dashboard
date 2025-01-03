@@ -1,4 +1,4 @@
-import { LocationData } from '@/dependencies/types';
+import { VenueData } from '@/dependencies/types';
 
 export const areaUnitLabels = {
   'square-foot': {
@@ -11,7 +11,7 @@ export const areaUnitLabels = {
   },
 };
 
-export function formatAreaLabel(areaSize?: LocationData['areaSize']): string {
+export function formatAreaLabel(areaSize?: VenueData['areaSize']): string {
   if (!areaSize) return '';
 
   const { value, units } = areaSize;

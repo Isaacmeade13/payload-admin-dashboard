@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { LocationData } from '@/dependencies/types';
+import { VenueData } from '@/dependencies/types';
 import { ROUTES } from '@/utils/constants/routes';
 import Link from 'next/link';
 import arrowRightIcon from '@/assets/imgs/arrow-right.svg';
@@ -11,7 +11,7 @@ import { truncateText } from '@/utils/truncateText';
 import { useSearchParams } from 'next/navigation';
 
 type SerpItemProps = {
-  location: LocationData;
+  location: VenueData;
 };
 
 const MAX_BENEFIT_LENGTH = 100;

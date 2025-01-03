@@ -1,7 +1,7 @@
 import axiosInstance from '@/dependencies/axios';
-import { LocationData } from '../types';
+import { VenueData } from '../types';
 
-type getLocationsAPIProps = {
+type getVenusesAPIProps = {
   locationNameId?: string | undefined | null;
   filterIds?: string | undefined | null;
   maxGuestsCount?: string | undefined | null;
@@ -25,7 +25,7 @@ const sortParameters = [
 
 type Params = { where: any[]; limit: number; draft: boolean; sort: string };
 
-export const getRemainingLocationsAPI = async ({
+export const getRemainingVenuesAPI = async ({
   locationNameId,
   filterIds,
   maxPrice,
@@ -34,7 +34,7 @@ export const getRemainingLocationsAPI = async ({
   isFlexible,
   activity,
   minGuestsCount,
-}: getLocationsAPIProps): Promise<LocationData[] | undefined> => {
+}: getVenusesAPIProps): Promise<VenueData[] | undefined> => {
   try {
     if (
       !locationNameId &&

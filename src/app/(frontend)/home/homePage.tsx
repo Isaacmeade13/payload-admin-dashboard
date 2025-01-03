@@ -12,7 +12,7 @@ import { useBoolean } from '@/app/(frontend)/hooks/useBoolean';
 import { ROUTES } from '@/utils/constants/routes';
 import { useCallback, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { LocationName, WithStrapiFields } from '@/dependencies/types';
+import { LocationName, WithPayloadFields } from '@/dependencies/types';
 import { generateSearchUrl } from '@/utils/generateSearchUrl';
 import Link from 'next/link';
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
@@ -28,7 +28,7 @@ function HomePage() {
   >(undefined);
   const [selectedFilterIds, setSelectedFilterIds] = useState<string[]>([]);
   const [selectedActivity, setSelectedActivity] = useState<
-    WithStrapiFields<{ title: string }> | undefined
+    WithPayloadFields<{ title: string }> | undefined
   >();
 
   const router = useRouter();

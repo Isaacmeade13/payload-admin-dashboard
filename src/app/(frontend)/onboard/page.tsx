@@ -6,7 +6,7 @@ import {
 import OnboardPage from './onboardPage';
 import { getPayload } from 'payload';
 import configPromise from '@payload-config';
-import { getFiltersKey } from '@/dependencies/cash_key';
+import { getTagGroupsKey } from '@/dependencies/cash_key';
 import defaultOptionsReactQuery from '@/utils/reactQueryOptions';
 
 const SSROnboardPage = async () => {
@@ -16,7 +16,7 @@ const SSROnboardPage = async () => {
   });
 
   await queryClient.prefetchQuery({
-    queryKey: getFiltersKey(),
+    queryKey: getTagGroupsKey(),
     queryFn: async () => {
       const location = await payload.find({
         collection: 'tag-group',
