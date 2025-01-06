@@ -113,14 +113,14 @@ function SerpItem({ location }: SerpItemProps) {
             <Address location={location} />
           </div>
           <div className="flex justify-between divide-x divide-mainGrey-600 text-mainGrey-100 font-semibold text-center max-lg:justify-between">
-            <div className="h-fit p-5 max-lg:bg-mainGrey-100 max-lg:text-white max-lg:rounded-[23px] max-lg:h-[21px] max-lg:flex max-lg:items-center max-lg:justify-center max-lg:text-[13px] max-lg:py-[2px] max-lg:px-[10px] max-[350px]:px-[7px] max-[350px]:text-[10px]">
+            <div className="h-fit p-5 max-lg:bg-mainGrey-100 max-lg:text-white max-lg:rounded-[23px] max-lg:h-[21px] max-lg:flex max-lg:items-center max-lg:justify-center max-lg:text-[13px] max-lg:py-[2px] max-lg:px-[10px] max-[380px]:px-[7px] max-[380px]:text-[10px]">
               From {price?.currency?.symbol}
               {price?.value}/{price?.per || 'hr'}
             </div>
             {!!maxGuestsCount && (
               <>
                 <div className="max-lg:hidden" />
-                <div className="h-fit p-5 border-none max-lg:bg-mainGrey-100 max-lg:text-white max-lg:rounded-[23px] max-lg:h-[21px] max-lg:flex max-lg:items-center max-lg:justify-center max-lg:text-[13px] max-lg:py-[2px] max-lg:px-[10px] max-[350px]:px-[7px] max-[350px]:text-[10px]">
+                <div className="h-fit p-5 border-none max-lg:bg-mainGrey-100 max-lg:text-white max-lg:rounded-[23px] max-lg:h-[21px] max-lg:flex max-lg:items-center max-lg:justify-center max-lg:text-[13px] max-lg:py-[2px] max-lg:px-[10px] max-[380px]:px-[7px] max-[380px]:text-[10px]">
                   Fits {maxGuestsCount}{' '}
                   {maxGuestsCount > 1 ? 'guests' : 'guest'}
                 </div>
@@ -129,7 +129,7 @@ function SerpItem({ location }: SerpItemProps) {
             {isSuperHost && (
               <>
                 <div className="max-lg:hidden" />
-                <div className="h-fit border-none p-5 max-lg:bg-mainGrey-100 max-lg:text-white max-lg:rounded-[23px] max-lg:h-[21px] max-lg:flex max-lg:items-center max-lg:justify-center max-lg:text-[13px] max-lg:py-[2px] max-lg:px-[10px] max-[350px]:px-[7px] max-[350px]:text-[10px]">
+                <div className="h-fit border-none p-5 max-lg:bg-mainGrey-100 max-lg:text-white max-lg:rounded-[23px] max-lg:h-[21px] max-lg:flex max-lg:items-center max-lg:justify-center max-lg:text-[13px] max-lg:py-[2px] max-lg:px-[10px] max-[380px]:px-[7px] max-[380px]:text-[10px]">
                   Super host
                 </div>
               </>
