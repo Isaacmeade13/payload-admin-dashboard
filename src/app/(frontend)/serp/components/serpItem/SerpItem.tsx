@@ -4,11 +4,11 @@ import { ROUTES } from '@/utils/constants/routes';
 import Link from 'next/link';
 import arrowRightIcon from '@/assets/imgs/arrow-right.svg';
 import arrowLeftIcon from '@/assets/imgs/arrow-left.svg';
-
 import { useCallback, useState } from 'react';
-import Address from './Address';
 import { truncateText } from '@/utils/truncateText';
 import { useSearchParams } from 'next/navigation';
+
+import Address from './Address';
 
 type SerpItemProps = {
   location: LocationData;
