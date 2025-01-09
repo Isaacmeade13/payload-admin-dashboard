@@ -48,7 +48,7 @@ function EnguireForm() {
   };
 
   return (
-    <div className="min-w-[417px] ml-11 h-[636px] border border-mainGrey-600 max-xl:ml-0 max-lg:mt-[26px] max-xl:min-w-[auto]">
+    <div className="min-w-[417px] ml-11 border border-mainGrey-600 max-xl:ml-0 max-lg:mt-[26px] max-xl:min-w-[auto]">
       <div className="text-center py-9 border-b border-mainGrey-600">
         <h1 className="text-4xl font-bold max-lg:text-[32px] text-black">
           from {currency}
