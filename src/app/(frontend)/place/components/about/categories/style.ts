@@ -19,7 +19,7 @@ function getArrowClasses(isVertical: boolean): string {
 }
 
 function getDescriptionClasses(isBlock: boolean): string {
-  return clsx('text-sm', 'text-mainGrey-200', 'max-xl-text-[16px]', {
+  return clsx('text-sm', 'text-mainGrey-200', 'max-xl-text-[16px] pt-4', {
     block: isBlock,
     hidden: !isBlock,
   });
