@@ -66,18 +66,25 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
-  email: nodemailerAdapter({
-    defaultFromAddress: process.env.EMAIL || '',
-    defaultFromName: 'Event Cage',
-    transportOptions: {
-      host: 'smtp.gmail.com',
-      port: 587,
-      auth: {
-        user: process.env.EMAIL,
-        pass: process.env.EMAIL_TOKEN,
-      },
-    },
-  }),
+  email: (function(){
+    switch (whichEnvironment()){
+      case 'localPg':
+        return nodemailerAdapter();
+      case 'vercel':
+        return  nodemailerAdapter({
+          defaultFromAddress: process.env.EMAIL || '',
+          defaultFromName: 'Event Cage',
+          transportOptions: {
+            host: 'smtp.gmail.com',
+            port: 587,
+            auth: {
+              user: process.env.EMAIL,
+              pass: process.env.EMAIL_TOKEN,
+            },
+          },
+        });
+    }
+  })(),
   db: (function () {
     switch (whichEnvironment()) {
       case 'localPg':
