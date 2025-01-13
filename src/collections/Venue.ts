@@ -1,5 +1,6 @@
 import type { CollectionConfig, Field } from 'payload';
 import { defaultAccessControl } from '@/accessControlHelpers';
+import { lexicalEditor } from '@payloadcms/richtext-lexical';
 
 export const Venue: CollectionConfig = {
   slug: 'venue',
@@ -26,7 +27,8 @@ export const Venue: CollectionConfig = {
             },
             {
               name: 'about',
-              type: 'textarea',
+              type: 'richText',
+              editor: lexicalEditor({}),
             },
             {
               name: 'owner',
@@ -121,7 +123,8 @@ export const Venue: CollectionConfig = {
             },
             {
               name: 'benefits',
-              type: 'textarea',
+              type: 'richText',
+              editor: lexicalEditor({}),
             },
             {
               name: 'rating',
@@ -149,7 +152,8 @@ export const Venue: CollectionConfig = {
             },
             {
               name: 'policy',
-              type: 'textarea',
+              type: 'richText',
+              editor: lexicalEditor({}),
             },
             {
               name: 'policyDays',
@@ -229,7 +233,8 @@ function getVenueOptionFieldConfig(optionName: string): Field {
       },
       {
         name: 'additionalInfo',
-        type: 'textarea',
+        type: 'richText',
+        editor: lexicalEditor({}),
       },
     ],
   };

@@ -16,8 +16,10 @@ import InfoItem from '../infoItem/InfoItem';
 import Location from './location/Location';
 import Image from 'next/image';
 import { formatAreaLabel } from '@/utils/formatAreaLabel';
+import { RichText } from '@payloadcms/richtext-lexical/react';
 
-const READ_LESS_CHARACTER_COUNT = 150;
+// const READ_LESS_CHARACTER_COUNT = 150;
+// const READ_LESS_LINE_COUNT = 3;
 const SPACE_INCLUDE_ITEMS_COUNT = 6;
 
 function About() {
@@ -97,12 +99,14 @@ function About() {
                 <h1 className="text-xl font-bold py-4 max-lg:text-xl text-black">
                   About the space
                 </h1>
-                <div className="text-xl">
-                  <p className="whitespace-normal break-words max-lg:text-base text-black">
-                    {isReadModeAbout
-                      ? about
-                      : about.slice(0, READ_LESS_CHARACTER_COUNT)}
-                  </p>
+                <div
+                  className={
+                    !isReadModeAbout
+                      ? 'max-h-[84px] overflow-hidden text-xl'
+                      : 'text-xl'
+                  }
+                >
+                  <RichText data={about} />
                 </div>
                 <button
                   onClick={toggleAbout}

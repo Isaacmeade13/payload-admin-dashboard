@@ -2,6 +2,7 @@
 
 import { useBoolean } from '@/app/(frontend)/hooks/useBoolean';
 import { useVenueData } from '@/app/(frontend)/hooks/useVenueData';
+import { RichText } from '@payloadcms/richtext-lexical/react';
 import { useParams } from 'next/navigation';
 
 const POLICY_CHARACTER_COUNT = 150;
@@ -28,8 +29,14 @@ function Policy() {
                   {policyDays} Days
                 </p>
               )}
-              <p className="whitespace-normal break-words  max-lg:text-base">
-                {isShowMore ? policy : policy.slice(0, POLICY_CHARACTER_COUNT)}
+              <p
+                className={
+                  !isShowMore
+                    ? 'max-h-[84px] overflow-hidden whitespace-normal break-words  max-lg:text-base'
+                    : 'whitespace-normal break-words  max-lg:text-base'
+                }
+              >
+                <RichText data={policy} />
               </p>
             </div>
             <button

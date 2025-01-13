@@ -135,7 +135,21 @@ export interface VenueBookingRequest {
 export interface Venue {
   id: number;
   title: string;
-  about?: string | null;
+  about?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   owner: number | OwnerProfile;
   isSuperHost?: boolean | null;
   isFlexible?: boolean | null;
@@ -143,12 +157,40 @@ export interface Venue {
   price: Price;
   minBookingHours: number;
   areaSize: AreaSize;
-  benefits?: string | null;
+  benefits?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   rating?: number | null;
   galleryImages?: (number | GalleryMedia)[] | null;
   address: string;
   spaceIncludes?: (number | SpaceInclude)[] | null;
-  policy?: string | null;
+  policy?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   policyDays?: number | null;
   tags?: (number | Tag)[] | null;
   activities?: (number | Activity)[] | null;
@@ -304,7 +346,21 @@ export interface Activity {
  */
 export interface VenueOption {
   isAvailable?: boolean | null;
-  additionalInfo?: string | null;
+  additionalInfo?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

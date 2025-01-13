@@ -38,7 +38,21 @@ export type LocationName = WithPayloadFields<{
 
 export type AvailabilityText = {
   isAvailable: boolean;
-  additionalInfo: string | null;
+  additionalInfo: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
 };
 
 export type FormData = {
@@ -94,7 +108,21 @@ export type VenueData = WithPayloadFields<{
   };
   maxGuestsCount: number;
   locations: WithPayloadFields<{ name: string }>[];
-  benefits: string;
+  benefits: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
   rating: number;
   galleryImages: payloadImage[];
   tags: TypeData[];
@@ -113,9 +141,37 @@ export type VenueData = WithPayloadFields<{
   };
   address: string;
   minBookingHours: number;
-  about?: string;
+  about?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
   map?: payloadImage;
-  policy?: string;
+  policy?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
   policyDays?: number;
   spaceIncludes?: { text: string }[];
   activities: ActivitieData[];
