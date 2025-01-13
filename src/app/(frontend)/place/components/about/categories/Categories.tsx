@@ -36,7 +36,6 @@ function Categories() {
     return (
       <div className="divide-y divide-mainGrey-600 my-11 max-xl:min-w-[auto] max-w-[880px]">
         {items.map((category) => {
-          console.log('category?.desc?.root?.children');
           const hasDescription =
             !!category?.desc?.root && checkRichTextContent(category.desc.root);
           return (
@@ -52,11 +51,7 @@ function Categories() {
             >
               <div className="flex justify-center items-center gap-[14px] max-lg:h-[20px]">
                 {category.icon}
-                <h1
-                  className={getTitleClassName(
-                    category.isAvailable && hasDescription,
-                  )}
-                >
+                <h1 className={getTitleClassName(category.isAvailable)}>
                   {category.title}
                 </h1>
                 {category.isAvailable && hasDescription && (
