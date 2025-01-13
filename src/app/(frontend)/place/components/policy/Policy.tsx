@@ -18,7 +18,7 @@ function Policy() {
 
     return (
       <>
-        {!!policy?.length && (
+        {!!policy?.root && (
           <div className="px-4 max-xl:px-[5%] text-black">
             <h1 className="font-semibold text-2xl mt-[55px] max-lg:text-xl">
               Cancellation policy
@@ -29,15 +29,15 @@ function Policy() {
                   {policyDays} Days
                 </p>
               )}
-              <p
+              <div
                 className={
                   !isShowMore
-                    ? 'max-h-[84px] overflow-hidden whitespace-normal break-words  max-lg:text-base'
+                    ? 'max-h-[74px] overflow-hidden whitespace-normal break-words  max-lg:text-base'
                     : 'whitespace-normal break-words  max-lg:text-base'
                 }
               >
                 <RichText data={policy} />
-              </p>
+              </div>
             </div>
             <button
               className="font-semibold text-xl underline mb-[50px] max-lg:text-lg"

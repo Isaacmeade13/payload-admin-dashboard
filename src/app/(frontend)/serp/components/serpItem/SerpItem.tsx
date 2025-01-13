@@ -105,11 +105,11 @@ function SerpItem({ location }: SerpItemProps) {
               <h1 className="text-mainGrey-100 font-semibold max-lg:text-[9px]">
                 Benefits with Eventcage!
               </h1>
-              <p className="text-xs max-lg:text-[8px]">
-                <div className="max-h-[84px] overflow-hidden">
+              <div className="text-xs max-lg:text-[8px]">
+                <div className="max-h-[48px] overflow-hidden">
                   <RichText data={benefits} />
                 </div>
-              </p>
+              </div>
             </div>
           )}
           <div className="hidden max-lg:block py-[19px]">
