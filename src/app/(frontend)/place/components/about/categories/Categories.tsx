@@ -6,6 +6,7 @@ import { useVenueData } from '@/app/(frontend)/hooks/useVenueData';
 import { getArrowClasses, getDescriptionClasses } from './style';
 import { createItemsWithIcons, getTitleClassName } from './helper';
 import { useParams } from 'next/navigation';
+import { RichText } from '@payloadcms/richtext-lexical/react';
 
 function Categories() {
   const { documentId }: { documentId: string } = useParams();
@@ -21,16 +22,14 @@ function Categories() {
     const items = createItemsWithIcons(venue);
 
     return (
-      <div className="divide-y divide-mainGrey-600 my-11 min-w-[100vh] max-xl:min-w-[auto]">
+      <div className="divide-y divide-mainGrey-600 my-11 max-xl:min-w-[auto] max-w-[880px]">
         {items.map((category) => {
-          const hasDescription = (category.desc && category.desc.trim().length);
+          const hasDescription = !!category?.desc?.root;
           return (
             <button
               disabled={!hasDescription}
               onClick={
-                hasDescription
-                  ? () => toggleActive(category.id)
-                  : undefined
+                hasDescription ? () => toggleActive(category.id) : undefined
               }
               key={category.id}
               className="text-justify p-6 block w-full"
@@ -40,16 +39,16 @@ function Categories() {
                 <h1 className={getTitleClassName(category.isAvailable)}>
                   {category.title}
                 </h1>
-                {category.isAvailable && category?.desc?.length && (
+                {category.isAvailable && category?.desc?.root && (
                   <div
                     className={getArrowClasses(activeId === category.id)}
                   ></div>
                 )}
               </div>
-
-              <div className={getDescriptionClasses(activeId === category.id)}>
-                {category.desc}
-              </div>
+              <RichText
+                className={getDescriptionClasses(activeId === category.id)}
+                data={category.desc}
+              />
             </button>
           );
         })}

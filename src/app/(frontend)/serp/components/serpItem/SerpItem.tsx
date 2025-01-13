@@ -9,6 +9,7 @@ import { truncateText } from '@/utils/truncateText';
 import { useSearchParams } from 'next/navigation';
 
 import Address from './Address';
+import { RichText } from '@payloadcms/richtext-lexical/react';
 
 type SerpItemProps = {
   location: VenueData;
@@ -105,7 +106,9 @@ function SerpItem({ location }: SerpItemProps) {
                 Benefits with Eventcage!
               </h1>
               <p className="text-xs max-lg:text-[8px]">
-                {truncateText(benefits, MAX_BENEFIT_LENGTH)}
+                <div className="max-h-[84px] overflow-hidden">
+                  <RichText data={benefits} />
+                </div>
               </p>
             </div>
           )}
