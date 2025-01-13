@@ -8,6 +8,18 @@ import { createItemsWithIcons, getTitleClassName } from './helper';
 import { useParams } from 'next/navigation';
 import { RichText } from '@payloadcms/richtext-lexical/react';
 
+const checkRichTextContent = (root: any) =>
+  !!root?.children
+    .map((child: any) =>
+      child?.children
+        ? (child.children as Array<{ text: string[] }>)
+            .map((ch) => ch.text)
+            .join('')
+        : '',
+    )
+    .join('')
+    .trim();
+
 function Categories() {
   const { documentId }: { documentId: string } = useParams();
   const { venue, isSuccess } = useVenueData(documentId);
@@ -24,22 +36,30 @@ function Categories() {
     return (
       <div className="divide-y divide-mainGrey-600 my-11 max-xl:min-w-[auto] max-w-[880px]">
         {items.map((category) => {
-          const hasDescription = !!category?.desc?.root;
+          console.log('category?.desc?.root?.children');
+          const hasDescription =
+            !!category?.desc?.root && checkRichTextContent(category.desc.root);
           return (
             <button
-              disabled={!hasDescription}
+              disabled={!category.isAvailable || !hasDescription}
               onClick={
-                hasDescription ? () => toggleActive(category.id) : undefined
+                hasDescription && category.isAvailable
+                  ? () => toggleActive(category.id)
+                  : undefined
               }
               key={category.id}
               className="text-justify p-6 block w-full"
             >
               <div className="flex justify-center items-center gap-[14px] max-lg:h-[20px]">
                 {category.icon}
-                <h1 className={getTitleClassName(category.isAvailable)}>
+                <h1
+                  className={getTitleClassName(
+                    category.isAvailable && hasDescription,
+                  )}
+                >
                   {category.title}
                 </h1>
-                {category.isAvailable && category?.desc?.root && (
+                {category.isAvailable && hasDescription && (
                   <div
                     className={getArrowClasses(activeId === category.id)}
                   ></div>
