@@ -44,10 +44,7 @@ function createItemsWithIcons({
       desc: cateringAndDrinks.additionalInfo,
       icon: (
         <CateringAndDrinksIcon
-          color={getIconColor(
-            cateringAndDrinks.isAvailable &&
-              !!cateringAndDrinks.additionalInfo?.root?.children,
-          )}
+          color={getIconColor(cateringAndDrinks.isAvailable)}
         />
       ),
     });
@@ -60,10 +57,7 @@ function createItemsWithIcons({
       desc: alcoholicBeverages.additionalInfo,
       icon: (
         <AlcoholicBeveragesIcon
-          color={getIconColor(
-            alcoholicBeverages.isAvailable &&
-              !!alcoholicBeverages.additionalInfo?.root?.children,
-          )}
+          color={getIconColor(alcoholicBeverages.isAvailable)}
         />
       ),
     });
@@ -77,10 +71,7 @@ function createItemsWithIcons({
       desc: tablesAndSeating.additionalInfo,
       icon: (
         <TablesAndSeatingIcon
-          color={getIconColor(
-            tablesAndSeating.isAvailable &&
-              !!tablesAndSeating.additionalInfo?.root?.children,
-          )}
+          color={getIconColor(tablesAndSeating.isAvailable)}
         />
       ),
     });
@@ -92,13 +83,7 @@ function createItemsWithIcons({
       id: 'restrooms',
       title: 'Restrooms',
       desc: restrooms.additionalInfo,
-      icon: (
-        <RestroomsIcon
-          color={getIconColor(
-            restrooms.isAvailable && !!restrooms.additionalInfo?.root?.children,
-          )}
-        />
-      ),
+      icon: <RestroomsIcon color={getIconColor(restrooms.isAvailable)} />,
     });
   }
 
@@ -108,14 +93,7 @@ function createItemsWithIcons({
       id: 'musicAndAV',
       title: 'Music and AV',
       desc: musicAndAV.additionalInfo,
-      icon: (
-        <MusicAndAVIcon
-          color={getIconColor(
-            musicAndAV.isAvailable &&
-              !!musicAndAV.additionalInfo?.root?.children,
-          )}
-        />
-      ),
+      icon: <MusicAndAVIcon color={getIconColor(musicAndAV.isAvailable)} />,
     });
   }
 
@@ -126,12 +104,7 @@ function createItemsWithIcons({
       title: 'Allowed events',
       desc: allowedEvents.additionalInfo,
       icon: (
-        <AllowedEventsIcon
-          color={getIconColor(
-            allowedEvents.isAvailable &&
-              !!allowedEvents.additionalInfo?.root?.children,
-          )}
-        />
+        <AllowedEventsIcon color={getIconColor(allowedEvents.isAvailable)} />
       ),
     });
   }
@@ -143,12 +116,7 @@ function createItemsWithIcons({
       title: 'Accommodation',
       desc: accommodation.additionalInfo,
       icon: (
-        <AccommodationIcon
-          color={getIconColor(
-            accommodation.isAvailable &&
-              !!accommodation.additionalInfo?.root?.children,
-          )}
-        />
+        <AccommodationIcon color={getIconColor(accommodation.isAvailable)} />
       ),
     });
   }
@@ -159,13 +127,7 @@ function createItemsWithIcons({
       id: 'parking',
       title: 'Parking',
       desc: parking.additionalInfo,
-      icon: (
-        <ParkingIcon
-          color={getIconColor(
-            parking.isAvailable && !!parking.additionalInfo?.root?.children,
-          )}
-        />
-      ),
+      icon: <ParkingIcon color={getIconColor(parking.isAvailable)} />,
     });
   }
 
@@ -175,13 +137,7 @@ function createItemsWithIcons({
       id: 'event',
       title: 'Event / Host rules',
       desc: event.additionalInfo,
-      icon: (
-        <EventIcon
-          color={getIconColor(
-            event.isAvailable && !!event.additionalInfo?.root?.children,
-          )}
-        />
-      ),
+      icon: <EventIcon color={getIconColor(event.isAvailable)} />,
     });
   }
 
