@@ -60,10 +60,12 @@ function Categories() {
                   ></div>
                 )}
               </div>
-              <RichText
-                className={getDescriptionClasses(activeId === category.id)}
-                data={category.desc}
-              />
+              {!!checkRichTextContent && (
+                <RichText
+                  className={getDescriptionClasses(activeId === category.id)}
+                  data={category.desc}
+                />
+              )}
             </button>
           );
         })}
