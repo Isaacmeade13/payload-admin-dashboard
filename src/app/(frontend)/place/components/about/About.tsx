@@ -38,7 +38,6 @@ function About() {
       minBookingHours,
       areaSize,
       about,
-      price,
       spaceIncludes,
     } = venue;
 
@@ -79,7 +78,7 @@ function About() {
                 />
                 <InfoItem
                   value={minBookingHours}
-                  suffixText={`${price.per || 'hr'} minimum`}
+                  suffixText=" hr minimum"
                   iconSrc={timeIcon}
                   altText="time"
                 />

@@ -40,7 +40,7 @@ function Categories() {
             !!category?.desc?.root && checkRichTextContent(category.desc.root);
           return (
             <button
-              disabled={!category.isAvailable || !hasDescription}
+              disabled={!category?.isAvailable || !hasDescription}
               onClick={
                 hasDescription && category.isAvailable
                   ? () => toggleActive(category.id)
